@@ -1,0 +1,63 @@
+@model OrchardCore.Comments.ViewModels.CommentablePartViewModel
+
+<div class="comments-section" data-commented-on="@Model.ContentItem.ContentItemId">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <h5 class="mb-0">
+            @T["Comments"]
+            <span class="badge bg-secondary ms-1">@Model.CommentablePart.CommentCount</span>
+        </h5>
+        @if (Model.IsAuthorizedToComment && !Model.CommentablePart.Closed)
+        {
+            <button type="button" class="btn btn-primary btn-sm" onclick="comments.toggleForm()">
+                <i class="fas fa-plus"></i> @T["Write a comment"]
+            </button>
+        }
+    </div>
+
+    @if (Model.CommentablePart.Closed)
+    {
+        <div class="alert alert-info">@T["Comments are closed."]</div>
+    }
+
+    <div class="comments-list">
+        @foreach (var comment in Model.Comments.Where(c => string.IsNullOrEmpty(c.CommentPart.RepliedOn)))
+        {
+            <partial name="Comment/CommentCard" model="comment" />
+            var replies = Model.Comments.Where(c => c.CommentPart.RepliedOn == comment.ContentItem.ContentItemId);
+            foreach (var reply in replies)
+            {
+                <div class="ms-4" style="border-left: 3px solid #6f42c1; margin-left: 40px;">
+                    <partial name="Comment/CommentCard" model="reply" />
+                </div>
+            }
+        }
+    </div>
+
+    @if (Model.IsAuthorizedToComment && !Model.CommentablePart.Closed)
+    {
+        <div id="comment-form" class="card mt-3" style="display: none;">
+            <div class="card-body">
+                <h6 class="card-title">@T["Write a comment"]</h6>
+                <textarea id="comment-text" class="form-control mb-2" rows="4" placeholder="@T["Write your comment..."]"></textarea>
+
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <label class="btn btn-outline-primary btn-sm" for="comment-attachment">
+                        <i class="fas fa-paperclip"></i> @T["Add attachment"]
+                        <input type="file" id="comment-attachment" multiple style="display: none;" />
+                    </label>
+                    <small class="text-muted">@T["Supports doc, pdf, png, jpg (max 10MB)"]</small>
+                </div>
+                <div id="comment-attachment-list" class="d-flex gap-1 flex-wrap mb-2"></div>
+
+                <input type="hidden" id="comment-replied-on" value="" />
+
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="comments.toggleForm()">@T["Cancel"]</button>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="comments.submit()">@T["Submit"]</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script at="Foot" asp-name="comments-js" asp-src="~/OrchardCore.Comments/Scripts/comments.min.js"></script>

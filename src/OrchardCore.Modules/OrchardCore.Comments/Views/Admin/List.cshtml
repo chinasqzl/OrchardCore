@@ -1,0 +1,38 @@
+@model IEnumerable<dynamic>
+@using OrchardCore.Comments.Models
+
+@{
+    var status = ViewBag.Status as CommentStatus?;
+}
+
+<h1>@T["Comments"]</h1>
+
+<form method="get" class="mb-3">
+    <div class="row">
+        <div class="col-auto">
+            <select name="status" class="form-select" onchange="this.form.submit()">
+                <option value="">@T["All statuses"]</option>
+                <option value="Pending" selected="@(status == CommentStatus.Pending)">@T["Pending"]</option>
+                <option value="Approved" selected="@(status == CommentStatus.Approved)">@T["Approved"]</option>
+                <option value="Rejected" selected="@(status == CommentStatus.Rejected)">@T["Rejected"]</option>
+            </select>
+        </div>
+    </div>
+</form>
+
+<form method="post" asp-action="BatchAction" asp-controller="Admin" asp-area="OrchardCore.Comments">
+    <div class="mb-2">
+        <button type="submit" name="action" value="Approve" class="btn btn-success btn-sm">@T["Approve selected"]</button>
+        <button type="submit" name="action" value="Reject" class="btn btn-warning btn-sm">@T["Reject selected"]</button>
+        <button type="submit" name="action" value="Delete" class="btn btn-danger btn-sm">@T["Delete selected"]</button>
+    </div>
+
+    <ul class="list-group">
+        @foreach (var shape in Model)
+        {
+            <li class="list-group-item">
+                @await DisplayAsync(shape)
+            </li>
+        }
+    </ul>
+</form>
