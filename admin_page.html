@@ -1,0 +1,639 @@
+
+<!DOCTYPE html>
+<html lang="" dir="ltr" data-bs-theme="auto" data-tenant="Default">
+<head>
+    <title>blog</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- This script can't wait till the footer -->
+    
+
+    
+
+        
+        
+    
+    
+    
+    
+
+    <script>
+      // ErpAdmin: Inject tenant brand colors
+      (function() {
+        var tenant = document.documentElement.getAttribute('data-tenant') || 'Default';
+        // Generate a consistent brand color from tenant name
+        var hash = 0;
+        for (var i = 0; i < tenant.length; i++) {
+          hash = tenant.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        var h = Math.abs(hash) % 360;
+        // Set brand color as HSL for easy manipulation
+        document.documentElement.style.setProperty('--erp-brand-primary-h', h);
+      })();
+    </script>
+
+    <link href="/OrchardCore.Admin/favicon.ico" rel="shortcut icon" type="image/x-icon" /><link href="/TheAdmin/css/admin-layout.css?v=Gkf97CWzsJKFDJKx5-4bhM1CDz95PKRV3vDG6GI4Aik" rel="stylesheet" type="text/css" />
+<link href="/OrchardCore.Resources/Styles/bootstrap.css?v=SlAge5VqSrlDZA7pkxGLVUo06WojJhz-WLmqGAenhJs" rel="stylesheet" type="text/css" />
+<link href="/TheAdmin/css/TheAdmin.css?v=j5QJ42KC-CbBhxDVkRDoodcGGLvvjw9yhh1Z5gE71S0" rel="stylesheet" type="text/css" />
+<link href="/OrchardCore.Resources/Vendor/fontawesome-free/css/all.css?v=ddcFe9ToX1MDcJwT4z59q8zIJhVWTn7s7HuF6mGu6SQ" rel="stylesheet" type="text/css" />
+<link href="/ErpAdmin/css/erpadmin/ErpAdmin.css?v=KGc8i_A5CZzXNPNIgdFbDCLn3cJNhsfm_J28QXWYmnI" rel="stylesheet" type="text/css" /><script src="/OrchardCore.Resources/Scripts/popper.js?v=i7j7c102pn79MgM-qhbGRMvuSonxTVCtQ6kF-hp0Xy8"></script>
+<script src="/OrchardCore.Resources/Scripts/bootstrap.js?v=G26Fbopja83eRYjmOhBhztlu27RoEnslJDYpY01AIHk"></script>
+<script src="/OrchardCore.Themes/Scripts/theme-head/theme-head.js?v=MeX5f4J80PSwppfqsQsXZcs70O7Qlpop25cI8H1Kj40"></script>
+<script src="/OrchardCore.Resources/Scripts/js.cookie.js?v=elptEdShoKujsCzP4YG8REvZgQVkqy_NlY_Ny9dQaaY"></script>
+<script src="/TheAdmin/js/theadmin-main/TheAdmin-main.js?v=YKjUorMB5bSb5LAK6iqCFz1bbUSJ6Un7fQ0jehlms1c"></script>
+
+    
+    
+
+</head>
+<body class="preload erp-admin">
+    <div class="ta-wrapper">
+        <nav class="ta-navbar-top navbar text-bg-theme fixed-top">
+            <div class="container-fluid">
+                <div class="d-flex w-100 justify-content-between align-items-center">
+                    <div class="brand-wrapper">
+                        <div class="d-flex w-100 justify-content-between align-items-center">
+                            
+<a class="ta-navbar-brand navbar-brand" href="/Admin">
+    <div class="d-flex align-items-center">
+        <img src="/OrchardCore.Admin/logo.png" alt="blog" class="pe-2" />
+        <span>blog</span>
+    </div>
+</a>
+
+
+                        </div>
+                    </div>
+                    
+<ul class="navbar-nav user-top-navbar ms-auto d-flex flex-row">
+    <div class="erp-tenant-branding">
+    <span class="erp-tenant-logo"></span>
+    <span class="erp-tenant-name">blog</span>
+</div>
+<li class="nav-item">
+    <div class="dropdown">
+        <button class="btn btn-link nav-link dropdown-toggle" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme">
+            <span class="theme-icon-active"><i class="fa-solid fa-circle-half-stroke"></i></span>
+            <span class="d-none" id="bd-theme-text">Toggle theme</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end position-absolute">
+            <li>
+                <button type="button" class="dropdown-item" data-bs-theme-value="auto" aria-pressed="false">
+                    <span class="theme-icon">
+                        <i class="fa-solid fa-circle-half-stroke"></i>
+                    </span>
+                    <span class="ps-2">Auto</span>
+                </button>
+            </li>
+            <li>
+                <button type="button" class="dropdown-item active" data-bs-theme-value="light" aria-pressed="true">
+                    <span class="theme-icon">
+                        <i class="fa-solid fa-sun"></i>
+                    </span>
+                    <span class="ps-2">Light</span>
+                </button>
+            </li>
+            <li>
+                <button type="button" class="dropdown-item" data-bs-theme-value="dark" aria-pressed="false">
+                    <span class="theme-icon">
+                        <i class="fa-solid fa-moon"></i>
+                    </span>
+                    <span class="ps-2">Dark</span>
+                </button>
+            </li>
+            
+        </ul>
+    </div>
+</li>
+<li class="nav-item">
+    <a href="/" class="nav-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Visit Site" role="button">
+        <i class="fa-solid fa-width-auto fa-external-link" aria-hidden="true"></i>
+    </a>
+</li>
+
+
+<li class="nav-item">
+    
+<div class="dropdown">
+    <button type="button" class="dropdown-toggle nav-link" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+<i class="fa-solid fa-width-auto fa-user" aria-hidden="true" data-bs-toggle="tooltip" data-bs-original-title="admin"></i>
+    </button>
+        <ul class="dropdown-menu dropdown-menu-end position-absolute">
+            
+<li>
+    <h6 class="dropdown-header">
+        Signed in as <span class="font-weight-bold">admin</span>
+    </h6>
+</li>
+<li>
+    <hr class="dropdown-divider" />
+</li>
+
+
+
+
+    <li>
+        <a class="dropdown-item" href="/Admin/Users/Edit">
+            <i class="fa-regular fa-address-card fa-width-auto" aria-hidden="true"></i> Profile
+        </a>
+    </li>
+
+
+<li>
+    <a class="dropdown-item" href="/Admin/Users/EditPassword/41kh4jwgmrs932y7map2q4a7cn?returnUrl=%2FAdmin">
+        <i class="fa-solid fa-key fa-width-auto" aria-hidden="true"></i> Change password
+    </a>
+</li>
+
+<li>
+    <form method="post" class="no-multisubmit" action="/Users/LogOff">
+        <button type="submit" class="dropdown-item">
+            <i class="fa-solid fa-right-from-bracket fa-width-auto" aria-hidden="true"></i> Log off
+        </button>
+    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Bl7plGNN5VKmXs0kc05ivd3jWzSYjeYYtPrtYrTFu8g62kc6rkiCclz48VD4m3rvHtJy-FBgd3mBvjg31td0_JlAuC8afBEgo7j0kNj4oTAPSl_mUTauBoXEYK-gMhYpO87Zvcg4p0A3_MxksNR3jn_d66Sbeotf4ygE9KOnc3L94pmxhmZjXFgf9KfX4WyVQ" /></form>
+</li>
+
+
+        </ul>
+</div>
+
+</li>
+
+</ul>
+
+                </div>
+            </div>
+            <div class="erp-topbar-accent"></div>
+        </nav>
+
+        <div id="ta-left-sidebar" class="d-flex flex-column justify-content-between align-items-stretch">
+            <div class="erp-sidebar-header">
+                <span class="erp-sidebar-logo"></span>
+            </div>
+            <nav id="left-nav">
+    <ul class="menu-admin menu" Id="adminMenu">
+<li>
+<a class="item-label d-flex" data-admin-hash="-254387246" href="/Admin/Contents/ContentItems/4e8esn88205kezgsez39fjtnm0/Display">
+
+
+    <span class="icon"><i class="fas fa-rss" aria-hidden="true"></i></span>
+
+<span class="title">Blog</span>
+</a>
+</li>
+
+<li>
+<a class="item-label d-flex" data-admin-hash="-323268209" href="/Admin/Contents/ContentItems/43ar3zp8j5jbn4mxv30k2ypy5s/Edit">
+
+
+    <span class="icon"><i class="fas fa-sitemap" aria-hidden="true"></i></span>
+
+<span class="title">Main Menu</span>
+</a>
+</li>
+
+<li class="content has-items"><figure aria-labelledby="content"><figcaption id="content">
+<button aria-controls="m42596254" aria-expanded="false" class="content item-label d-flex" data-admin-hash="1309427438" data-bs-target="#m42596254" data-bs-toggle="collapse" type="button"><span class="icon">
+    <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+</span>
+<span class="title">Content</span>
+<div class="btn-nostyle"><span class="collapse-icon"><i class="fa-solid fa-chevron-right fa-xs chevron"></i></span></div></button>
+</figcaption><ul class="collapse" data-title="Content" Id="m42596254">
+<li>
+<a class="item-label d-flex" data-admin-hash="-660352666" href="/Admin/Contents/ContentItems">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Content Items</span>
+</a>
+</li>
+
+<li>
+<a class="item-label d-flex" data-admin-hash="-1185626049" href="/Admin/Contents/ContentItems/Menu?Options.SelectedContentType=Menu&amp;Options.CanCreateSelectedContentType=True">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Menus</span>
+</a>
+</li>
+</ul></figure></li>
+
+<li class="design has-items"><figure aria-labelledby="design"><figcaption id="design">
+<button aria-controls="m6578041" aria-expanded="false" class="design item-label d-flex" data-admin-hash="109984076" data-bs-target="#m6578041" data-bs-toggle="collapse" type="button"><span class="icon">
+    <i class="fa-solid fa-desktop" aria-hidden="true"></i>
+</span>
+<span class="title">Design</span>
+<div class="btn-nostyle"><span class="collapse-icon"><i class="fa-solid fa-chevron-right fa-xs chevron"></i></span></div></button>
+</figcaption><ul class="collapse" data-title="Design" Id="m6578041">
+<li class="has-items"><figure><figcaption>
+<button aria-controls="m60145644" aria-expanded="false" class="item-label d-flex" data-admin-hash="2119076405" data-bs-target="#m60145644" data-bs-toggle="collapse" type="button">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Content Definition</span>
+<div class="btn-nostyle"><span class="collapse-icon"><i class="fa-solid fa-chevron-right fa-xs chevron"></i></span></div></button>
+</figcaption><ul class="collapse" data-title="Content Definition" Id="m60145644">
+<li>
+<a class="item-label d-flex" data-admin-hash="-900231551" href="/Admin/ContentTypes/List">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Content Types</span>
+</a>
+</li>
+
+<li>
+<a class="item-label d-flex" data-admin-hash="429338189" href="/Admin/ContentTypes/ListParts">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Content Parts</span>
+</a>
+</li>
+</ul></figure></li>
+
+<li>
+<a class="item-label d-flex" data-admin-hash="-88400874" href="/Admin/Placements">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Placements</span>
+</a>
+</li>
+
+<li>
+<a class="item-label d-flex" data-admin-hash="1161813906" href="/Admin/Shortcodes">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Shortcodes</span>
+</a>
+</li>
+
+<li>
+<a class="item-label d-flex" data-admin-hash="-1399630980" href="/Admin/Templates">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Templates</span>
+</a>
+</li>
+
+<li>
+<a class="item-label d-flex" data-admin-hash="-816823029" href="/Admin/Themes">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Themes</span>
+</a>
+</li>
+
+<li>
+<a class="item-label d-flex" data-admin-hash="-871376732" href="/Admin/Layers">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Widgets</span>
+</a>
+</li>
+</ul></figure></li>
+
+<li class="search has-items"><figure aria-labelledby="search"><figcaption id="search">
+<button aria-controls="m48361488" aria-expanded="false" class="search item-label d-flex" data-admin-hash="-1061701913" data-bs-target="#m48361488" data-bs-toggle="collapse" type="button"><span class="icon">
+    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+</span>
+<span class="title">Search</span>
+<div class="btn-nostyle"><span class="collapse-icon"><i class="fa-solid fa-chevron-right fa-xs chevron"></i></span></div></button>
+</figcaption><ul class="collapse" data-title="Search" Id="m48361488">
+<li class="indexes" id="indexes">
+<a class="indexes item-label d-flex" data-admin-hash="1576513175" href="/Admin/indexing">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Indexes</span>
+</a>
+</li>
+
+<li class="has-items"><figure><figcaption>
+<button aria-controls="m53412681" aria-expanded="false" class="item-label d-flex" data-admin-hash="-2053112707" data-bs-target="#m53412681" data-bs-toggle="collapse" type="button">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Queries</span>
+<div class="btn-nostyle"><span class="collapse-icon"><i class="fa-solid fa-chevron-right fa-xs chevron"></i></span></div></button>
+</figcaption><ul class="collapse" data-title="Queries" Id="m53412681">
+<li class="searchallqueries" id="searchallqueries">
+<a class="searchallqueries item-label d-flex" data-admin-hash="546576080" href="/Admin/Queries/Index">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">All Queries</span>
+</a>
+</li>
+
+<li>
+<a class="item-label d-flex" data-admin-hash="1338996590" href="/Admin/Queries/Sql/Query">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Run SQL Query</span>
+</a>
+</li>
+</ul></figure></li>
+</ul></figure></li>
+
+<li class="accessControl has-items"><figure aria-labelledby="accessControl"><figcaption id="accessControl">
+<button aria-controls="m41487229" aria-expanded="false" class="accessControl item-label d-flex" data-admin-hash="275278675" data-bs-target="#m41487229" data-bs-toggle="collapse" type="button"><span class="icon">
+    <i class="fa-solid fa-lock" aria-hidden="true"></i>
+</span>
+<span class="title">Access Control</span>
+<div class="btn-nostyle"><span class="collapse-icon"><i class="fa-solid fa-chevron-right fa-xs chevron"></i></span></div></button>
+</figcaption><ul class="collapse" data-title="Access Control" Id="m41487229">
+<li class="roles" id="roles">
+<a class="roles item-label d-flex" data-admin-hash="1201786712" href="/Admin/Roles/Index"><span class="icon">
+    <i class="fa-solid fa-user-lock" aria-hidden="true"></i>
+</span>
+<span class="title">Roles</span>
+</a>
+</li>
+
+<li class="users" id="users">
+<a class="users item-label d-flex" data-admin-hash="-1941377836" href="/Admin/Users/Index"><span class="icon">
+    <i class="fa-solid fa-users" aria-hidden="true"></i>
+</span>
+<span class="title">Users</span>
+</a>
+</li>
+</ul></figure></li>
+
+<li class="media has-items"><figure aria-labelledby="media"><figcaption id="media">
+<button aria-controls="m39170335" aria-expanded="false" class="media item-label d-flex" data-admin-hash="1028172747" data-bs-target="#m39170335" data-bs-toggle="collapse" type="button"><span class="icon">
+    <i class="fa-solid fa-images" aria-hidden="true"></i>
+</span>
+<span class="title">Media</span>
+<div class="btn-nostyle"><span class="collapse-icon"><i class="fa-solid fa-chevron-right fa-xs chevron"></i></span></div></button>
+</figcaption><ul class="collapse" data-title="Media" Id="m39170335">
+<li>
+<a class="item-label d-flex" data-admin-hash="-1572616377" href="/Admin/Media">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Library</span>
+</a>
+</li>
+
+<li>
+<a class="item-label d-flex" data-admin-hash="2131731959" href="/Admin/MediaProfiles">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Profiles</span>
+</a>
+</li>
+</ul></figure></li>
+
+<li class="tools has-items"><figure aria-labelledby="tools"><figcaption id="tools">
+<button aria-controls="m10429132" aria-expanded="false" class="tools item-label d-flex" data-admin-hash="-1796261547" data-bs-target="#m10429132" data-bs-toggle="collapse" type="button"><span class="icon">
+    <i class="fa-solid fa-toolbox" aria-hidden="true"></i>
+</span>
+<span class="title">Tools</span>
+<div class="btn-nostyle"><span class="collapse-icon"><i class="fa-solid fa-chevron-right fa-xs chevron"></i></span></div></button>
+</figcaption><ul class="collapse" data-title="Tools" Id="m10429132">
+<li>
+<a class="item-label d-flex" data-admin-hash="355559752" href="/Admin/AdminMenu/List">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Admin Menus</span>
+</a>
+</li>
+
+<li class="has-items"><figure><figcaption>
+<button aria-controls="m26768752" aria-expanded="false" class="item-label d-flex" data-admin-hash="186736516" data-bs-target="#m26768752" data-bs-toggle="collapse" type="button">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Deployments</span>
+<div class="btn-nostyle"><span class="collapse-icon"><i class="fa-solid fa-chevron-right fa-xs chevron"></i></span></div></button>
+</figcaption><ul class="collapse" data-title="Deployments" Id="m26768752">
+<li>
+<a class="item-label d-flex" data-admin-hash="780104109" href="/Admin/DeploymentPlan/Import/Json">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">JSON Import</span>
+</a>
+</li>
+
+<li>
+<a class="item-label d-flex" data-admin-hash="1594376098" href="/Admin/DeploymentPlan/Import/Index">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Package Import</span>
+</a>
+</li>
+
+<li>
+<a class="item-label d-flex" data-admin-hash="597382561" href="/Admin/Deployment/RemoteClient/Index">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Remote Clients</span>
+</a>
+</li>
+
+<li>
+<a class="item-label d-flex" data-admin-hash="-1571051387" href="/Admin/Deployment/RemoteInstance/Index">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Remote Instances</span>
+</a>
+</li>
+
+<li>
+<a class="item-label d-flex" data-admin-hash="-304986371" href="/Admin/DeploymentPlan/Index">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Plans</span>
+</a>
+</li>
+</ul></figure></li>
+
+<li>
+<a class="item-label d-flex" data-admin-hash="-162940346" href="/Admin/Features">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Features</span>
+</a>
+</li>
+
+<li class="recipes" id="recipes">
+<a class="recipes item-label d-flex" data-admin-hash="-25399169" href="/Admin/Recipes">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Recipes</span>
+</a>
+</li>
+</ul></figure></li>
+
+<li class="settings has-items"><figure aria-labelledby="settings"><figcaption id="settings">
+<button aria-controls="m21655941" aria-expanded="false" class="settings item-label d-flex" data-admin-hash="496027799" data-bs-target="#m21655941" data-bs-toggle="collapse" type="button"><span class="icon">
+    <i class="fa-solid fa-gear" aria-hidden="true"></i>
+</span>
+<span class="title">Settings</span>
+<div class="btn-nostyle"><span class="collapse-icon"><i class="fa-solid fa-chevron-right fa-xs chevron"></i></span></div></button>
+</figcaption><ul class="collapse" data-title="Settings" Id="m21655941">
+<li class="general" id="general">
+<a class="general item-label d-flex" data-admin-hash="427084213" href="/Admin/Settings/general">
+
+<span class="icon icon-none">
+</span>
+<span class="title">General</span>
+</a>
+</li>
+
+<li class="debugging" id="debugging">
+<a class="debugging item-label d-flex" data-admin-hash="-400408644" href="/Admin/Settings/debugging">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Debugging</span>
+</a>
+</li>
+
+<li class="admin" id="admin">
+<a class="admin item-label d-flex" data-admin-hash="1364045593" href="/Admin/Settings/admin">
+
+<span class="icon icon-none">
+</span>
+<span class="title">Admin</span>
+</a>
+</li>
+
+<li class="has-items"><figure><figcaption>
+<button aria-controls="m43960518" aria-expanded="false" class="item-label d-flex" data-admin-hash="-1679023533" data-bs-target="#m43960518" data-bs-toggle="collapse" type="button">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Media</span>
+<div class="btn-nostyle"><span class="collapse-icon"><i class="fa-solid fa-chevron-right fa-xs chevron"></i></span></div></button>
+</figcaption><ul class="collapse" data-title="Media" Id="m43960518">
+<li>
+<a class="item-label d-flex" data-admin-hash="1370146939" href="/Admin/Media/Options">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Options</span>
+</a>
+</li>
+</ul></figure></li>
+
+<li class="has-items"><figure><figcaption>
+<button aria-controls="m53294106" aria-expanded="false" class="item-label d-flex" data-admin-hash="-1560862181" data-bs-target="#m53294106" data-bs-toggle="collapse" type="button">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Security</span>
+<div class="btn-nostyle"><span class="collapse-icon"><i class="fa-solid fa-chevron-right fa-xs chevron"></i></span></div></button>
+</figcaption><ul class="collapse" data-title="Security" Id="m53294106">
+<li>
+<a class="item-label d-flex" data-admin-hash="1288697035" href="/Admin/Settings/SecurityHeaders">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Security Headers</span>
+</a>
+</li>
+
+<li>
+<a class="item-label d-flex" data-admin-hash="-493576798" href="/Admin/Settings/userLogin">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">User Login</span>
+</a>
+</li>
+</ul></figure></li>
+
+<li>
+<a class="item-label d-flex" data-admin-hash="-2010862788" href="/Admin/Settings/zones">
+
+
+    <span class="icon icon-none"></span>
+
+<span class="title">Zones</span>
+</a>
+</li>
+</ul></figure></li>
+</ul>
+</nav>
+
+            <div class="footer">
+                <button type="button" class="leftbar-compactor" title="Collapse / expand menu">
+                    <span class="d-none">Collapse / expand menu</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="ta-content" style="--oc-notify-offset-top: var(--oc-top-nav-height);">
+            
+            
+            
+            <div class="alert alert-primary">
+    <h4>Welcome to Orchard Core</h4>
+    <p class="mb-0">Feel free to browse the menu and discover all its possibilities.</p>
+</div>
+
+
+        </div>
+
+        
+
+    </div>
+    <div id="confirmRemoveModalMetadata" data-title="Delete" data-message="Are you sure you want to remove this element?" data-ok-text="Ok" data-cancel-text="Cancel" data-ok-class="btn-danger" data-cancel-class="btn-secondary"></div>
+    <div class="erp-footer-branding d-none">ErpAdmin v1.0</div>
+    <script src="/OrchardCore.Themes/Scripts/theme-manager/theme-manager.js?v=2KoFEp1U0D2W2QTcj3Hb0FbIz8zoUonr1mDkOXzYQOI"></script>
+<script src="/OrchardCore.Resources/Scripts/jquery.js?v=NH2xm6kaioeavAdaTCfO6kjkA8jRMoNVt9nISb-86FE"></script>
+<script src="/OrchardCore.Resources/Scripts/Sortable.js?v=achEHe1sFyQxViWcr9ZIyRiBbihYi1f0yF1gJRldVH8"></script>
+<script src="/TheAdmin/js/theadmin/TheAdmin.js?v=wvZY8gUQDH5h9zpO-2j3mtG282x3UMYgUN_PSYRsRPk"></script>
+<script src="/ErpAdmin/js/erpadmin/ErpAdmin.js?v=Vf92mel5N7uG1ErzRbyfUV8sny96Qj3bWETT9ZRKNkU"></script>
+</body>
+</html>
