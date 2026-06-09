@@ -4,8 +4,10 @@ using OrchardCore.Comments.Models;
 using OrchardCore.Comments.Permissions;
 using OrchardCore.Comments.Services;
 using OrchardCore.Comments.ViewModels;
+using OrchardCore.ContentFields.Fields;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
+using OrchardCore.Media.Fields;
 
 namespace OrchardCore.Comments.Controllers;
 
@@ -71,7 +73,7 @@ public class CommentApiController : ControllerBase
 
         var comment = await _contentManager.NewAsync("Comment");
 
-        var commentPart = comment.As<CommentPart>();
+        var commentPart = comment.GetOrCreate<CommentPart>();
         commentPart.CommentedOn = model.CommentedOn;
         commentPart.RepliedOn = model.RepliedOn;
         commentPart.Status = settings.RequireApproval ? CommentStatus.Pending : settings.DefaultStatus;
@@ -81,18 +83,23 @@ public class CommentApiController : ControllerBase
         var isAdmin = await _authorizationService.AuthorizeAsync(User, CommentPermissions.AdminReply);
         commentPart.IsAdminReply = isAdmin;
 
-        comment.Apply(commentPart);
+        // Set TextField "CommentText" on CommentPart
+        commentPart.Alter<TextField>("CommentText", field =>
+        {
+            field.Text = model.Text;
+        });
 
-        comment.Content.CommentText = new { Text = model.Text };
-
+        // Set MediaField "Attachment" on CommentPart
         if (model.Attachments?.Count > 0)
         {
-            comment.Content.Attachment = new
+            commentPart.Alter<MediaField>("Attachment", field =>
             {
-                Paths = model.Attachments,
-                MediaTexts = model.Attachments.Select(p => System.IO.Path.GetFileName(p)).ToList()
-            };
+                field.Paths = model.Attachments.ToArray();
+                field.MediaTexts = model.Attachments.Select(p => System.IO.Path.GetFileName(p)).ToArray();
+            });
         }
+
+        comment.Apply(commentPart);
 
         comment.Author = User.Identity?.Name;
         comment.DisplayText = model.Text.Length > 50 ? model.Text[..50] + "..." : model.Text;
@@ -175,7 +182,13 @@ public class CommentApiController : ControllerBase
             return Forbid();
         }
 
-        comment.Content.CommentText = new { Text = model.Text };
+        var commentPart = comment.GetOrCreate<CommentPart>();
+        commentPart.Alter<TextField>("CommentText", field =>
+        {
+            field.Text = model.Text;
+        });
+        comment.Apply(commentPart);
+
         comment.DisplayText = model.Text.Length > 50 ? model.Text[..50] + "..." : model.Text;
 
         await _contentManager.UpdateAsync(comment);
@@ -195,12 +208,17 @@ public class CommentApiController : ControllerBase
         var comments = await _commentService.GetCommentsAsync(commentedOn);
         return Ok(new
         {
-            items = comments.Select(c => new
+            items = comments.Select(c =>
             {
-                id = c.ContentItemId,
-                text = c.Content?.CommentText?.Text?.ToString(),
-                author = c.Author,
-                createdUtc = c.CreatedUtc,
+                var commentPart = c.As<CommentPart>();
+                var textField = commentPart?.Get<TextField>("CommentText");
+                return new
+                {
+                    id = c.ContentItemId,
+                    text = textField?.Text,
+                    author = c.Author,
+                    createdUtc = c.CreatedUtc,
+                };
             }),
             totalCount = comments.Count()
         });

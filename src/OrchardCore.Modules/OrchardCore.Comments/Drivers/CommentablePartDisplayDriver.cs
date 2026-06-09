@@ -4,10 +4,12 @@ using OrchardCore.Comments.Models;
 using OrchardCore.Comments.Permissions;
 using OrchardCore.Comments.Services;
 using OrchardCore.Comments.ViewModels;
+using OrchardCore.ContentFields.Fields;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
 using OrchardCore.DisplayManagement.Views;
+using OrchardCore.Media.Fields;
 
 namespace OrchardCore.Comments.Drivers;
 
@@ -95,23 +97,18 @@ public class CommentablePartDisplayDriver : ContentPartDisplayDriver<Commentable
                   commentItem.Author == user.Identity?.Name) ||
                  isModerator);
 
-            var commentText = commentItem.Content?.CommentText?.Text?.ToString() ?? "";
+            var commentText = commentPart.Get<TextField>("CommentText")?.Text ?? "";
             var attachmentPaths = new List<string>();
             var attachmentNames = new List<string>();
 
-            if (commentItem.Content?.Attachment?.Paths != null)
+            var attachmentField = commentPart.Get<MediaField>("Attachment");
+            if (attachmentField?.Paths != null)
             {
-                foreach (var path in commentItem.Content.Attachment.Paths)
-                {
-                    attachmentPaths.Add(path.ToString());
-                }
+                attachmentPaths = attachmentField.Paths.ToList();
             }
-            if (commentItem.Content?.Attachment?.MediaTexts != null)
+            if (attachmentField?.MediaTexts != null)
             {
-                foreach (var text in commentItem.Content.Attachment.MediaTexts)
-                {
-                    attachmentNames.Add(text.ToString());
-                }
+                attachmentNames = attachmentField.MediaTexts.ToList();
             }
 
             commentViewModels.Add(new CommentViewModel
