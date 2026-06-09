@@ -5,9 +5,12 @@
 @addTagHelper *, OrchardCore.ResourceManagement
 
 @using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Html
 @using Microsoft.Extensions.Options
+@using OrchardCore
 @using OrchardCore.Admin
 @using OrchardCore.Admin.Models
+@using OrchardCore.AdminMenu
 @using OrchardCore.Entities
 @using OrchardCore.ContentManagement
 @using OrchardCore.ContentManagement.Display.Models
@@ -15,6 +18,14 @@
 @using OrchardCore.Contents.ViewModels
 @using OrchardCore.DisplayManagement
 @using OrchardCore.DisplayManagement.ModelBinding
+@using OrchardCore.DisplayManagement.Notify
 @using OrchardCore.DisplayManagement.Shapes
+@using OrchardCore.Environment.Shell
+@using OrchardCore.Localization
+@using OrchardCore.Localization.Data
+@using OrchardCore.Navigation
+@using OrchardCore.Settings
+@using OrchardCore.Themes.Services
 @using OrchardCore.Users
+@using OrchardCore.Users.Models
 @using OrchardCore.Users.ViewModels

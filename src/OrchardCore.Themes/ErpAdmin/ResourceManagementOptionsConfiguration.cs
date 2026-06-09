@@ -13,13 +13,13 @@ public sealed class ResourceManagementOptionsConfiguration : IConfigureOptions<R
 
         _manifest
             .DefineScript("ErpAdmin")
-            .SetDependencies("jQuery")
-            .SetUrl("~/TheAdmin/js/theadmin/ErpAdmin.min.js", "~/TheAdmin/js/theadmin/ErpAdmin.js")
+            .SetDependencies("the-admin")
+            .SetUrl("~/ErpAdmin/js/erpadmin/ErpAdmin.min.js", "~/ErpAdmin/js/erpadmin/ErpAdmin.js")
             .SetVersion("1.0.0");
 
         _manifest
             .DefineStyle("ErpAdmin")
-            .SetUrl("~/TheAdmin/css/ErpAdmin.min.css", "~/TheAdmin/css/ErpAdmin.css")
+            .SetUrl("~/ErpAdmin/css/erpadmin/ErpAdmin.min.css", "~/ErpAdmin/css/erpadmin/ErpAdmin.css")
             .SetDependencies("the-admin")
             .SetVersion("1.0.0");
     }

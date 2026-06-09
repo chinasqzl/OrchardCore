@@ -27,7 +27,7 @@ public class MetadataContentsHandler : ContentHandlerBase
                     { "Controller", "Admin" },
                     { "Action", "Display" },
                     { "contentItemId", context.ContentItem.ContentItemId },
-                    { "displayType", "DetailAdmin" }
+                    { "displayType", "DetailAdmin" },
                 };
             }
         }
