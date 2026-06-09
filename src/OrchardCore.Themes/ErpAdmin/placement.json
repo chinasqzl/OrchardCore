@@ -1,12 +1,14 @@
 {
-  "Admin": {
-    "*": {
-      "DetailAdmin": {
-        "Placements": {
-          "Header": "Header:1",
-          "Footer": "Footer:1"
-        }
-      }
+  "Content": [
+    {
+      "displayType": "DetailAdmin",
+      "place": "Content:10"
     }
-  }
+  ],
+  "ContentPart": [
+    {
+      "displayType": "DetailAdmin",
+      "place": "Content:5"
+    }
+  ]
 }

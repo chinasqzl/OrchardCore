@@ -1,3 +1,4 @@
+using OrchardCore;
 using OrchardCore.Admin.Models;
 using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.DisplayManagement.Views;
@@ -9,6 +10,6 @@ public sealed class TenantBrandingNavbarDisplayDriver : DisplayDriver<Navbar>
     public override IDisplayResult Display(Navbar model, BuildDisplayContext context)
     {
         return View("TenantBranding", model)
-            .Location("Navbar:1");
+            .Location(OrchardCoreConstants.DisplayType.DetailAdmin, "Content:1");
     }
 }

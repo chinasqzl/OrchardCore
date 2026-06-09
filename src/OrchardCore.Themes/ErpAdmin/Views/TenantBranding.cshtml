@@ -1,3 +1,5 @@
-<a href="@Model.BrandUrl" class="erp-brand-link">
-    <span class="erp-brand-name">@Model.BrandName</span>
-</a>
+@inject OrchardCore.Settings.ISiteService SiteService
+@{
+    var site = await SiteService.GetSiteSettingsAsync();
+}
+<span class="tenant-branding">@site.SiteName</span>
