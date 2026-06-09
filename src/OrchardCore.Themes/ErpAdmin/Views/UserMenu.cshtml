@@ -1,0 +1,33 @@
+@if (!User.Identity.IsAuthenticated)
+{
+    @if (Model.AnonymousContent?.Items != null && Model.AnonymousContent.Items.Count > 0)
+    {
+        <a class="topbar-icon-btn" asp-route-area="OrchardCore.Users" asp-controller="Account" asp-action="Login" title="@T["Log in"]">
+            <i class="bi bi-box-arrow-in-right"></i>
+        </a>
+        return;
+    }
+
+    <a class="topbar-icon-btn" asp-route-area="OrchardCore.Users" asp-controller="Account" asp-action="Login" title="@T["Log in"]">
+        <i class="bi bi-box-arrow-in-right"></i>
+    </a>
+    return;
+}
+
+<div class="topbar-user" onclick="toggleUserDropdown()">
+    <div class="user-avatar">@(User.Identity.Name?.Substring(0, 1).ToUpper())</div>
+    <div class="user-info">
+        <div class="user-name">@User.Identity.Name</div>
+        <div class="user-role">@T["Administrator"]</div>
+    </div>
+    <div class="topbar-user-dropdown" id="erp-user-dropdown">
+        @if (Model.Header != null)
+        {
+            @await DisplayAsync(Model.Header)
+        }
+        @if (Model.Content != null)
+        {
+            @await DisplayAsync(Model.Content)
+        }
+    </div>
+</div>

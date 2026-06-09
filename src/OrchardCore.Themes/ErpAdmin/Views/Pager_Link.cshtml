@@ -1,0 +1,13 @@
+@{
+    Model.Metadata.Alternates.Clear();
+    Model.Metadata.Type = "ActionLink";
+    Model.Classes.Add("page-link");
+    var parentTag = Model.Tag as TagBuilder;
+
+    if (parentTag != null)
+    {
+        parentTag.AddCssClass("page-btn");
+    }
+}
+
+@await DisplayAsync(Model)

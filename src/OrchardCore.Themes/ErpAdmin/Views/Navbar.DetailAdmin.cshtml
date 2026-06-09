@@ -1,0 +1,10 @@
+@if (Model.Content == null)
+{
+    return;
+}
+
+<button class="topbar-icon-btn erp-theme-toggle-btn" title="@T["Toggle theme"]" onclick="toggleErpTheme()">
+    <i class="bi bi-moon-stars"></i>
+</button>
+
+@await DisplayAsync(Model.Content)

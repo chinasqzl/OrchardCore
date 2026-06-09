@@ -1,0 +1,19 @@
+@using OrchardCore.Mvc.Utilities
+
+@{
+    string name = Model.Metadata.Name;
+}
+
+@if (Model.Content != null)
+{
+    <div class="detail-card">
+        <div class="detail-card-header">
+            <i class="bi bi-puzzle"></i> @name.HtmlClassify()
+        </div>
+        <div class="detail-card-body">
+            <div class="contentpart contentpart-@name.HtmlClassify()">
+                @await DisplayAsync(Model.Content)
+            </div>
+        </div>
+    </div>
+}

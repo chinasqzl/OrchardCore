@@ -1,0 +1,13 @@
+{
+  "name": "@orchardcore/erpadmin",
+  "version": "1.0.0",
+  "dependencies": {
+    "@popperjs/core": "2.11.8",
+    "@types/jquery": "3.5.32",
+    "@types/js-cookie": "^3.0.6",
+    "bootstrap": "5.3.8",
+    "bootstrap-icons": "^1.11.3",
+    "jquery": "3.7.1",
+    "js-cookie": "^3.0.5"
+  }
+}

@@ -1,0 +1,22 @@
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+
+    .status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+    }
+
+    &.success { background: #d1fae5; color: #065f46; .status-dot { background: #10b981; } }
+    &.warning { background: #fef3c7; color: #92400e; .status-dot { background: #f59e0b; } }
+    &.danger { background: #ffe4e6; color: #9f1239; .status-dot { background: #ef4444; } }
+    &.info { background: #dbeafe; color: #1e40af; .status-dot { background: #3b82f6; } }
+    &.neutral { background: #f1f5f9; color: #475569; .status-dot { background: #94a3b8; } }
+}

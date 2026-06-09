@@ -1,0 +1,14 @@
+@import '../../../../../../../node_modules/bootstrap/scss/mixins/_color-mode';
+
+@include color-mode(dark) {
+    --erp-primary-light: #1e293b;
+    --erp-content-bg: #0f172a;
+    --erp-card-bg: #1e293b;
+    --erp-border: #334155;
+    --erp-text: #f1f5f9;
+    --erp-text-muted: #94a3b8;
+    --erp-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+    --erp-shadow-md: 0 4px 6px rgba(0, 0, 0, .3);
+    --erp-shadow-lg: 0 10px 25px rgba(0, 0, 0, .4);
+    --erp-row-alt: #162032;
+}

@@ -1,0 +1,33 @@
+[
+  {
+    "action": "sass",
+    "generateRTL": true,
+    "name": "theme-erpadmin",
+    "source": "Assets/scss/ErpAdmin.scss",
+    "dest": "wwwroot/css/",
+    "tags": ["theme", "css"]
+  },
+  {
+    "action": "sass",
+    "generateRTL": true,
+    "name": "theme-erpadmin-layout",
+    "source": "Assets/scss/erp-admin-layout.scss",
+    "dest": "wwwroot/css/",
+    "tags": ["theme", "css"]
+  },
+  {
+    "action": "sass",
+    "generateRTL": true,
+    "name": "theme-erpadmin-login",
+    "source": "Assets/scss/login.scss",
+    "dest": "wwwroot/css/",
+    "tags": ["theme", "css"]
+  },
+  {
+    "action": "parcel",
+    "name": "ErpAdmin",
+    "source": "Assets/js/ErpAdmin/ErpAdmin.ts",
+    "dest": "wwwroot/js/erpadmin/",
+    "tags": ["theme", "css"]
+  }
+]

@@ -1,0 +1,55 @@
+@using OrchardCore.Localization
+@using OrchardCore.Navigation
+@{
+    // Morphing the shape to keep Model untouched.
+    Model.Metadata.Alternates.Clear();
+    Model.Metadata.Type = "NavigationItemText";
+
+    if (Model.Id != null)
+    {
+        Model.Metadata.Alternates.Add("NavigationItemText_Id__" + Model.Id);
+    }
+
+    var isToggleOnlyItem = Model.HasItems && (Model.Href == null || Model.Href.ToString() == "#");
+    TagBuilder tag = Tag(Model, isToggleOnlyItem ? "button" : "a");
+    tag.Attributes["id"] = null;
+    tag.Attributes["data-admin-hash"] = Model.Hash;
+    tag.AddCssClass("nav-link-erp");
+
+    if (isToggleOnlyItem)
+    {
+        tag.Attributes["type"] = "button";
+    }
+    else
+    {
+        tag.Attributes["href"] = Model.Href;
+    }
+
+    if (!string.IsNullOrEmpty(Model.Target))
+    {
+        tag.Attributes["target"] = Model.Target;
+    }
+
+    if (Model.HasItems)
+    {
+        tag.Attributes["data-bs-toggle"] = "collapse";
+        tag.Attributes["data-bs-target"] = "#m" + Model.GetHashCode().ToString();
+        tag.Attributes["aria-expanded"] = "false";
+        tag.Attributes["aria-controls"] = "m" + Model.GetHashCode().ToString();
+        tag.TagRenderMode = TagRenderMode.Normal;
+
+        if ((bool)Model.Selected)
+        {
+            tag.Attributes["aria-expanded"] = "true";
+        }
+    }
+
+    tag.InnerHtml.AppendHtml(await DisplayAsync(Model));
+
+    if (Model.HasItems)
+    {
+        tag.InnerHtml.AppendHtml(Html.Raw("<span class=\"nav-expand\"><i class=\"bi bi-chevron-right\"></i></span>"));
+    }
+}
+
+@tag

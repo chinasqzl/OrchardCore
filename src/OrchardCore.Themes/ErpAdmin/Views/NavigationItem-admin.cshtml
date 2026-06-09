@@ -1,0 +1,65 @@
+@using OrchardCore.Navigation
+@{
+    TagBuilder li = Tag(Model, "li");
+    li.AddCssClass("nav-item-erp");
+
+    // Morphing the shape to keep Model untouched.
+    Model.Metadata.Alternates.Clear();
+    Model.Metadata.Type = "NavigationItemLink";
+
+    if (Model.Id != null)
+    {
+        Model.Metadata.Alternates.Add("NavigationItemLink_Id__" + Model.Id);
+    }
+
+    // Extract classes that are not icons from 'Model.Classes'.
+    var notIconClasses = ((IEnumerable<string>)Model.Classes)
+        .Where(c => !c.StartsWith(NavigationConstants.CssClassPrefix, StringComparison.OrdinalIgnoreCase))
+        .ToArray();
+
+    if (notIconClasses.Length > 0)
+    {
+        li.Attributes["class"] = string.Join(' ', notIconClasses);
+        li.AddCssClass("nav-item-erp");
+    }
+    else
+    {
+        li.Attributes.Remove("class");
+        li.AddCssClass("nav-item-erp");
+    }
+
+    if ((bool)Model.Selected)
+    {
+        li.AddCssClass("active");
+    }
+
+    // Render sub-items (MenuItem).
+    if (Model.HasItems)
+    {
+        li.AddCssClass("has-items");
+        var ul = new TagBuilder("ul");
+        ul.AddCssClass("collapse");
+        ul.AddCssClass("nav-submenu");
+        ul.Attributes["Id"] = "m" + Model.GetHashCode().ToString();
+        ul.Attributes["data-title"] = Model.Text;
+
+        if ((bool)Model.Selected)
+        {
+            ul.AddCssClass("show");
+        }
+
+        foreach (var item in Model)
+        {
+            ul.InnerHtml.AppendHtml(await DisplayAsync(item));
+        }
+
+        li.InnerHtml.AppendHtml(await DisplayAsync(Model));
+        li.InnerHtml.AppendHtml(ul);
+    }
+    else
+    {
+        li.InnerHtml.AppendHtml(await DisplayAsync(Model));
+    }
+}
+
+@li

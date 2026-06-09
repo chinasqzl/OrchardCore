@@ -1,0 +1,6 @@
+<a class="dropdown-item danger" href="#" onclick="document.getElementById('erp-logout-form').submit(); return false;">
+    <i class="bi bi-box-arrow-right"></i> @T["Log off"]
+</a>
+<form id="erp-logout-form" asp-route-area="OrchardCore.Users" asp-controller="Account" asp-action="LogOff" method="post" class="d-none no-multisubmit">
+    @Html.AntiForgeryToken()
+</form>

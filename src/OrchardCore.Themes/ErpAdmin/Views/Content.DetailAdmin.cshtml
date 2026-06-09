@@ -1,0 +1,66 @@
+@using OrchardCore.Mvc.Utilities
+@using OrchardCore.ContentManagement
+
+@{
+    Model.Classes.Add("content-item");
+    ContentItem contentItem = Model.ContentItem;
+    var contentTypeClassName = contentItem.ContentType.HtmlClassify();
+    Model.Classes.Add(contentTypeClassName);
+
+    var tag = Tag(Model, "article");
+}
+
+<zone Name="Title"><h1>@RenderTitleSegments(contentItem.DisplayText)</h1></zone>
+
+<div class="detail-header">
+    <div class="detail-title-row">
+        <h2>@contentItem.DisplayText</h2>
+        @if (Model.Meta != null)
+        {
+            @await DisplayAsync(Model.Meta)
+        }
+    </div>
+    <div class="detail-meta">
+        <span><i class="bi bi-upc-scan"></i> @contentItem.ContentItemId.Substring(0, 8)</span>
+        <span><i class="bi bi-folder"></i> @contentItem.ContentType</span>
+        <span><i class="bi bi-calendar"></i> @contentItem.CreatedUtc?.ToString("yyyy-MM-dd")</span>
+        <span><i class="bi bi-person"></i> @contentItem.Owner</span>
+    </div>
+</div>
+
+<div class="detail-body">
+    <div class="detail-main">
+        <article>
+            @if (Model.Header != null)
+            {
+                <div class="detail-card">
+                    <div class="detail-card-header"><i class="bi bi-info-circle"></i> @T["Header"]</div>
+                    <div class="detail-card-body">
+                        @await DisplayAsync(Model.Header)
+                    </div>
+                </div>
+            }
+            @await DisplayAsync(Model.Content)
+            @if (Model.Footer != null)
+            {
+                <div class="detail-card">
+                    <div class="detail-card-header"><i class="bi bi-link-45deg"></i> @T["Footer"]</div>
+                    <div class="detail-card-body">
+                        @await DisplayAsync(Model.Footer)
+                    </div>
+                </div>
+            }
+        </article>
+    </div>
+    <div class="detail-sidebar-panel">
+        @if (Model.Actions != null)
+        {
+            <div class="detail-card">
+                <div class="detail-card-header"><i class="bi bi-lightning"></i> @T["Actions"]</div>
+                <div class="detail-card-body" style="display:flex;flex-direction:column;gap:8px;">
+                    @await DisplayAsync(Model.Actions)
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,27 @@
+{
+  "Content_DetailAdmin": [
+    {
+      "displayType": "DetailAdmin",
+      "differentiator": "Parts_Contents_Publish",
+      "place": "Actions:5"
+    }
+  ],
+  "Parts_Contents_Publish": [
+    {
+      "displayType": "Detail",
+      "place": "Content:5"
+    }
+  ],
+  "Parts_Contents_Publish_SummaryAdmin": [
+    {
+      "displayType": "SummaryAdmin",
+      "place": "Actions:5"
+    }
+  ],
+  "Parts_Contents_Clone_SummaryAdmin": [
+    {
+      "displayType": "SummaryAdmin",
+      "place": "Actions:6"
+    }
+  ]
+}

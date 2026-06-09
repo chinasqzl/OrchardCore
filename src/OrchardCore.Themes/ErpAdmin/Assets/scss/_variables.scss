@@ -1,0 +1,47 @@
+/*
+    IMPORTANT: Never import Bootstrap directly into the theme.
+    ErpAdmin.css will depend on Bootstrap, but we never want to compile it.
+*/
+@import '../../../../../node_modules/bootstrap/scss/_functions';
+@import '../../../../../node_modules/bootstrap/scss/_variables';
+@import '../../../../../node_modules/bootstrap/scss/mixins/_breakpoints';
+
+// Custom variables.
+$erp-topbar-height: 56px !default;
+$erp-sidebar-width: 260px !default;
+$erp-sidebar-collapsed-width: 72px !default;
+$erp-radius: 10px !default;
+$erp-radius-sm: 6px !default;
+$erp-transition: .2s cubic-bezier(.4, 0, .2, 1) !default;
+
+:root {
+    --erp-primary: #1a56db;
+    --erp-primary-light: #e8edfb;
+    --erp-primary-dark: #1240a8;
+    --erp-accent: #0ea5e9;
+    --erp-sidebar-bg: #0f172a;
+    --erp-sidebar-text: #94a3b8;
+    --erp-sidebar-active: #1e293b;
+    --erp-sidebar-width: #{$erp-sidebar-width};
+    --erp-sidebar-collapsed-width: #{$erp-sidebar-collapsed-width};
+    --erp-topbar-height: #{$erp-topbar-height};
+    --erp-content-bg: #f8fafc;
+    --erp-card-bg: #ffffff;
+    --erp-border: #e2e8f0;
+    --erp-text: #1e293b;
+    --erp-text-muted: #64748b;
+    --erp-success: #10b981;
+    --erp-warning: #f59e0b;
+    --erp-danger: #ef4444;
+    --erp-info: #0ea5e9;
+    --erp-radius: #{$erp-radius};
+    --erp-radius-sm: #{$erp-radius-sm};
+    --erp-shadow: 0 1px 3px rgba(0, 0, 0, .06), 0 1px 2px rgba(0, 0, 0, .04);
+    --erp-shadow-md: 0 4px 6px rgba(0, 0, 0, .05), 0 2px 4px rgba(0, 0, 0, .04);
+    --erp-shadow-lg: 0 10px 25px rgba(0, 0, 0, .08);
+    --erp-transition: #{$erp-transition};
+    --erp-row-alt: #f8fafc;
+    --oc-top-nav-height: #{$erp-topbar-height};
+    --oc-start-navigation-width: #{$erp-sidebar-width};
+    --oc-start-navigation-width-when-compact: #{$erp-sidebar-collapsed-width};
+}

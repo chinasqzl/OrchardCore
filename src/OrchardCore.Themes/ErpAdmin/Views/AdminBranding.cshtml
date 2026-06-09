@@ -1,0 +1,8 @@
+@inject IOptions<AdminOptions> AdminOptions
+<zone name="HeadMeta">
+    <link asp-src="~/OrchardCore.Admin/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+</zone>
+<a class="navbar-brand" href="@Url.Content("~/" + AdminOptions.Value.AdminUrlPrefix)" style="display:flex;align-items:center;text-decoration:none;">
+    <div class="brand-logo">E</div>
+    <span class="brand-text">@Site.SiteName</span>
+</a>
