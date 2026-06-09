@@ -2,4 +2,7 @@
 @{
     var site = await SiteService.GetSiteSettingsAsync();
 }
-<span class="tenant-branding">@site.SiteName</span>
+<div class="erp-tenant-branding">
+    <span class="erp-tenant-logo"></span>
+    <span class="erp-tenant-name">@site.SiteName</span>
+</div>

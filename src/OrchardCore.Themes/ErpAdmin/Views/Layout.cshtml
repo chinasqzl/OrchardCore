@@ -40,12 +40,28 @@
     <style asp-name="font-awesome" at="Head" version="7"></style>
     <style asp-name="ErpAdmin" version="1" depends-on="the-admin" at="Head"></style>
     <script asp-name="the-admin" version="1" at="Foot"></script>
+    <script asp-name="ErpAdmin" version="1" depends-on="the-admin" at="Foot"></script>
+
+    <script>
+      // ErpAdmin: Inject tenant brand colors
+      (function() {
+        var tenant = document.documentElement.getAttribute('data-tenant') || 'Default';
+        // Generate a consistent brand color from tenant name
+        var hash = 0;
+        for (var i = 0; i < tenant.length; i++) {
+          hash = tenant.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        var h = Math.abs(hash) % 360;
+        // Set brand color as HSL for easy manipulation
+        document.documentElement.style.setProperty('--erp-brand-primary-h', h);
+      })();
+    </script>
 
     <resources type="Header" />
 
     @await RenderSectionAsync("HeadMeta", required: false)
 </head>
-<body class="preload">
+<body class="preload erp-admin">
     <div class="ta-wrapper">
         <nav class="ta-navbar-top navbar text-bg-theme fixed-top">
             <div class="container-fluid">
@@ -65,9 +81,13 @@
                     @navbar
                 </div>
             </div>
+            <div class="erp-topbar-accent"></div>
         </nav>
 
         <div id="ta-left-sidebar" class="d-flex flex-column justify-content-between align-items-stretch">
+            <div class="erp-sidebar-header">
+                <span class="erp-sidebar-logo"></span>
+            </div>
             @await RenderSectionAsync("Navigation", required: false)
             <div class="footer">
                 <button type="button" class="leftbar-compactor" title="@T["Collapse / expand menu"]">
@@ -91,6 +111,7 @@
 
     </div>
     <div id="confirmRemoveModalMetadata" data-title="@T["Delete"]" data-message="@T["Are you sure you want to remove this element?"]" data-ok-text="@T["Ok"]" data-cancel-text="@T["Cancel"]" data-ok-class="btn-danger" data-cancel-class="btn-secondary"></div>
+    <div class="erp-footer-branding d-none">ErpAdmin v1.0</div>
     <resources type="Footer" />
 </body>
 </html>

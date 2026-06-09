@@ -1,0 +1,823 @@
+@charset "UTF-8";
+/*
+ * ErpAdmin Theme - ERP SaaS 管理后台
+ * 设计理念：色块分区，少用线条，租户品牌色动态切换
+ */
+
+/* ============================================
+   1. 租户品牌色 CSS 自定义属性
+   通过 JS 动态注入 --erp-brand-* 变量
+   ============================================ */
+:root {
+  /* 默认品牌色（可被租户覆盖） */
+  --erp-brand-primary: #1a73e8;
+  --erp-brand-primary-rgb: 26, 115, 232;
+  --erp-brand-primary-dark: #1557b0;
+  --erp-brand-primary-light: #e8f0fe;
+  --erp-brand-accent: #ff6d00;
+  --erp-brand-accent-rgb: 255, 109, 0;
+
+  /* 顶栏高度覆盖 */
+  --oc-top-nav-height: 56px;
+
+  /* 侧边栏宽度 */
+  --erp-sidebar-width: 260px;
+  --erp-sidebar-compact-width: 56px;
+
+  /* 色块分区色板 */
+  --erp-block-topbar: var(--erp-brand-primary);
+  --erp-block-sidebar: #1e2a3a;
+  --erp-block-sidebar-hover: rgba(255, 255, 255, 0.08);
+  --erp-block-sidebar-active: rgba(255, 255, 255, 0.14);
+  --erp-block-content-bg: #f0f2f5;
+  --erp-block-card-bg: #ffffff;
+  --erp-block-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+
+  /* 侧边栏文字色 */
+  --erp-sidebar-text: rgba(255, 255, 255, 0.7);
+  --erp-sidebar-text-hover: #ffffff;
+  --erp-sidebar-text-active: #ffffff;
+  --erp-sidebar-icon: rgba(255, 255, 255, 0.5);
+  --erp-sidebar-icon-active: #ffffff;
+
+  /* 选中指示条 */
+  --erp-selected-indicator: var(--erp-brand-accent);
+}
+
+/* 暗色主题 */
+[data-bs-theme="dark"] {
+  --erp-block-content-bg: #0f1117;
+  --erp-block-card-bg: #1a1d26;
+  --erp-block-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --erp-block-sidebar: #12151c;
+  --erp-brand-primary-light: #1a2e4a;
+}
+
+/* ============================================
+   2. 顶栏 - 品牌色色块
+   ============================================ */
+.erp-admin .ta-navbar-top.navbar {
+  background-color: var(--erp-block-topbar) !important;
+  height: var(--oc-top-nav-height) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border: none !important;
+}
+
+.erp-admin .ta-navbar-top .navbar {
+  padding: 0;
+}
+
+/* 顶栏底部渐变装饰线 */
+.erp-topbar-accent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg,
+    var(--erp-brand-primary) 0%,
+    var(--erp-brand-accent) 50%,
+    var(--erp-brand-primary) 100%);
+  opacity: 0.6;
+}
+
+/* 租户品牌区 - 顶栏内 */
+.erp-tenant-branding {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.erp-tenant-branding .erp-tenant-logo {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.erp-tenant-branding .erp-tenant-logo::after {
+  content: "E";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.erp-tenant-branding .erp-tenant-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* 兼容旧版 tenant-branding */
+.tenant-branding {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tenant-branding::before {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+}
+
+/* 顶栏导航项 */
+.erp-admin .ta-navbar-top .nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 13px;
+  padding: 0.5rem 0.75rem !important;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
+}
+
+.erp-admin .ta-navbar-top .nav-link:hover {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.erp-admin .ta-navbar-top .dropdown-menu {
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border: none;
+  padding: 6px;
+}
+
+.erp-admin .ta-navbar-top .dropdown-item {
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.erp-admin .ta-navbar-top .dropdown-item:hover {
+  background-color: var(--erp-brand-primary-light);
+  color: var(--erp-brand-primary);
+}
+
+/* ============================================
+   3. 侧边栏 - 深色色块
+   ============================================ */
+
+/* 侧边栏头部 - 品牌标识区 */
+.erp-sidebar-header {
+  padding: 16px 16px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+}
+
+.erp-sidebar-logo {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--erp-brand-primary), var(--erp-brand-accent));
+  position: relative;
+  box-shadow: 0 2px 8px rgba(var(--erp-brand-primary-rgb), 0.3);
+}
+
+.erp-sidebar-logo::after {
+  content: "E";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+/* Compact 侧边栏隐藏 header */
+.left-sidebar-compact .erp-sidebar-header {
+  padding: 8px;
+}
+
+.left-sidebar-compact .erp-sidebar-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+
+.left-sidebar-compact .erp-sidebar-logo::after {
+  font-size: 16px;
+}
+
+.erp-admin body:not(.left-sidebar-compact) #ta-left-sidebar,
+body:not(.left-sidebar-compact).erp-admin #ta-left-sidebar {
+  background-color: var(--erp-block-sidebar) !important;
+  border: none !important;
+  width: var(--erp-sidebar-width);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+body:not(.left-sidebar-compact) #ta-left-sidebar {
+  background-color: var(--erp-block-sidebar) !important;
+  border: none !important;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+body:not(.left-sidebar-compact) #ta-left-sidebar #left-nav > ul.menu-admin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+body:not(.left-sidebar-compact) #ta-left-sidebar #left-nav > ul > li {
+  background-color: transparent !important;
+  width: var(--erp-sidebar-width);
+  color: var(--erp-sidebar-text);
+}
+
+/* 侧边栏菜单项 - 色块 hover，无线条 */
+body:not(.left-sidebar-compact) #ta-left-sidebar li .item-label:hover {
+  background-color: var(--erp-block-sidebar-hover) !important;
+  color: var(--erp-sidebar-text-hover) !important;
+  border-radius: 0;
+}
+
+body:not(.left-sidebar-compact) #ta-left-sidebar li > figure > ul > li.active > .item-label {
+  background: var(--erp-block-sidebar-active) !important;
+  color: var(--erp-sidebar-text-active) !important;
+  font-weight: 600;
+}
+
+body:not(.left-sidebar-compact) #ta-left-sidebar li.active > figure > figcaption > .item-label {
+  background-color: var(--erp-block-sidebar-hover) !important;
+  color: var(--erp-sidebar-text-active) !important;
+  font-weight: 600;
+}
+
+/* 选中指示条 - 用品牌色替代线条 */
+body:not(.left-sidebar-compact) #ta-left-sidebar #left-nav > ul > li.active:not(.has-items)::before {
+  border: none !important;
+  background-color: var(--erp-selected-indicator);
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+}
+
+body:not(.left-sidebar-compact) #ta-left-sidebar li > figure > ul > li.active > .item-label::before {
+  border: none !important;
+  background-color: var(--erp-selected-indicator);
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+}
+
+/* 侧边栏图标和文字 */
+body:not(.left-sidebar-compact) #ta-left-sidebar #left-nav ul li .item-label,
+body:not(.left-sidebar-compact) #ta-left-sidebar #left-nav li a,
+body:not(.left-sidebar-compact) #ta-left-sidebar #left-nav li button.item-label {
+  color: var(--erp-sidebar-text) !important;
+}
+
+body:not(.left-sidebar-compact) #ta-left-sidebar #left-nav > ul.menu-admin .item-label > span.icon {
+  color: var(--erp-sidebar-icon);
+}
+
+body:not(.left-sidebar-compact) #ta-left-sidebar #left-nav > ul.menu-admin .item-label > span.title {
+  color: var(--erp-sidebar-text);
+  font-size: 13px;
+}
+
+body:not(.left-sidebar-compact) #ta-left-sidebar li.active .item-label > span.icon,
+body:not(.left-sidebar-compact) #ta-left-sidebar li .active .item-label > span.icon {
+  color: var(--erp-sidebar-icon-active) !important;
+}
+
+body:not(.left-sidebar-compact) #ta-left-sidebar li.active .item-label > span.title,
+body:not(.left-sidebar-compact) #ta-left-sidebar li .active .item-label > span.title {
+  color: var(--erp-sidebar-text-active) !important;
+}
+
+/* 侧边栏分隔 - 用色块差异替代线条 */
+body:not(.left-sidebar-compact) #ta-left-sidebar #left-nav > ul > li.new:after {
+  background: transparent !important;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+body:not(.left-sidebar-compact) #ta-left-sidebar .footer:before {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* 侧边栏子菜单 - 更深的色块 */
+body:not(.left-sidebar-compact) #ta-left-sidebar li ul > li > .item-label,
+body:not(.left-sidebar-compact) #ta-left-sidebar li ul > li > figure > figcaption > .item-label {
+  background: rgba(0, 0, 0, 0.15) !important;
+}
+
+body:not(.left-sidebar-compact) #ta-left-sidebar li ul > li ul > li {
+  background: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 侧边栏折叠按钮 */
+.erp-admin .leftbar-compactor {
+  color: var(--erp-sidebar-text) !important;
+}
+
+.erp-admin .leftbar-compactor:hover {
+  color: var(--erp-sidebar-text-hover) !important;
+  background-color: var(--erp-block-sidebar-hover);
+  text-shadow: none !important;
+}
+
+/* Compact 侧边栏 */
+.left-sidebar-compact #ta-left-sidebar {
+  background-color: var(--erp-block-sidebar) !important;
+  border: none !important;
+  width: var(--erp-sidebar-compact-width);
+}
+
+.left-sidebar-compact #ta-left-sidebar #left-nav > ul > li {
+  background-color: transparent !important;
+  width: var(--erp-sidebar-compact-width);
+}
+
+.left-sidebar-compact #ta-left-sidebar #left-nav > ul .item-label > span.icon {
+  color: var(--erp-sidebar-icon);
+}
+
+.left-sidebar-compact #ta-left-sidebar #left-nav > ul > li .item-label:hover:not(:first-child) {
+  color: var(--erp-sidebar-text-hover) !important;
+  background-color: var(--erp-block-sidebar-hover) !important;
+}
+
+.left-sidebar-compact #ta-left-sidebar #left-nav > ul > li > figure > figcaption > .item-label > span.icon {
+  background-color: transparent !important;
+  color: var(--erp-sidebar-icon) !important;
+}
+
+/* ============================================
+   4. 内容区 - 浅色色块
+   ============================================ */
+.erp-admin .ta-content {
+  background-color: var(--erp-block-content-bg);
+  padding: 1.5rem;
+}
+
+/* ERP 卡片容器 */
+.erp-card {
+  background-color: var(--erp-block-card-bg);
+  border-radius: 10px;
+  box-shadow: var(--erp-block-card-shadow);
+  padding: 16px 20px;
+  margin-bottom: 1rem;
+}
+
+/* 卡片式内容块 */
+.erp-admin .ta-content .btn-group,
+.erp-admin .ta-content .action-bar {
+  background-color: var(--erp-block-card-bg);
+  border-radius: 8px;
+  box-shadow: var(--erp-block-card-shadow);
+  padding: 12px 16px;
+  margin-bottom: 1rem;
+}
+
+/* 表格样式 - 色块行替代线条 */
+.erp-admin .ta-content table,
+.erp-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.erp-table-wrapper {
+  background-color: var(--erp-block-card-bg);
+  border-radius: 10px;
+  box-shadow: var(--erp-block-card-shadow);
+  padding: 0;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.erp-admin .ta-content table thead th,
+.erp-table thead th {
+  background-color: var(--erp-brand-primary-light);
+  color: var(--erp-brand-primary);
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: none !important;
+  padding: 10px 16px;
+}
+
+.erp-admin .ta-content table tbody tr,
+.erp-table tbody tr {
+  transition: background-color 0.1s ease;
+}
+
+.erp-admin .ta-content table tbody tr:hover,
+.erp-table tbody tr:hover {
+  background-color: rgba(var(--erp-brand-primary-rgb), 0.04);
+}
+
+.erp-admin .ta-content table tbody td,
+.erp-table tbody td {
+  border-bottom: none !important;
+  padding: 12px 16px;
+  vertical-align: middle;
+}
+
+/* 内容区标题 */
+.erp-admin .ta-content h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--erp-brand-primary-dark);
+  letter-spacing: -0.02em;
+}
+
+/* ============================================
+   5. 按钮增强 - 品牌色圆角
+   ============================================ */
+.erp-admin .btn-primary {
+  background-color: var(--erp-brand-primary) !important;
+  border-color: var(--erp-brand-primary) !important;
+  border-radius: 6px;
+  font-weight: 500;
+  padding: 6px 16px;
+  transition: all 0.15s ease;
+}
+
+.erp-admin .btn-primary:hover {
+  background-color: var(--erp-brand-primary-dark) !important;
+  border-color: var(--erp-brand-primary-dark) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(var(--erp-brand-primary-rgb), 0.3);
+}
+
+.erp-admin .btn-secondary {
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.erp-admin .btn-danger {
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.erp-admin .btn-success {
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.erp-admin .btn-warning {
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.erp-admin .btn-info {
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+/* ============================================
+   6. 表单增强
+   ============================================ */
+.erp-admin .form-control {
+  border-radius: 6px;
+  border: 1px solid #d9dce1;
+  padding: 8px 12px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.erp-admin .form-control:focus {
+  border-color: var(--erp-brand-primary);
+  box-shadow: 0 0 0 3px rgba(var(--erp-brand-primary-rgb), 0.15);
+}
+
+.erp-admin .form-select {
+  border-radius: 6px;
+  border: 1px solid #d9dce1;
+  padding: 8px 12px;
+}
+
+.erp-admin .form-select:focus {
+  border-color: var(--erp-brand-primary);
+  box-shadow: 0 0 0 3px rgba(var(--erp-brand-primary-rgb), 0.15);
+}
+
+/* ============================================
+   7. 面包屑
+   ============================================ */
+.erp-admin .breadcrumb {
+  background: transparent;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.erp-admin .breadcrumb-item a {
+  color: var(--erp-brand-primary);
+}
+
+/* ============================================
+   8. 分页
+   ============================================ */
+.erp-admin .page-link {
+  border-radius: 6px !important;
+  margin: 0 2px;
+  border: none !important;
+  color: var(--erp-brand-primary);
+}
+
+.erp-admin .page-item.active .page-link {
+  background-color: var(--erp-brand-primary) !important;
+  border-color: var(--erp-brand-primary) !important;
+}
+
+/* ============================================
+   9. Toast 通知
+   ============================================ */
+.erp-admin .toast-container .toast {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ============================================
+   10. 登录页
+   ============================================ */
+
+/* 登录页品牌色顶部装饰条 */
+.erp-login-brand-bar {
+  width: 100%;
+  max-width: 420px;
+  height: 4px;
+  margin: 0 auto 16px;
+  background: linear-gradient(90deg, var(--erp-brand-primary), var(--erp-brand-accent));
+  border-radius: 2px;
+}
+
+/* 登录页站点名称 */
+.erp-login-site-name {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.erp-login-site-name .tenant-branding {
+  justify-content: center;
+  font-size: 22px;
+  color: var(--erp-brand-primary);
+}
+
+.erp-login-site-name .tenant-branding::before {
+  background: var(--erp-brand-primary-light);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+}
+
+.auth-wrapper {
+  max-width: 420px;
+  margin: 0 auto;
+  background: var(--erp-block-card-bg);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  padding: 2.5rem;
+}
+
+.auth-wrapper h2,
+.auth-wrapper h3,
+.auth-wrapper .form-label {
+  color: var(--erp-brand-primary-dark);
+}
+
+.auth-wrapper .btn-primary {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+}
+
+/* 登录页品牌色顶部装饰条 */
+.auth-wrapper::before {
+  content: "";
+  display: block;
+  height: 4px;
+  background: linear-gradient(90deg, var(--erp-brand-primary), var(--erp-brand-accent));
+  border-radius: 12px 12px 0 0;
+  margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+}
+
+/* ============================================
+   11. 响应式
+   ============================================ */
+@media (max-width: 575.98px) {
+  [dir="ltr"] .erp-admin .ta-content {
+    margin-left: var(--erp-sidebar-compact-width);
+  }
+
+  [dir="rtl"] .erp-admin .ta-content {
+    margin-right: var(--erp-sidebar-compact-width);
+  }
+}
+
+/* ============================================
+   12. 品牌色动态切换工具类
+   ============================================ */
+.erp-brand-bg {
+  background-color: var(--erp-brand-primary) !important;
+}
+
+.erp-brand-text {
+  color: var(--erp-brand-primary) !important;
+}
+
+.erp-brand-border {
+  border-color: var(--erp-brand-primary) !important;
+}
+
+.erp-accent-bg {
+  background-color: var(--erp-brand-accent) !important;
+}
+
+.erp-accent-text {
+  color: var(--erp-brand-accent) !important;
+}
+
+/* ============================================
+   13. ErpAdmin 特有组件样式
+   ============================================ */
+
+/* 底部品牌标识 */
+.erp-footer-branding {
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.3);
+  text-align: center;
+  padding: 4px;
+}
+
+/* AdminBranding 覆盖 - 顶栏品牌区 */
+.erp-admin .admin-branding {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.erp-admin .admin-branding a {
+  color: #ffffff !important;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* 内容区面板/卡片增强 */
+.erp-admin .ta-content .panel,
+.erp-admin .ta-content .card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: var(--erp-block-card-shadow);
+  overflow: hidden;
+}
+
+.erp-admin .ta-content .panel-heading,
+.erp-admin .ta-content .card-header {
+  background-color: var(--erp-brand-primary-light);
+  color: var(--erp-brand-primary);
+  border-bottom: none;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 16px;
+}
+
+/* Alert 样式增强 - 色块替代线条 */
+.erp-admin .alert {
+  border: none;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 14px;
+}
+
+.erp-admin .alert-info {
+  background-color: rgba(var(--erp-brand-primary-rgb), 0.1);
+  color: var(--erp-brand-primary-dark);
+}
+
+.erp-admin .alert-success {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: #1e7e34;
+}
+
+.erp-admin .alert-warning {
+  background-color: rgba(255, 193, 7, 0.1);
+  color: #856404;
+}
+
+.erp-admin .alert-danger {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #721c24;
+}
+
+/* Nav tabs 增强 */
+.erp-admin .nav-tabs {
+  border-bottom: 2px solid var(--erp-brand-primary-light);
+}
+
+.erp-admin .nav-tabs .nav-link {
+  border: none;
+  border-radius: 6px 6px 0 0;
+  color: var(--erp-sidebar-text);
+  padding: 8px 16px;
+}
+
+.erp-admin .nav-tabs .nav-link.active {
+  background-color: var(--erp-brand-primary-light);
+  color: var(--erp-brand-primary);
+  font-weight: 600;
+}
+
+/* List group 增强 */
+.erp-admin .list-group-item {
+  border: none;
+  border-radius: 6px !important;
+  margin-bottom: 2px;
+}
+
+.erp-admin .list-group-item:hover {
+  background-color: rgba(var(--erp-brand-primary-rgb), 0.04);
+}
+
+/* Modal 增强 */
+.erp-admin .modal-content {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+}
+
+.erp-admin .modal-header {
+  border-bottom: none;
+  background-color: var(--erp-brand-primary-light);
+  border-radius: 12px 12px 0 0;
+  padding: 16px 20px;
+}
+
+.erp-admin .modal-footer {
+  border-top: none;
+  padding: 12px 20px;
+}
+
+/* ============================================
+   14. 色块分区视觉核心
+   顶栏=品牌色蓝块 | 侧边栏=深蓝块 | 内容区=浅灰块
+   三大区域用背景色差异明确分区，无线条分隔
+   ============================================ */
+
+/* 确保 TheAdmin 的边框被完全覆盖 */
+.erp-admin #ta-left-sidebar {
+  border: none !important;
+}
+
+.erp-admin .ta-navbar-top {
+  border: none !important;
+}
+
+/* 内容区与侧边栏的过渡 - 用阴影而非线条 */
+.erp-admin .ta-content {
+  border: none !important;
+}
+
+/* 滚动条美化 */
+.erp-admin ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.erp-admin ::-webkit-scrollbar-thumb {
+  background-color: rgba(var(--erp-brand-primary-rgb), 0.2);
+  border-radius: 3px;
+}
+
+.erp-admin ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(var(--erp-brand-primary-rgb), 0.4);
+}
+
+/* 加载完成过渡 */
+.erp-admin.preload * {
+  transition: none !important;
+}
+
+.erp-admin:not(.preload) .ta-navbar-top,
+.erp-admin:not(.preload) #ta-left-sidebar,
+.erp-admin:not(.preload) .ta-content {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
