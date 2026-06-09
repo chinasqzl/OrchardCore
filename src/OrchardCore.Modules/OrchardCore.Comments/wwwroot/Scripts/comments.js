@@ -68,11 +68,15 @@ const comments = {
                 const result = await response.json();
                 if (result.files && result.files.length > 0) {
                     for (const f of result.files) {
+                        if (f.error) {
+                            alert('Upload error: ' + f.error);
+                            continue;
+                        }
                         this._attachments.push({
                             name: f.name,
-                            path: f.path || f.url,
+                            path: f.mediaPath,
                             size: f.size,
-                            type: f.type || file.type
+                            type: f.mime || file.type
                         });
                     }
                     this.renderAttachmentList();
