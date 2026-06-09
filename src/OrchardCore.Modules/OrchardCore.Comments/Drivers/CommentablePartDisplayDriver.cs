@@ -40,7 +40,7 @@ public class CommentablePartDisplayDriver : ContentPartDisplayDriver<Commentable
             .Location(OrchardCoreConstants.DisplayType.DetailAdmin, "Content:20")
             .Location(OrchardCoreConstants.DisplayType.Detail, "Content:20"),
 
-            Initialize<CommentablePartViewModel>("CommentablePartSummaryAdmin", model =>
+            Initialize<CommentablePartViewModel>(GetDisplayShapeType(context), model =>
             {
                 model.CommentablePart = part;
                 model.ContentItem = part.ContentItem;
