@@ -1,0 +1,8 @@
+[
+  {
+    "action": "min",
+    "name": "comments",
+    "source": "Assets/Scripts/comments.js",
+    "tags": ["admin", "js"]
+  }
+]

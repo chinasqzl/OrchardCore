@@ -1,0 +1,142 @@
+<h2>评论模块 - DetailAdmin 界面方案</h2>
+<p class="subtitle">评论内容复用 TextField，附件复用 MediaField，展示层通过候补视图重写为一体化风格</p>
+
+<div class="section">
+  <h3>方案 A：卡片式评论（推荐）</h3>
+  <p>每条评论为独立卡片，评论文本与附件视觉一体，回复缩进显示</p>
+</div>
+
+<div class="mockup">
+  <div class="mockup-header">Preview: 内容项 DetailAdmin - 评论区</div>
+  <div class="mockup-body" style="padding: 20px; background: #f8f9fa;">
+    
+    <!-- 模拟内容项标题区 -->
+    <div style="background: #fff; border-radius: 8px; padding: 16px; margin-bottom: 16px; border: 1px solid #dee2e6;">
+      <div style="font-size: 12px; color: #6c757d; text-transform: uppercase; margin-bottom: 4px;">内容项</div>
+      <h4 style="margin: 0 0 8px 0;">2024年度项目进度报告</h4>
+      <div style="font-size: 13px; color: #6c757d;">由 张三 发布于 2024-01-15 · 项目管理</div>
+    </div>
+
+    <!-- 评论区标题 -->
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+      <h5 style="margin: 0;">评论 <span style="background: #e9ecef; padding: 2px 8px; border-radius: 12px; font-size: 12px;">3</span></h5>
+      <button style="font-size: 13px; background: #0d6efd; color: #fff; border: none; padding: 6px 16px; border-radius: 4px; cursor: pointer;">+ 写评论</button>
+    </div>
+
+    <!-- 评论1 - 带附件 -->
+    <div style="background: #fff; border-radius: 8px; padding: 16px; margin-bottom: 12px; border: 1px solid #dee2e6;">
+      <div style="display: flex; align-items: center; margin-bottom: 10px;">
+        <div style="width: 36px; height: 36px; background: #6f42c1; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; margin-right: 10px;">李</div>
+        <div>
+          <div style="font-weight: 600; font-size: 14px;">李四 <span style="background: #ffc107; color: #000; font-size: 10px; padding: 1px 6px; border-radius: 3px; margin-left: 4px;">管理员</span></div>
+          <div style="font-size: 12px; color: #6c757d;">2024-01-16 09:30</div>
+        </div>
+        <div style="margin-left: auto;">
+          <span style="font-size: 12px; color: #0d6efd; cursor: pointer; margin-right: 12px;">回复</span>
+          <span style="font-size: 12px; color: #dc3545; cursor: pointer;">删除</span>
+        </div>
+      </div>
+      <div style="font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+        报告整体框架清晰，但第三章节的数据需要更新。我已标注了需要修改的地方，请查看附件。
+      </div>
+      <!-- 附件区域 - 一体化风格 -->
+      <div style="background: #f0f4ff; border-radius: 6px; padding: 10px 14px; border: 1px solid #c5d3f7;">
+        <div style="font-size: 12px; color: #4a6cf7; margin-bottom: 6px; font-weight: 600;">📎 附件</div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <div style="background: #fff; border: 1px solid #c5d3f7; border-radius: 6px; padding: 8px 12px; display: flex; align-items: center; gap: 8px; font-size: 13px;">
+            <span>📄</span>
+            <span style="color: #0d6efd; cursor: pointer;">修改标注_v2.docx</span>
+            <span style="color: #6c757d; font-size: 11px;">245 KB</span>
+          </div>
+          <div style="background: #fff; border: 1px solid #c5d3f7; border-radius: 6px; padding: 8px 12px; display: flex; align-items: center; gap: 8px; font-size: 13px;">
+            <span>🖼️</span>
+            <span style="color: #0d6efd; cursor: pointer;">数据截图.png</span>
+            <span style="color: #6c757d; font-size: 11px;">128 KB</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 评论2 - 回复评论（缩进） -->
+    <div style="margin-left: 40px; margin-bottom: 12px;">
+      <div style="background: #fff; border-radius: 8px; padding: 14px; border: 1px solid #dee2e6; border-left: 3px solid #6f42c1;">
+        <div style="display: flex; align-items: center; margin-bottom: 8px;">
+          <div style="width: 30px; height: 30px; background: #20c997; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; margin-right: 8px;">张</div>
+          <div>
+            <div style="font-weight: 600; font-size: 13px;">张三 <span style="font-size: 11px; color: #6c757d;">回复 李四</span></div>
+            <div style="font-size: 11px; color: #6c757d;">2024-01-16 10:15</div>
+          </div>
+          <div style="margin-left: auto;">
+            <span style="font-size: 12px; color: #0d6efd; cursor: pointer; margin-right: 8px;">编辑</span>
+            <span style="font-size: 12px; color: #dc3545; cursor: pointer;">删除</span>
+          </div>
+        </div>
+        <div style="font-size: 13px; line-height: 1.5;">
+          收到，我会在今天内更新第三章节的数据。附件中的标注非常清晰，感谢！
+        </div>
+      </div>
+    </div>
+
+    <!-- 评论3 - 待审核状态 -->
+    <div style="background: #fff; border-radius: 8px; padding: 16px; margin-bottom: 12px; border: 1px solid #dee2e6; opacity: 0.75;">
+      <div style="display: flex; align-items: center; margin-bottom: 10px;">
+        <div style="width: 36px; height: 36px; background: #fd7e14; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; margin-right: 10px;">王</div>
+        <div>
+          <div style="font-weight: 600; font-size: 14px;">王五 <span style="background: #ffc107; color: #000; font-size: 10px; padding: 1px 6px; border-radius: 3px; margin-left: 4px;">⏳ 待审核</span></div>
+          <div style="font-size: 12px; color: #6c757d;">2024-01-16 11:00</div>
+        </div>
+        <div style="margin-left: auto;">
+          <button style="font-size: 12px; background: #198754; color: #fff; border: none; padding: 3px 10px; border-radius: 3px; cursor: pointer; margin-right: 4px;">批准</button>
+          <button style="font-size: 12px; background: #dc3545; color: #fff; border: none; padding: 3px 10px; border-radius: 3px; cursor: pointer;">拒绝</button>
+        </div>
+      </div>
+      <div style="font-size: 14px; line-height: 1.6;">
+        这个项目进度是否考虑了春节假期的影响？
+      </div>
+    </div>
+
+    <!-- 评论输入区 -->
+    <div style="background: #fff; border-radius: 8px; padding: 16px; border: 2px solid #0d6efd;">
+      <div style="font-size: 14px; font-weight: 600; margin-bottom: 10px;">发表评论</div>
+      <textarea style="width: 100%; height: 80px; border: 1px solid #ced4da; border-radius: 6px; padding: 10px; font-size: 14px; resize: vertical; box-sizing: border-box;" placeholder="写下你的评论..."></textarea>
+      
+      <!-- 附件上传区 - 一体化 -->
+      <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px;">
+        <label style="font-size: 13px; color: #0d6efd; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+          📎 添加附件
+          <input type="file" style="display: none;" multiple>
+        </label>
+        <span style="font-size: 12px; color: #6c757d;">支持 doc, pdf, png, jpg（最大 10MB）</span>
+      </div>
+      <!-- 已选附件预览 -->
+      <div style="margin-top: 8px; display: flex; gap: 6px;">
+        <div style="background: #e9ecef; border-radius: 4px; padding: 4px 10px; font-size: 12px; display: flex; align-items: center; gap: 6px;">
+          📄 补充说明.docx <span style="color: #dc3545; cursor: pointer;">✕</span>
+        </div>
+      </div>
+      
+      <div style="margin-top: 12px; display: flex; justify-content: flex-end; gap: 8px;">
+        <button style="font-size: 13px; background: #6c757d; color: #fff; border: none; padding: 6px 16px; border-radius: 4px; cursor: pointer;">取消</button>
+        <button style="font-size: 13px; background: #0d6efd; color: #fff; border: none; padding: 6px 16px; border-radius: 4px; cursor: pointer;">提交评论</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div style="height: 30px;"></div>
+
+<div class="section">
+  <h3>候补视图策略说明</h3>
+</div>
+
+<div style="background: #fff; border-radius: 8px; padding: 16px; border: 1px solid #dee2e6; font-size: 13px; line-height: 1.8;">
+  <p><strong>数据层复用：</strong>Comment ContentType 使用 TextField（CommentText）+ MediaField（Attachment）存储数据</p>
+  <p><strong>展示层重写：</strong>通过候补视图覆盖默认渲染</p>
+  <ul style="margin: 8px 0; padding-left: 20px;">
+    <li><code>TextField-CommentText.DetailAdmin.cshtml</code> — 覆盖评论正文的默认渲染，去掉 label 包装</li>
+    <li><code>MediaField-Attachment.DetailAdmin.cshtml</code> — 覆盖附件的默认渲染，改为紧凑的文件列表样式</li>
+    <li><code>CommentPart.DetailAdmin.cshtml</code> — 组合渲染整个评论区，将 TextField + MediaField + 回复整合为一体</li>
+  </ul>
+  <p><strong>关键：</strong>候补命名遵循 <code>[FieldType]-[FieldName].[DisplayType].cshtml</code> 约定，如 <code>TextField-CommentText.DetailAdmin.cshtml</code> 对应 alternate <code>textfield_detailadmin__commenttext</code></p>
+</div>

@@ -1,0 +1,7 @@
+@model OrchardCore.Comments.ViewModels.CommentablePartEditViewModel
+
+<div class="form-check">
+    <input type="checkbox" asp-for="Closed" class="form-check-input" />
+    <label asp-for="Closed" class="form-check-label">@T["Close comments"]</label>
+    <span class="hint">@T["Check to prevent new comments on this content item."]</span>
+</div>

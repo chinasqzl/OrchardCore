@@ -1,0 +1,16 @@
+{
+  "CommentablePart": [
+    {
+      "place": "Content:20",
+      "displayType": "DetailAdmin"
+    },
+    {
+      "place": "Content:20",
+      "displayType": "Detail"
+    },
+    {
+      "place": "Meta:5",
+      "displayType": "SummaryAdmin"
+    }
+  ]
+}
