@@ -1,4 +1,6 @@
 const comments = {
+    _attachments: [],
+
     getAntiForgeryToken: function () {
         const tokenElement = document.querySelector('input[name="__RequestVerificationToken"]');
         return tokenElement ? tokenElement.value : '';
@@ -27,7 +29,86 @@ const comments = {
             form.style.display = 'none';
             repliedOnInput.value = '';
             document.getElementById('comment-text').value = '';
+            this._attachments = [];
+            this.renderAttachmentList();
         }
+    },
+
+    initAttachmentUpload: function () {
+        const self = this;
+        const fileInput = document.getElementById('comment-attachment');
+        if (fileInput) {
+            fileInput.addEventListener('change', async function (e) {
+                const files = e.target.files;
+                if (!files.length) return;
+
+                for (let i = 0; i < files.length; i++) {
+                    await self.uploadFile(files[i]);
+                }
+                // Reset file input so the same file can be selected again
+                fileInput.value = '';
+            });
+        }
+    },
+
+    uploadFile: async function (file) {
+        const formData = new FormData();
+        formData.append('files', file);
+
+        try {
+            const response = await fetch('/Admin/Media/Upload?path=comments&extensions=.jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.xls,.xlsx', {
+                method: 'POST',
+                headers: {
+                    'RequestVerificationToken': this.getAntiForgeryToken()
+                },
+                body: formData
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                if (result.files && result.files.length > 0) {
+                    for (const f of result.files) {
+                        this._attachments.push({
+                            name: f.name,
+                            path: f.path || f.url,
+                            size: f.size,
+                            type: f.type || file.type
+                        });
+                    }
+                    this.renderAttachmentList();
+                }
+            } else {
+                alert('Failed to upload file: ' + file.name);
+            }
+        } catch (err) {
+            alert('Upload error: ' + err.message);
+        }
+    },
+
+    removeAttachment: function (index) {
+        this._attachments.splice(index, 1);
+        this.renderAttachmentList();
+    },
+
+    renderAttachmentList: function () {
+        const list = document.getElementById('comment-attachment-list');
+        if (!list) return;
+
+        list.innerHTML = '';
+        for (let i = 0; i < this._attachments.length; i++) {
+            const att = this._attachments[i];
+            const badge = document.createElement('span');
+            badge.className = 'badge bg-light text-dark d-inline-flex align-items-center gap-1';
+            badge.innerHTML = '<i class="fas fa-paperclip"></i> ' + this.escapeHtml(att.name) +
+                ' <button type="button" class="btn-close btn-close-sm ms-1" onclick="comments.removeAttachment(' + i + ')" aria-label="Remove"></button>';
+            list.appendChild(badge);
+        }
+    },
+
+    escapeHtml: function (text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
     },
 
     submit: async function () {
@@ -41,6 +122,8 @@ const comments = {
             return;
         }
 
+        const attachmentPaths = this._attachments.map(a => a.path);
+
         try {
             const response = await fetch('/api/comments/create', {
                 method: 'POST',
@@ -49,7 +132,7 @@ const comments = {
                     commentedOn: commentedOn,
                     repliedOn: repliedOn || null,
                     text: text,
-                    attachments: []
+                    attachments: attachmentPaths
                 })
             });
 
@@ -124,3 +207,8 @@ const comments = {
         }
     }
 };
+
+// Initialize attachment upload when DOM is ready
+document.addEventListener('DOMContentLoaded', function () {
+    comments.initAttachmentUpload();
+});
