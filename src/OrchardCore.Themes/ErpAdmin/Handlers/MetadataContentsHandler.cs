@@ -16,7 +16,7 @@ public class MetadataContentsHandler : ContentHandlerBase
                 { "Area", "OrchardCore.Contents" },
                 { "Controller", "Admin" },
                 { "Action", "Display" },
-                { "ContentItemId", context.ContentItem.ContentItemId }
+                { "ContentItemId", context.ContentItem.ContentItemId },
             };
 
             metadata.AdminRouteValues = new RouteValueDictionary
@@ -24,7 +24,7 @@ public class MetadataContentsHandler : ContentHandlerBase
                 { "Area", "OrchardCore.Contents" },
                 { "Controller", "Admin" },
                 { "Action", "Display" },
-                { "ContentItemId", context.ContentItem.ContentItemId }
+                { "ContentItemId", context.ContentItem.ContentItemId },
             };
 
             return Task.CompletedTask;
