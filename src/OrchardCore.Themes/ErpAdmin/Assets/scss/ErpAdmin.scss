@@ -1,0 +1,165 @@
+@import '_variables.scss';
+
+:root {
+  --erp-primary: #{$erp-primary};
+  --erp-primary-dark: #{$erp-primary-dark};
+  --erp-primary-light: #{$erp-primary-light};
+  --erp-sidebar-bg: #{$erp-sidebar-bg};
+  --erp-content-bg: #{$erp-content-bg};
+  --erp-card-bg: #{$erp-card-bg};
+  --erp-row-alt: #{$erp-row-alt};
+  --erp-text-primary: #{$erp-text-primary};
+  --erp-text-secondary: #{$erp-text-secondary};
+  --erp-shadow: #{$erp-shadow};
+  --erp-shadow-lg: #{$erp-shadow-lg};
+  --erp-radius: #{$erp-radius};
+}
+
+body.erp-admin-layout {
+  font-family: #{$erp-font-family};
+  font-size: #{$erp-font-size};
+  line-height: #{$erp-line-height};
+  background-color: #{$erp-content-bg};
+  color: #{$erp-text-primary};
+}
+
+.erp-admin-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.erp-admin-content {
+  flex: 1;
+  padding: #{$erp-spacing-lg};
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.erp-main-content {
+  background-color: #{$erp-card-bg};
+  border-radius: #{$erp-radius};
+  box-shadow: #{$erp-shadow};
+  padding: #{$erp-spacing-xl};
+}
+
+.erp-navbar {
+  background-color: #{$erp-card-bg};
+  box-shadow: #{$erp-shadow};
+  padding: #{$erp-spacing} #{$erp-spacing-lg};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.erp-navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.erp-brand-link {
+  text-decoration: none;
+}
+
+.erp-brand-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #{$erp-primary};
+}
+
+.erp-content-detail {
+  .erp-content-header {
+    margin-bottom: #{$erp-spacing-xl};
+    padding-bottom: #{$erp-spacing-lg};
+    border-bottom: 1px solid #{$erp-border-color};
+  }
+  
+  .erp-content-header h1 {
+    margin: 0 0 #{$erp-spacing-sm} 0;
+    font-size: 1.75rem;
+    font-weight: 600;
+  }
+  
+  .erp-content-meta {
+    display: flex;
+    gap: #{$erp-spacing};
+    color: #{$erp-text-muted};
+    font-size: 0.875rem;
+  }
+  
+  .erp-content-body {
+    margin-bottom: #{$erp-spacing-xl};
+  }
+  
+  .erp-content-footer {
+    padding-top: #{$erp-spacing-lg};
+    border-top: 1px solid #{$erp-border-color};
+  }
+}
+
+.erp-login-layout {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #{$erp-primary} 0%, #{$erp-primary-dark} 100%);
+}
+
+.erp-login-wrapper {
+  width: 100%;
+  max-width: 420px;
+  padding: #{$erp-spacing-lg};
+}
+
+.erp-login-container {
+  background-color: #{$erp-card-bg};
+  border-radius: #{$erp-radius-lg};
+  box-shadow: #{$erp-shadow-lg};
+  padding: #{$erp-spacing-xl};
+}
+
+.erp-login-brand {
+  text-align: center;
+  margin-bottom: #{$erp-spacing-xl};
+}
+
+.erp-login-form h2 {
+  text-align: center;
+  margin-bottom: #{$erp-spacing-xl};
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.erp-login-form .form-group {
+  margin-bottom: #{$erp-spacing-lg};
+}
+
+.erp-login-form .btn-primary {
+  background-color: #{$erp-primary};
+  border-color: #{$erp-primary};
+  padding: #{$erp-spacing};
+  font-weight: 500;
+}
+
+.erp-login-form a {
+  color: #{$erp-primary};
+  text-decoration: none;
+}
+
+.erp-login-form a:hover {
+  text-decoration: underline;
+}
+
+@media (prefers-color-scheme: dark) {
+  body.erp-admin-layout {
+    background-color: #0f172a;
+    color: #f1f5f9;
+  }
+  
+  .erp-main-content,
+  .erp-navbar,
+  .erp-login-container {
+    background-color: #1e293b;
+  }
+}

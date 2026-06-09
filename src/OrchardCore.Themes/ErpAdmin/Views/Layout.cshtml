@@ -1,0 +1,47 @@
+@{
+    Model.Metadata.Alternates.Add("Layout_Admin");
+}
+
+@{
+    var adminSettings = Site.GetOrCreate<AdminSettings>();
+    var brandingHtml = await DisplayAsync(await New.AdminBranding());
+}
+
+<!DOCTYPE html>
+<html lang="@Orchard.CultureName()" dir="@Orchard.CultureDir()">
+<head>
+    <title>@RenderTitleSegments(Site.SiteName, "before")</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <style asp-name="the-admin" version="1" at="Head"></style>
+    <style asp-name="font-awesome" at="Head" version="7"></style>
+    <script asp-name="the-admin" version="1" at="Foot"></script>
+    
+    <resources type="Header" />
+    @await RenderSectionAsync("HeadMeta", required: false)
+</head>
+<body class="erp-admin-layout">
+    <div class="erp-admin-wrapper">
+        <nav class="ta-navbar-top navbar text-bg-theme fixed-top">
+            <div class="container-fluid">
+                <div class="d-flex w-100 justify-content-between align-items-center">
+                    <div class="brand-wrapper">
+                        @brandingHtml
+                    </div>
+                    @await DisplayAsync(await New.Navbar())
+                </div>
+            </div>
+        </nav>
+
+        <div class="ta-content">
+            @await RenderSectionAsync("Header", required: false)
+            @await RenderSectionAsync("Messages", required: false)
+            @await RenderSectionAsync("Breadcrumbs", required: false)
+            @await RenderBodyAsync()
+        </div>
+    </div>
+    
+    <resources type="Footer" />
+</body>
+</html>

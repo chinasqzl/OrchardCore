@@ -1,0 +1,21 @@
+@{
+    var contentItem = Model.ContentItem;
+}
+
+<div class="erp-content-detail">
+    <div class="erp-content-header">
+        <h1>@contentItem.DisplayText</h1>
+        <div class="erp-content-meta">
+            <span class="erp-content-type">@contentItem.ContentType</span>
+            <span class="erp-content-id">@contentItem.ContentItemId</span>
+        </div>
+    </div>
+    
+    <div class="erp-content-body">
+        @await DisplayAsync(Model.Content)
+    </div>
+    
+    <div class="erp-content-footer">
+        @await DisplayAsync(New.ContentActions(ContentItem: contentItem))
+    </div>
+</div>

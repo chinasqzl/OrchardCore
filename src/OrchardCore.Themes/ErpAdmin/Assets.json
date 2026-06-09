@@ -1,0 +1,11 @@
+{
+  "Staging": {
+    "Target": "wwwroot"
+  },
+  "Production": {
+    "Target": "wwwroot"
+  },
+  "Development": {
+    "Target": "wwwroot"
+  }
+}

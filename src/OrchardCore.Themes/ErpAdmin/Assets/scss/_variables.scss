@@ -1,0 +1,47 @@
+$erp-primary: #1e40af;
+$erp-primary-dark: #1e3a8a;
+$erp-primary-light: #3b82f6;
+
+$erp-sidebar-bg: #1e293b;
+$erp-sidebar-hover: #334155;
+$erp-content-bg: #f1f5f9;
+$erp-card-bg: #ffffff;
+$erp-row-alt: #f8fafc;
+
+$erp-text-primary: #1e293b;
+$erp-text-secondary: #64748b;
+$erp-text-muted: #94a3b8;
+
+$erp-border-color: #e2e8f0;
+$erp-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+$erp-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+$erp-success: #22c55e;
+$erp-warning: #f59e0b;
+$erp-danger: #ef4444;
+$erp-info: #3b82f6;
+
+$erp-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$erp-font-size: 14px;
+$erp-line-height: 1.5;
+
+$erp-radius: 8px;
+$erp-radius-sm: 4px;
+$erp-radius-lg: 12px;
+
+$erp-spacing: 16px;
+$erp-spacing-sm: 8px;
+$erp-spacing-lg: 24px;
+$erp-spacing-xl: 32px;
+
+$erp-transition: all 0.2s ease;
+
+[data-theme='dark'] {
+  $erp-content-bg: #0f172a;
+  $erp-card-bg: #1e293b;
+  $erp-row-alt: #334155;
+  $erp-text-primary: #f1f5f9;
+  $erp-text-secondary: #cbd5e1;
+  $erp-text-muted: #64748b;
+  $erp-border-color: #334155;
+}

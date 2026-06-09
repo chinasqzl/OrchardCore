@@ -1,0 +1,16 @@
+@if (Model.Items.Any())
+{
+    <div class="erp-nav-dropdown">
+        @await DisplayAsync(Model.Item)
+        <ul class="erp-nav-dropdown-menu">
+            @foreach (var item in Model.Items)
+            {
+                <li>@await DisplayAsync(item)</li>
+            }
+        </ul>
+    </div>
+}
+else
+{
+    @await DisplayAsync(Model.Item)
+}

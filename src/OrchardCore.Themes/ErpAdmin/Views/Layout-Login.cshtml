@@ -1,0 +1,31 @@
+@{
+    Model.Metadata.Alternates.Add("Layout_Login");
+}
+
+<!DOCTYPE html>
+<html lang="@Orchard.CultureName()" dir="@Orchard.CultureDir()">
+<head>
+    <title>@RenderTitleSegments(Site.SiteName, "before")</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <style asp-name="the-admin" version="1" at="Head"></style>
+    <style asp-name="font-awesome" at="Head" version="7"></style>
+    
+    <resources type="Header" />
+</head>
+<body class="erp-login-layout">
+    <div class="erp-login-wrapper">
+        <div class="erp-login-container">
+            <div class="erp-login-brand">
+                @await DisplayAsync(await New.AdminBranding())
+            </div>
+            <div class="erp-login-content">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    
+    <resources type="Footer" />
+</body>
+</html>

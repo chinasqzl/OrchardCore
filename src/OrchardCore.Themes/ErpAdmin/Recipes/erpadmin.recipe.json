@@ -1,0 +1,43 @@
+{
+  "name": "ErpAdmin",
+  "displayName": "ERP Admin Theme",
+  "description": "Installs the ErpAdmin theme with ERP management capabilities",
+  "author": "ErpAdmin Team",
+  "version": "1.0.0",
+  "tags": [
+    "Theme",
+    "Admin",
+    "ERP"
+  ],
+  "steps": [
+    {
+      "name": "feature",
+      "enable": [
+        "ErpAdmin",
+        "OrchardCore.Admin",
+        "OrchardCore.AdminDashboard",
+        "OrchardCore.Contents",
+        "OrchardCore.Users"
+      ]
+    },
+    {
+      "name": "themes",
+      "setAdminTheme": "ErpAdmin"
+    },
+    {
+      "name": "contentType",
+      "contentTypes": [
+        {
+          "name": "DashboardWidget",
+          "displayName": "Dashboard Widget",
+          "settings": {
+            "Creatable": true,
+            "Listable": true,
+            "Draftable": false,
+            "Securable": true
+          }
+        }
+      ]
+    }
+  ]
+}

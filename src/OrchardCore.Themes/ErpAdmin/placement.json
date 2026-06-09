@@ -1,0 +1,12 @@
+{
+  "Admin": {
+    "*": {
+      "DetailAdmin": {
+        "Placements": {
+          "Header": "Header:1",
+          "Footer": "Footer:1"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+<nav class="erp-nav" role="navigation">
+    <ul class="erp-nav-list">
+        @foreach (var item in Model)
+        {
+            <li class="erp-nav-item @(item.Selected ? "active" : "")">
+                @await DisplayAsync(item)
+            </li>
+        }
+    </ul>
+</nav>

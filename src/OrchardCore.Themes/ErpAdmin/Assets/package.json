@@ -1,0 +1,18 @@
+{
+  "name": "erpadmin",
+  "version": "1.0.0",
+  "description": "ERP Admin theme assets",
+  "main": "index.js",
+  "scripts": {
+    "build": "parcel build Assets/js/ErpAdmin.ts --out-dir wwwroot/js",
+    "watch": "parcel watch Assets/js/ErpAdmin.ts --out-dir wwwroot/js"
+  },
+  "dependencies": {
+    "jquery": "^3.6.0"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5",
+    "sass": "^1.50.0",
+    "typescript": "^4.6.0"
+  }
+}

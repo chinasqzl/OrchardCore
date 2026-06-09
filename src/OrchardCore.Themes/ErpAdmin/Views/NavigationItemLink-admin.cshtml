@@ -1,0 +1,11 @@
+<a href="@Model.Href" class="erp-nav-link" @if (Model.Target != null) { <text>target="@Model.Target"</text> }>
+    @if (Model.Icon != null)
+    {
+        <span class="erp-nav-icon">@Html.Raw(Model.Icon)</span>
+    }
+    <span class="erp-nav-text">@Model.Text</span>
+    @if (Model.Badge != null)
+    {
+        <span class="erp-nav-badge">@Model.Badge</span>
+    }
+</a>
