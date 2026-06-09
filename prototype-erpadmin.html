@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Tenant Branding Variables - 可被租户品牌定制覆盖 */
             --erp-primary: #1a56db;
             --erp-primary-light: #e8edfb;
             --erp-primary-dark: #1240a8;
@@ -62,10 +61,414 @@
             font-family: 'Space Grotesk', 'DM Sans', sans-serif;
         }
 
+        /* ===== LOGIN PAGE ===== */
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            background: var(--erp-sidebar-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-left::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 50%, rgba(26,86,219,.15) 0%, transparent 70%),
+                        radial-gradient(ellipse at 70% 80%, rgba(14,165,233,.1) 0%, transparent 60%);
+            z-index: -1;
+        }
+
+        .login-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 48px;
+        }
+
+        .login-brand .brand-logo {
+            width: 48px;
+            height: 48px;
+            background: var(--erp-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .login-brand .brand-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+
+        .login-illustration {
+            max-width: 420px;
+            width: 100%;
+        }
+
+        .login-illustration .illus-card {
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.06);
+            border-radius: 16px;
+            padding: 32px;
+            backdrop-filter: blur(10px);
+        }
+
+        .login-illustration .illus-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .login-illustration .illus-desc {
+            font-size: 15px;
+            color: #94a3b8;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .illus-features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .illus-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+
+        .illus-feature .feat-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .illus-feature .feat-icon.blue { background: rgba(37,99,235,.2); color: #60a5fa; }
+        .illus-feature .feat-icon.green { background: rgba(5,150,105,.2); color: #34d399; }
+        .illus-feature .feat-icon.amber { background: rgba(217,119,6,.2); color: #fbbf24; }
+
+        .login-right {
+            width: 520px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+            background: var(--erp-card-bg);
+            border-radius: 24px 0 0 24px;
+            box-shadow: -20px 0 60px rgba(0,0,0,.15);
+        }
+
+        .login-form-header {
+            margin-bottom: 32px;
+        }
+
+        .login-form-header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .login-form-header p {
+            font-size: 14px;
+            color: var(--erp-text-muted);
+        }
+
+        .login-tenant-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: var(--erp-primary-light);
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--erp-primary);
+            margin-bottom: 24px;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .login-form label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--erp-text);
+            margin-bottom: 6px;
+        }
+
+        .login-form .form-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--erp-border);
+            border-radius: var(--erp-radius-sm);
+            font-size: 14px;
+            background: var(--erp-content-bg);
+            color: var(--erp-text);
+            transition: all var(--erp-transition);
+        }
+
+        .login-form .form-input:focus {
+            outline: none;
+            border-color: var(--erp-primary);
+            box-shadow: 0 0 0 3px var(--erp-primary-light);
+        }
+
+        .login-form .password-wrapper {
+            position: relative;
+        }
+
+        .login-form .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--erp-text-muted);
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px;
+        }
+
+        .login-form .form-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .login-form .form-check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--erp-text-muted);
+        }
+
+        .login-form .form-check input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--erp-primary);
+        }
+
+        .login-form .forgot-link {
+            font-size: 13px;
+            color: var(--erp-primary);
+            text-decoration: none;
+        }
+
+        .login-form .forgot-link:hover { text-decoration: underline; }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--erp-primary);
+            color: #fff;
+            border: none;
+            border-radius: var(--erp-radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--erp-transition);
+        }
+
+        .login-btn:hover { background: var(--erp-primary-dark); box-shadow: var(--erp-shadow-md); }
+
+        .login-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 24px 0;
+            font-size: 12px;
+            color: var(--erp-text-muted);
+        }
+
+        .login-divider::before, .login-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--erp-border);
+        }
+
+        .login-external {
+            display: flex;
+            gap: 10px;
+        }
+
+        .login-external .ext-btn {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid var(--erp-border);
+            border-radius: var(--erp-radius-sm);
+            background: var(--erp-card-bg);
+            color: var(--erp-text);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all var(--erp-transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .login-external .ext-btn:hover { border-color: var(--erp-text-muted); background: var(--erp-content-bg); }
+
+        .login-footer {
+            margin-top: 32px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--erp-text-muted);
+        }
+
+        .login-footer a { color: var(--erp-primary); text-decoration: none; }
+        .login-footer a:hover { text-decoration: underline; }
+
+        /* ===== SHAPE OVERRIDE MAP ===== */
+        .shape-map-page {
+            padding: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .shape-map-page h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .shape-map-page > p {
+            color: var(--erp-text-muted);
+            margin-bottom: 32px;
+        }
+
+        .shape-section {
+            margin-bottom: 32px;
+        }
+
+        .shape-section h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--erp-primary);
+            display: inline-block;
+        }
+
+        .shape-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--erp-card-bg);
+            border: 1px solid var(--erp-border);
+            border-radius: var(--erp-radius);
+            overflow: hidden;
+            box-shadow: var(--erp-shadow);
+        }
+
+        .shape-table th {
+            padding: 10px 16px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            color: var(--erp-text-muted);
+            background: var(--erp-content-bg);
+            border-bottom: 1px solid var(--erp-border);
+            text-align: left;
+        }
+
+        .shape-table td {
+            padding: 10px 16px;
+            font-size: 13px;
+            border-bottom: 1px solid var(--erp-border);
+            vertical-align: middle;
+        }
+
+        .shape-table tr:last-child td { border-bottom: none; }
+
+        .shape-table .file-path {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 12px;
+            color: var(--erp-primary);
+        }
+
+        .shape-table .override-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .override-tag.new { background: #d1fae5; color: #065f46; }
+        .override-tag.override { background: #fef3c7; color: #92400e; }
+        .override-tag.inherit { background: #f1f5f9; color: #475569; }
+
+        /* ===== NAV TABS for prototype ===== */
+        .proto-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--erp-sidebar-bg);
+            padding: 8px 16px;
+            display: flex;
+            gap: 4px;
+            z-index: 1060;
+            overflow-x: auto;
+        }
+
+        .proto-nav .proto-tab {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--erp-transition);
+            white-space: nowrap;
+        }
+
+        .proto-nav .proto-tab:hover { background: rgba(255,255,255,.06); color: #e2e8f0; }
+        .proto-nav .proto-tab.active { background: var(--erp-primary); color: #fff; }
+
         /* ===== WRAPPER ===== */
         .erp-wrapper {
             display: flex;
             min-height: 100vh;
+            padding-bottom: 48px;
         }
 
         /* ===== SIDEBAR ===== */
@@ -78,15 +481,13 @@
             position: fixed;
             top: 0;
             left: 0;
-            bottom: 0;
+            bottom: 48px;
             z-index: 1040;
             transition: width var(--erp-transition), transform var(--erp-transition);
             overflow: hidden;
         }
 
-        .erp-sidebar.collapsed {
-            width: var(--erp-sidebar-collapsed-width);
-        }
+        .erp-sidebar.collapsed { width: var(--erp-sidebar-collapsed-width); }
 
         .erp-sidebar-brand {
             height: var(--erp-topbar-height);
@@ -98,37 +499,25 @@
         }
 
         .erp-sidebar-brand .brand-logo {
-            width: 32px;
-            height: 32px;
+            width: 32px; height: 32px;
             background: var(--erp-primary);
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-weight: 700;
-            font-size: 14px;
-            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-weight: 700; font-size: 14px; flex-shrink: 0;
         }
 
         .erp-sidebar-brand .brand-text {
             margin-left: 12px;
             font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600;
-            font-size: 16px;
-            color: #f1f5f9;
-            white-space: nowrap;
-            opacity: 1;
+            font-weight: 600; font-size: 16px; color: #f1f5f9;
+            white-space: nowrap; opacity: 1;
             transition: opacity var(--erp-transition);
         }
 
         .erp-sidebar.collapsed .brand-text { opacity: 0; pointer-events: none; }
 
         .erp-sidebar-nav {
-            flex: 1;
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding: 12px 0;
+            flex: 1; overflow-y: auto; overflow-x: hidden; padding: 12px 0;
         }
 
         .erp-sidebar-nav::-webkit-scrollbar { width: 3px; }
@@ -136,121 +525,61 @@
 
         .nav-section-title {
             padding: 16px 20px 6px;
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
+            font-size: 10px; font-weight: 600;
+            letter-spacing: 1.2px; text-transform: uppercase;
             color: rgba(148,163,184,.5);
-            white-space: nowrap;
-            overflow: hidden;
+            white-space: nowrap; overflow: hidden;
         }
 
         .erp-sidebar.collapsed .nav-section-title { text-align: center; padding: 16px 8px 6px; }
 
-        .nav-item-erp {
-            position: relative;
-        }
+        .nav-item-erp { position: relative; }
 
         .nav-link-erp {
-            display: flex;
-            align-items: center;
-            padding: 9px 20px;
-            color: var(--erp-sidebar-text);
-            text-decoration: none;
-            font-size: 13.5px;
-            font-weight: 400;
+            display: flex; align-items: center; padding: 9px 20px;
+            color: var(--erp-sidebar-text); text-decoration: none;
+            font-size: 13.5px; font-weight: 400;
             transition: all var(--erp-transition);
-            cursor: pointer;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            white-space: nowrap;
+            cursor: pointer; border: none; background: none;
+            width: 100%; text-align: left; white-space: nowrap;
         }
 
-        .nav-link-erp:hover {
-            color: #e2e8f0;
-            background: rgba(255,255,255,.04);
-        }
-
-        .nav-link-erp.active {
-            color: #fff;
-            background: var(--erp-primary);
-            border-radius: 0;
-            font-weight: 500;
-        }
+        .nav-link-erp:hover { color: #e2e8f0; background: rgba(255,255,255,.04); }
+        .nav-link-erp.active { color: #fff; background: var(--erp-primary); font-weight: 500; }
 
         .nav-link-erp .nav-icon {
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 17px;
-            flex-shrink: 0;
+            width: 20px; height: 20px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 17px; flex-shrink: 0;
         }
 
-        .nav-link-erp .nav-label {
-            margin-left: 12px;
-            opacity: 1;
-            transition: opacity var(--erp-transition);
-        }
-
+        .nav-link-erp .nav-label { margin-left: 12px; opacity: 1; transition: opacity var(--erp-transition); }
         .erp-sidebar.collapsed .nav-label { opacity: 0; pointer-events: none; }
 
         .nav-link-erp .nav-badge {
-            margin-left: auto;
-            background: var(--erp-danger);
-            color: #fff;
-            font-size: 10px;
-            font-weight: 600;
-            padding: 2px 7px;
-            border-radius: 10px;
-            line-height: 1.4;
+            margin-left: auto; background: var(--erp-danger); color: #fff;
+            font-size: 10px; font-weight: 600; padding: 2px 7px;
+            border-radius: 10px; line-height: 1.4;
         }
 
         .erp-sidebar.collapsed .nav-badge { display: none; }
 
-        .nav-link-erp .nav-expand {
-            margin-left: auto;
-            font-size: 12px;
-            transition: transform var(--erp-transition);
-        }
-
+        .nav-link-erp .nav-expand { margin-left: auto; font-size: 12px; transition: transform var(--erp-transition); }
         .nav-link-erp[aria-expanded="true"] .nav-expand { transform: rotate(90deg); }
-
         .erp-sidebar.collapsed .nav-expand { display: none; }
 
-        .nav-submenu {
-            padding-left: 0;
-            list-style: none;
-            overflow: hidden;
-        }
-
-        .nav-submenu .nav-link-erp {
-            padding-left: 52px;
-            font-size: 13px;
-        }
-
+        .nav-submenu { padding-left: 0; list-style: none; overflow: hidden; }
+        .nav-submenu .nav-link-erp { padding-left: 52px; font-size: 13px; }
         .erp-sidebar.collapsed .nav-submenu { display: none; }
 
-        .sidebar-footer {
-            padding: 12px;
-            border-top: 1px solid rgba(255,255,255,.06);
-            flex-shrink: 0;
-        }
+        .sidebar-footer { padding: 12px; border-top: 1px solid rgba(255,255,255,.06); flex-shrink: 0; }
 
         .sidebar-toggle-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 8px;
-            background: rgba(255,255,255,.04);
-            border: none;
+            display: flex; align-items: center; justify-content: center;
+            width: 100%; padding: 8px;
+            background: rgba(255,255,255,.04); border: none;
             border-radius: var(--erp-radius-sm);
-            color: var(--erp-sidebar-text);
-            cursor: pointer;
+            color: var(--erp-sidebar-text); cursor: pointer;
             transition: all var(--erp-transition);
         }
 
@@ -258,226 +587,149 @@
 
         /* ===== MAIN AREA ===== */
         .erp-main {
-            flex: 1;
-            margin-left: var(--erp-sidebar-width);
+            flex: 1; margin-left: var(--erp-sidebar-width);
             transition: margin-left var(--erp-transition);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            display: flex; flex-direction: column; min-height: 100vh;
         }
 
-        .erp-sidebar.collapsed ~ .erp-main {
-            margin-left: var(--erp-sidebar-collapsed-width);
-        }
+        .erp-sidebar.collapsed ~ .erp-main { margin-left: var(--erp-sidebar-collapsed-width); }
 
         /* ===== TOPBAR ===== */
         .erp-topbar {
             height: var(--erp-topbar-height);
             background: var(--erp-card-bg);
             border-bottom: 1px solid var(--erp-border);
-            display: flex;
-            align-items: center;
-            padding: 0 24px;
-            position: sticky;
-            top: 0;
-            z-index: 1030;
+            display: flex; align-items: center; padding: 0 24px;
+            position: sticky; top: 0; z-index: 1030;
             box-shadow: var(--erp-shadow);
         }
 
-        .topbar-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
+        .topbar-left { display: flex; align-items: center; gap: 16px; }
 
         .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 20px;
-            color: var(--erp-text);
-            cursor: pointer;
-            padding: 4px;
+            display: none; background: none; border: none;
+            font-size: 20px; color: var(--erp-text); cursor: pointer; padding: 4px;
         }
 
-        .topbar-search {
-            position: relative;
-        }
+        .topbar-search { position: relative; }
 
         .topbar-search input {
-            background: var(--erp-content-bg);
-            border: 1px solid var(--erp-border);
-            border-radius: 8px;
-            padding: 7px 14px 7px 36px;
-            font-size: 13px;
-            width: 280px;
-            color: var(--erp-text);
+            background: var(--erp-content-bg); border: 1px solid var(--erp-border);
+            border-radius: 8px; padding: 7px 14px 7px 36px;
+            font-size: 13px; width: 280px; color: var(--erp-text);
             transition: all var(--erp-transition);
         }
 
-        .topbar-search input:focus {
-            outline: none;
-            border-color: var(--erp-primary);
-            box-shadow: 0 0 0 3px var(--erp-primary-light);
-            width: 340px;
-        }
+        .topbar-search input:focus { outline: none; border-color: var(--erp-primary); box-shadow: 0 0 0 3px var(--erp-primary-light); width: 340px; }
 
-        .topbar-search .search-icon {
-            position: absolute;
-            left: 11px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--erp-text-muted);
-            font-size: 14px;
-        }
+        .topbar-search .search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--erp-text-muted); font-size: 14px; }
 
-        .topbar-right {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
 
         .topbar-icon-btn {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            border: none;
-            background: transparent;
-            color: var(--erp-text-muted);
-            cursor: pointer;
-            transition: all var(--erp-transition);
-            position: relative;
-            font-size: 18px;
+            width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 8px; border: none; background: transparent;
+            color: var(--erp-text-muted); cursor: pointer;
+            transition: all var(--erp-transition); position: relative; font-size: 18px;
         }
 
         .topbar-icon-btn:hover { background: var(--erp-content-bg); color: var(--erp-text); }
 
         .topbar-icon-btn .notif-dot {
-            position: absolute;
-            top: 7px;
-            right: 7px;
-            width: 7px;
-            height: 7px;
-            background: var(--erp-danger);
-            border-radius: 50%;
-            border: 1.5px solid var(--erp-card-bg);
+            position: absolute; top: 7px; right: 7px;
+            width: 7px; height: 7px; background: var(--erp-danger);
+            border-radius: 50%; border: 1.5px solid var(--erp-card-bg);
         }
 
         .topbar-tenant {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 5px 12px;
-            background: var(--erp-primary-light);
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--erp-primary);
+            display: flex; align-items: center; gap: 8px;
+            padding: 5px 12px; background: var(--erp-primary-light);
+            border-radius: 8px; font-size: 12px; font-weight: 500; color: var(--erp-primary);
         }
 
         .topbar-user {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 4px 8px 4px 4px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background var(--erp-transition);
+            display: flex; align-items: center; gap: 8px;
+            padding: 4px 8px 4px 4px; border-radius: 8px;
+            cursor: pointer; transition: background var(--erp-transition);
         }
 
         .topbar-user:hover { background: var(--erp-content-bg); }
 
         .topbar-user .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
+            width: 32px; height: 32px; border-radius: 8px;
             background: linear-gradient(135deg, var(--erp-primary), var(--erp-accent));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 13px;
-            font-weight: 600;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 13px; font-weight: 600;
         }
 
         .topbar-user .user-info { line-height: 1.2; }
         .topbar-user .user-name { font-size: 13px; font-weight: 500; color: var(--erp-text); }
         .topbar-user .user-role { font-size: 11px; color: var(--erp-text-muted); }
 
-        /* ===== CONTENT ===== */
-        .erp-content {
-            flex: 1;
-            padding: 24px;
+        /* User dropdown - 覆盖 UserMenu shape */
+        .topbar-user-dropdown {
+            position: absolute; top: 100%; right: 0;
+            background: var(--erp-card-bg); border: 1px solid var(--erp-border);
+            border-radius: var(--erp-radius); box-shadow: var(--erp-shadow-lg);
+            min-width: 220px; padding: 8px; display: none; z-index: 1040;
         }
+
+        .topbar-user-dropdown.open { display: block; }
+
+        .topbar-user-dropdown .dropdown-header {
+            padding: 8px 12px; font-size: 12px; color: var(--erp-text-muted);
+            border-bottom: 1px solid var(--erp-border); margin-bottom: 4px;
+        }
+
+        .topbar-user-dropdown .dropdown-header strong { color: var(--erp-text); }
+
+        .topbar-user-dropdown .dropdown-item {
+            display: flex; align-items: center; gap: 8px;
+            padding: 8px 12px; border-radius: 6px;
+            font-size: 13px; color: var(--erp-text);
+            text-decoration: none; cursor: pointer;
+            transition: background var(--erp-transition);
+        }
+
+        .topbar-user-dropdown .dropdown-item:hover { background: var(--erp-content-bg); }
+        .topbar-user-dropdown .dropdown-item.danger { color: var(--erp-danger); }
+        .topbar-user-dropdown .dropdown-divider { height: 1px; background: var(--erp-border); margin: 4px 0; }
+
+        /* ===== CONTENT ===== */
+        .erp-content { flex: 1; padding: 24px; }
 
         /* ===== PAGE HEADER ===== */
         .page-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            margin-bottom: 24px;
-            gap: 16px;
-            flex-wrap: wrap;
+            display: flex; align-items: flex-start; justify-content: space-between;
+            margin-bottom: 24px; gap: 16px; flex-wrap: wrap;
         }
 
-        .page-header-left h1 {
-            font-size: 22px;
-            font-weight: 700;
-            margin: 0;
-            line-height: 1.3;
-        }
+        .page-header-left h1 { font-size: 22px; font-weight: 700; margin: 0; line-height: 1.3; }
 
-        .page-header-left .breadcrumb {
-            font-size: 12px;
-            margin-top: 4px;
-            padding: 0;
-            background: none;
-        }
-
+        .page-header-left .breadcrumb { font-size: 12px; margin-top: 4px; padding: 0; background: none; }
         .page-header-left .breadcrumb a { color: var(--erp-text-muted); text-decoration: none; }
         .page-header-left .breadcrumb a:hover { color: var(--erp-primary); }
         .page-header-left .breadcrumb .active { color: var(--erp-text); }
 
-        .page-header-actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
+        .page-header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
         /* ===== STAT CARDS ===== */
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
-        }
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
 
         .stat-card {
-            background: var(--erp-card-bg);
-            border: 1px solid var(--erp-border);
-            border-radius: var(--erp-radius);
-            padding: 20px;
-            box-shadow: var(--erp-shadow);
-            transition: all var(--erp-transition);
-            position: relative;
-            overflow: hidden;
+            background: var(--erp-card-bg); border: 1px solid var(--erp-border);
+            border-radius: var(--erp-radius); padding: 20px;
+            box-shadow: var(--erp-shadow); transition: all var(--erp-transition);
+            position: relative; overflow: hidden;
         }
 
         .stat-card:hover { box-shadow: var(--erp-shadow-md); transform: translateY(-1px); }
 
         .stat-card .stat-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            margin-bottom: 14px;
+            width: 40px; height: 40px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; margin-bottom: 14px;
         }
 
         .stat-card .stat-icon.blue { background: #dbeafe; color: #2563eb; }
@@ -485,28 +737,13 @@
         .stat-card .stat-icon.amber { background: #fef3c7; color: #d97706; }
         .stat-card .stat-icon.rose { background: #ffe4e6; color: #e11d48; }
 
-        .stat-card .stat-value {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 26px;
-            font-weight: 700;
-            line-height: 1;
-            margin-bottom: 4px;
-        }
-
-        .stat-card .stat-label {
-            font-size: 13px;
-            color: var(--erp-text-muted);
-        }
+        .stat-card .stat-value { font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+        .stat-card .stat-label { font-size: 13px; color: var(--erp-text-muted); }
 
         .stat-card .stat-trend {
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-top: 8px;
-            padding: 2px 8px;
-            border-radius: 20px;
+            display: inline-flex; align-items: center; gap: 3px;
+            font-size: 12px; font-weight: 600; margin-top: 8px;
+            padding: 2px 8px; border-radius: 20px;
         }
 
         .stat-trend.up { background: #d1fae5; color: #059669; }
@@ -514,134 +751,68 @@
 
         /* ===== DATA TABLE ===== */
         .erp-table-card {
-            background: var(--erp-card-bg);
-            border: 1px solid var(--erp-border);
-            border-radius: var(--erp-radius);
-            box-shadow: var(--erp-shadow);
-            overflow: hidden;
+            background: var(--erp-card-bg); border: 1px solid var(--erp-border);
+            border-radius: var(--erp-radius); box-shadow: var(--erp-shadow); overflow: hidden;
         }
 
         .table-toolbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--erp-border);
-            gap: 12px;
-            flex-wrap: wrap;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 16px 20px; border-bottom: 1px solid var(--erp-border);
+            gap: 12px; flex-wrap: wrap;
         }
 
-        .table-toolbar-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .table-toolbar-left { display: flex; align-items: center; gap: 10px; }
 
         .table-filter-btn {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 7px 14px;
-            background: var(--erp-content-bg);
-            border: 1px solid var(--erp-border);
-            border-radius: var(--erp-radius-sm);
-            font-size: 13px;
-            color: var(--erp-text);
-            cursor: pointer;
+            display: flex; align-items: center; gap: 6px;
+            padding: 7px 14px; background: var(--erp-content-bg);
+            border: 1px solid var(--erp-border); border-radius: var(--erp-radius-sm);
+            font-size: 13px; color: var(--erp-text); cursor: pointer;
             transition: all var(--erp-transition);
         }
 
         .table-filter-btn:hover { border-color: var(--erp-primary); color: var(--erp-primary); }
         .table-filter-btn.active { background: var(--erp-primary-light); border-color: var(--erp-primary); color: var(--erp-primary); }
 
-        .table-search {
-            position: relative;
-        }
+        .table-search { position: relative; }
 
         .table-search input {
-            background: var(--erp-content-bg);
-            border: 1px solid var(--erp-border);
-            border-radius: var(--erp-radius-sm);
-            padding: 7px 12px 7px 32px;
-            font-size: 13px;
-            width: 200px;
-            color: var(--erp-text);
+            background: var(--erp-content-bg); border: 1px solid var(--erp-border);
+            border-radius: var(--erp-radius-sm); padding: 7px 12px 7px 32px;
+            font-size: 13px; width: 200px; color: var(--erp-text);
         }
 
         .table-search input:focus { outline: none; border-color: var(--erp-primary); }
         .table-search .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--erp-text-muted); font-size: 13px; }
 
-        .table-toolbar-right {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .table-toolbar-right { display: flex; align-items: center; gap: 8px; }
 
-        .erp-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+        .erp-table { width: 100%; border-collapse: collapse; }
 
         .erp-table thead th {
-            padding: 10px 16px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: .5px;
-            color: var(--erp-text-muted);
-            background: var(--erp-content-bg);
-            border-bottom: 1px solid var(--erp-border);
-            white-space: nowrap;
-            text-align: left;
+            padding: 10px 16px; font-size: 11px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: .5px;
+            color: var(--erp-text-muted); background: var(--erp-content-bg);
+            border-bottom: 1px solid var(--erp-border); white-space: nowrap; text-align: left;
         }
 
-        .erp-table tbody td {
-            padding: 12px 16px;
-            font-size: 13px;
-            border-bottom: 1px solid var(--erp-border);
-            vertical-align: middle;
-        }
-
+        .erp-table tbody td { padding: 12px 16px; font-size: 13px; border-bottom: 1px solid var(--erp-border); vertical-align: middle; }
         .erp-table tbody tr:hover { background: var(--erp-primary-light); }
         .erp-table tbody tr:last-child td { border-bottom: none; }
 
-        .erp-table .cell-id {
-            font-family: 'Space Grotesk', monospace;
-            font-size: 12px;
-            color: var(--erp-text-muted);
-        }
-
-        .erp-table .cell-primary {
-            font-weight: 500;
-            color: var(--erp-text);
-        }
-
-        .erp-table .cell-link {
-            color: var(--erp-primary);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
+        .erp-table .cell-id { font-family: 'Space Grotesk', monospace; font-size: 12px; color: var(--erp-text-muted); }
+        .erp-table .cell-primary { font-weight: 500; color: var(--erp-text); }
+        .erp-table .cell-link { color: var(--erp-primary); text-decoration: none; font-weight: 500; }
         .erp-table .cell-link:hover { text-decoration: underline; }
 
         /* ===== STATUS BADGES ===== */
         .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            white-space: nowrap;
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 3px 10px; border-radius: 20px;
+            font-size: 12px; font-weight: 500; white-space: nowrap;
         }
 
-        .status-badge .status-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-        }
-
+        .status-badge .status-dot { width: 6px; height: 6px; border-radius: 50%; }
         .status-badge.success { background: #d1fae5; color: #065f46; }
         .status-badge.success .status-dot { background: #10b981; }
         .status-badge.warning { background: #fef3c7; color: #92400e; }
@@ -653,1124 +824,643 @@
         .status-badge.neutral { background: #f1f5f9; color: #475569; }
         .status-badge.neutral .status-dot { background: #94a3b8; }
 
-        /* ===== ACTION BUTTONS ===== */
         .action-dots {
-            width: 28px;
-            height: 28px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px;
-            border: none;
-            background: transparent;
-            color: var(--erp-text-muted);
-            cursor: pointer;
-            transition: all var(--erp-transition);
-            font-size: 16px;
+            width: 28px; height: 28px;
+            display: inline-flex; align-items: center; justify-content: center;
+            border-radius: 6px; border: none; background: transparent;
+            color: var(--erp-text-muted); cursor: pointer;
+            transition: all var(--erp-transition); font-size: 16px;
         }
 
         .action-dots:hover { background: var(--erp-content-bg); color: var(--erp-text); }
 
-        /* ===== PAGINATION ===== */
         .table-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 20px;
-            border-top: 1px solid var(--erp-border);
-            font-size: 13px;
-            color: var(--erp-text-muted);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 12px 20px; border-top: 1px solid var(--erp-border);
+            font-size: 13px; color: var(--erp-text-muted);
         }
 
-        .erp-pagination {
-            display: flex;
-            gap: 4px;
-        }
+        .erp-pagination { display: flex; gap: 4px; }
 
         .erp-pagination .page-btn {
-            min-width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px;
-            border: 1px solid var(--erp-border);
-            background: var(--erp-card-bg);
-            color: var(--erp-text);
-            font-size: 13px;
-            cursor: pointer;
-            transition: all var(--erp-transition);
+            min-width: 32px; height: 32px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 6px; border: 1px solid var(--erp-border);
+            background: var(--erp-card-bg); color: var(--erp-text);
+            font-size: 13px; cursor: pointer; transition: all var(--erp-transition);
         }
 
         .erp-pagination .page-btn:hover { border-color: var(--erp-primary); color: var(--erp-primary); }
         .erp-pagination .page-btn.active { background: var(--erp-primary); color: #fff; border-color: var(--erp-primary); }
 
-        /* ===== DETAIL ADMIN PAGE ===== */
+        /* ===== DETAIL ADMIN ===== */
         .detail-header {
-            background: var(--erp-card-bg);
-            border: 1px solid var(--erp-border);
-            border-radius: var(--erp-radius);
-            box-shadow: var(--erp-shadow);
-            padding: 24px;
-            margin-bottom: 20px;
+            background: var(--erp-card-bg); border: 1px solid var(--erp-border);
+            border-radius: var(--erp-radius); box-shadow: var(--erp-shadow);
+            padding: 24px; margin-bottom: 20px;
         }
 
-        .detail-header-top {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .detail-title-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .detail-title-row h2 {
-            font-size: 20px;
-            font-weight: 700;
-            margin: 0;
-        }
+        .detail-title-row { display: flex; align-items: center; gap: 12px; }
+        .detail-title-row h2 { font-size: 20px; font-weight: 700; margin: 0; }
 
         .detail-meta {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-top: 10px;
-            font-size: 12px;
-            color: var(--erp-text-muted);
-            flex-wrap: wrap;
+            display: flex; align-items: center; gap: 16px;
+            margin-top: 10px; font-size: 12px; color: var(--erp-text-muted); flex-wrap: wrap;
         }
 
-        .detail-meta span {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
+        .detail-meta span { display: flex; align-items: center; gap: 4px; }
 
-        .detail-body {
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 20px;
-        }
-
-        .detail-main {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .detail-sidebar-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
+        .detail-body { display: grid; grid-template-columns: 1fr 320px; gap: 20px; }
+        .detail-main { display: flex; flex-direction: column; gap: 20px; }
+        .detail-sidebar-panel { display: flex; flex-direction: column; gap: 16px; }
 
         .detail-card {
-            background: var(--erp-card-bg);
-            border: 1px solid var(--erp-border);
-            border-radius: var(--erp-radius);
-            box-shadow: var(--erp-shadow);
-            overflow: hidden;
+            background: var(--erp-card-bg); border: 1px solid var(--erp-border);
+            border-radius: var(--erp-radius); box-shadow: var(--erp-shadow); overflow: hidden;
         }
 
         .detail-card-header {
-            padding: 14px 20px;
-            border-bottom: 1px solid var(--erp-border);
-            font-size: 13px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            padding: 14px 20px; border-bottom: 1px solid var(--erp-border);
+            font-size: 13px; font-weight: 600;
+            display: flex; align-items: center; gap: 8px;
         }
 
-        .detail-card-body {
-            padding: 20px;
-        }
-
-        .detail-field {
-            margin-bottom: 16px;
-        }
-
+        .detail-card-body { padding: 20px; }
+        .detail-field { margin-bottom: 16px; }
         .detail-field:last-child { margin-bottom: 0; }
-
-        .detail-field .field-label {
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: .5px;
-            color: var(--erp-text-muted);
-            margin-bottom: 4px;
-        }
-
-        .detail-field .field-value {
-            font-size: 14px;
-            color: var(--erp-text);
-        }
+        .detail-field .field-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--erp-text-muted); margin-bottom: 4px; }
+        .detail-field .field-value { font-size: 14px; color: var(--erp-text); }
 
         /* ===== BTN STYLES ===== */
         .btn-erp-primary {
-            background: var(--erp-primary);
-            color: #fff;
-            border: none;
-            padding: 8px 18px;
-            border-radius: var(--erp-radius-sm);
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
+            background: var(--erp-primary); color: #fff; border: none;
+            padding: 8px 18px; border-radius: var(--erp-radius-sm);
+            font-size: 13px; font-weight: 500; cursor: pointer;
             transition: all var(--erp-transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            display: inline-flex; align-items: center; gap: 6px;
         }
 
         .btn-erp-primary:hover { background: var(--erp-primary-dark); box-shadow: var(--erp-shadow-md); }
 
         .btn-erp-outline {
-            background: transparent;
-            color: var(--erp-text);
+            background: transparent; color: var(--erp-text);
             border: 1px solid var(--erp-border);
-            padding: 8px 18px;
-            border-radius: var(--erp-radius-sm);
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
+            padding: 8px 18px; border-radius: var(--erp-radius-sm);
+            font-size: 13px; font-weight: 500; cursor: pointer;
             transition: all var(--erp-transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            display: inline-flex; align-items: center; gap: 6px;
         }
 
         .btn-erp-outline:hover { border-color: var(--erp-text-muted); background: var(--erp-content-bg); }
 
         .btn-erp-ghost {
-            background: transparent;
-            color: var(--erp-text-muted);
-            border: none;
-            padding: 8px 14px;
-            border-radius: var(--erp-radius-sm);
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
+            background: transparent; color: var(--erp-text-muted); border: none;
+            padding: 8px 14px; border-radius: var(--erp-radius-sm);
+            font-size: 13px; font-weight: 500; cursor: pointer;
             transition: all var(--erp-transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            display: inline-flex; align-items: center; gap: 6px;
         }
 
         .btn-erp-ghost:hover { color: var(--erp-text); background: var(--erp-content-bg); }
 
-        /* ===== EMPTY STATE ===== */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-        }
-
-        .empty-state .empty-icon {
-            width: 64px;
-            height: 64px;
-            margin: 0 auto 20px;
-            background: var(--erp-content-bg);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            color: var(--erp-text-muted);
-        }
-
-        .empty-state h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
-        .empty-state p { font-size: 13px; color: var(--erp-text-muted); margin-bottom: 20px; }
-
         /* ===== FILTER PANEL ===== */
         .filter-panel {
-            position: fixed;
-            top: 0;
-            right: -380px;
-            width: 380px;
-            height: 100vh;
-            background: var(--erp-card-bg);
-            border-left: 1px solid var(--erp-border);
-            box-shadow: var(--erp-shadow-lg);
-            z-index: 1050;
+            position: fixed; top: 0; right: -380px; width: 380px; height: 100vh;
+            background: var(--erp-card-bg); border-left: 1px solid var(--erp-border);
+            box-shadow: var(--erp-shadow-lg); z-index: 1050;
             transition: right var(--erp-transition);
-            display: flex;
-            flex-direction: column;
+            display: flex; flex-direction: column;
         }
 
         .filter-panel.open { right: 0; }
 
         .filter-panel-header {
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--erp-border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            padding: 16px 20px; border-bottom: 1px solid var(--erp-border);
+            display: flex; align-items: center; justify-content: space-between;
         }
 
         .filter-panel-header h3 { font-size: 15px; font-weight: 600; margin: 0; }
 
-        .filter-panel-body {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-        }
+        .filter-panel-body { flex: 1; padding: 20px; overflow-y: auto; }
 
         .filter-group { margin-bottom: 20px; }
         .filter-group label { font-size: 12px; font-weight: 600; color: var(--erp-text-muted); margin-bottom: 6px; display: block; }
 
-        .filter-group select,
-        .filter-group input {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid var(--erp-border);
-            border-radius: var(--erp-radius-sm);
-            font-size: 13px;
-            background: var(--erp-content-bg);
-            color: var(--erp-text);
+        .filter-group select, .filter-group input {
+            width: 100%; padding: 8px 12px;
+            border: 1px solid var(--erp-border); border-radius: var(--erp-radius-sm);
+            font-size: 13px; background: var(--erp-content-bg); color: var(--erp-text);
         }
 
         .filter-panel-footer {
-            padding: 16px 20px;
-            border-top: 1px solid var(--erp-border);
-            display: flex;
-            gap: 8px;
+            padding: 16px 20px; border-top: 1px solid var(--erp-border);
+            display: flex; gap: 8px;
         }
 
         .filter-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,.3);
-            z-index: 1045;
-            opacity: 0;
-            pointer-events: none;
+            position: fixed; inset: 0; background: rgba(0,0,0,.3);
+            z-index: 1045; opacity: 0; pointer-events: none;
             transition: opacity var(--erp-transition);
         }
 
         .filter-overlay.open { opacity: 1; pointer-events: auto; }
 
-        /* ===== MOBILE OVERLAY ===== */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,.4);
-            z-index: 1035;
-        }
+        .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 1035; }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 991.98px) {
-            .erp-sidebar {
-                transform: translateX(-100%);
-            }
-
-            .erp-sidebar.mobile-open {
-                transform: translateX(0);
-            }
-
-            .erp-main {
-                margin-left: 0 !important;
-            }
-
-            .mobile-menu-btn { display: flex; }
-
-            .sidebar-overlay.show { display: block; }
-
-            .topbar-search input { width: 180px; }
-            .topbar-search input:focus { width: 220px; }
-
-            .detail-body {
-                grid-template-columns: 1fr;
-            }
-
-            .topbar-tenant .tenant-name { display: none; }
-        }
-
-        @media (max-width: 575.98px) {
-            .erp-content { padding: 16px; }
-
-            .page-header { flex-direction: column; }
-
-            .topbar-search { display: none; }
-
-            .stat-grid { grid-template-columns: 1fr 1fr; }
-
-            .table-toolbar { flex-direction: column; align-items: stretch; }
-
-            .table-toolbar-left, .table-toolbar-right { flex-wrap: wrap; }
-
-            .erp-table { font-size: 12px; }
-
-            .erp-table thead th, .erp-table tbody td { padding: 8px 10px; }
-
-            .detail-header { padding: 16px; }
-        }
-
-        /* ===== VIEW SWITCHER ===== */
         .view-switcher {
-            display: flex;
-            gap: 4px;
-            background: var(--erp-content-bg);
-            padding: 3px;
-            border-radius: 8px;
-            border: 1px solid var(--erp-border);
+            display: flex; gap: 4px; background: var(--erp-content-bg);
+            padding: 3px; border-radius: 8px; border: 1px solid var(--erp-border);
         }
 
         .view-switcher .view-btn {
-            padding: 6px 14px;
-            border: none;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            background: transparent;
-            color: var(--erp-text-muted);
+            padding: 6px 14px; border: none; border-radius: 6px;
+            font-size: 12px; font-weight: 500; cursor: pointer;
+            background: transparent; color: var(--erp-text-muted);
             transition: all var(--erp-transition);
         }
 
-        .view-switcher .view-btn.active {
-            background: var(--erp-card-bg);
-            color: var(--erp-text);
-            box-shadow: var(--erp-shadow);
-        }
+        .view-switcher .view-btn.active { background: var(--erp-card-bg); color: var(--erp-text); box-shadow: var(--erp-shadow); }
 
-        /* ===== ACTIVITY TIMELINE ===== */
-        .timeline-item {
-            display: flex;
-            gap: 12px;
-            padding: 10px 0;
-            position: relative;
-        }
-
-        .timeline-item:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            left: 15px;
-            top: 38px;
-            bottom: -2px;
-            width: 1px;
-            background: var(--erp-border);
-        }
-
-        .timeline-dot {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            flex-shrink: 0;
-        }
-
+        .timeline-item { display: flex; gap: 12px; padding: 10px 0; position: relative; }
+        .timeline-item:not(:last-child)::after { content: ''; position: absolute; left: 15px; top: 38px; bottom: -2px; width: 1px; background: var(--erp-border); }
+        .timeline-dot { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
         .timeline-dot.blue { background: #dbeafe; color: #2563eb; }
         .timeline-dot.green { background: #d1fae5; color: #059669; }
         .timeline-dot.amber { background: #fef3c7; color: #d97706; }
-
         .timeline-content { flex: 1; }
         .timeline-content .tl-text { font-size: 13px; }
         .timeline-content .tl-time { font-size: 11px; color: var(--erp-text-muted); margin-top: 2px; }
 
-        /* ===== PAGE SECTIONS (for prototype navigation) ===== */
         .page-section { display: none; }
         .page-section.active { display: block; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 991.98px) {
+            .erp-sidebar { transform: translateX(-100%); }
+            .erp-sidebar.mobile-open { transform: translateX(0); }
+            .erp-main { margin-left: 0 !important; }
+            .mobile-menu-btn { display: flex; }
+            .sidebar-overlay.show { display: block; }
+            .topbar-search input { width: 180px; }
+            .topbar-search input:focus { width: 220px; }
+            .detail-body { grid-template-columns: 1fr; }
+            .topbar-tenant .tenant-name { display: none; }
+            .login-left { display: none; }
+            .login-right { width: 100%; border-radius: 0; }
+        }
+
+        @media (max-width: 575.98px) {
+            .erp-content { padding: 16px; }
+            .page-header { flex-direction: column; }
+            .topbar-search { display: none; }
+            .stat-grid { grid-template-columns: 1fr 1fr; }
+            .table-toolbar { flex-direction: column; align-items: stretch; }
+            .erp-table { font-size: 12px; }
+            .erp-table thead th, .erp-table tbody td { padding: 8px 10px; }
+            .detail-header { padding: 16px; }
+            .login-right { padding: 32px 24px; }
+        }
     </style>
 </head>
 <body>
-    <div class="erp-wrapper">
-        <!-- SIDEBAR -->
-        <aside class="erp-sidebar" id="sidebar">
-            <div class="erp-sidebar-brand">
-                <div class="brand-logo">E</div>
-                <span class="brand-text">ErpAdmin</span>
+
+    <!-- ===== LOGIN PAGE ===== -->
+    <div class="page-section" id="page-login">
+        <div class="login-page">
+            <div class="login-left">
+                <div class="login-brand">
+                    <div class="brand-logo">E</div>
+                    <span class="brand-name">ErpAdmin</span>
+                </div>
+                <div class="login-illustration">
+                    <div class="illus-card">
+                        <div class="illus-title">企业级 ERP<br>管理平台</div>
+                        <div class="illus-desc">基于 OrchardCore CMS 的模块化 SaaS 管理系统，所有业务操作均在后台完成，通过角色权限精细控制数据访问。</div>
+                        <div class="illus-features">
+                            <div class="illus-feature">
+                                <div class="feat-icon blue"><i class="bi bi-shield-lock"></i></div>
+                                <span>角色权限精细控制，数据安全有保障</span>
+                            </div>
+                            <div class="illus-feature">
+                                <div class="feat-icon green"><i class="bi bi-puzzle"></i></div>
+                                <span>模块化架构，业务模块独立渲染</span>
+                            </div>
+                            <div class="illus-feature">
+                                <div class="feat-icon amber"><i class="bi bi-building"></i></div>
+                                <span>多租户 SaaS 支持，品牌独立定制</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="login-right">
+                <div class="login-form-header">
+                    <h1>登录</h1>
+                    <p>请输入您的账号和密码</p>
+                </div>
+                <div class="login-tenant-badge">
+                    <i class="bi bi-building"></i> 演示租户
+                </div>
+                <form class="login-form" onsubmit="event.preventDefault(); showPage('dashboard');">
+                    <div class="form-group">
+                        <label for="username">用户名或邮箱</label>
+                        <input type="text" id="username" class="form-input" placeholder="请输入用户名" autofocus>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密码</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" class="form-input" placeholder="请输入密码">
+                            <button type="button" class="password-toggle" onclick="togglePassword()">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-check">
+                            <input type="checkbox" id="rememberMe">
+                            <label for="rememberMe">记住我</label>
+                        </div>
+                        <a href="#" class="forgot-link">忘记密码？</a>
+                    </div>
+                    <button type="submit" class="login-btn">登 录</button>
+                </form>
+                <div class="login-divider">或使用其他方式登录</div>
+                <div class="login-external">
+                    <button class="ext-btn"><i class="bi bi-microsoft"></i> Microsoft</button>
+                    <button class="ext-btn"><i class="bi bi-google"></i> Google</button>
+                </div>
+                <div class="login-footer">
+                    &copy; 2024 ErpAdmin · <a href="#">隐私政策</a> · <a href="#">服务条款</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MAIN APP ===== -->
+    <div class="page-section" id="page-app">
+        <div class="erp-wrapper">
+            <aside class="erp-sidebar" id="sidebar">
+                <div class="erp-sidebar-brand">
+                    <div class="brand-logo">E</div>
+                    <span class="brand-text">ErpAdmin</span>
+                </div>
+                <nav class="erp-sidebar-nav">
+                    <div class="nav-section-title">概览</div>
+                    <div class="nav-item-erp">
+                        <a class="nav-link-erp active" href="#" onclick="showAppPage('dashboard')">
+                            <span class="nav-icon"><i class="bi bi-grid-1x2"></i></span>
+                            <span class="nav-label">仪表板</span>
+                        </a>
+                    </div>
+                    <div class="nav-section-title">业务管理</div>
+                    <div class="nav-item-erp">
+                        <a class="nav-link-erp" href="#" onclick="showAppPage('list')">
+                            <span class="nav-icon"><i class="bi bi-box-seam"></i></span>
+                            <span class="nav-label">产品管理</span>
+                            <span class="nav-badge">128</span>
+                        </a>
+                    </div>
+                    <div class="nav-item-erp">
+                        <a class="nav-link-erp" href="#" onclick="showAppPage('list')">
+                            <span class="nav-icon"><i class="bi bi-file-earmark-text"></i></span>
+                            <span class="nav-label">订单管理</span>
+                            <span class="nav-badge">23</span>
+                        </a>
+                    </div>
+                    <div class="nav-item-erp">
+                        <a class="nav-link-erp" href="#" onclick="showAppPage('list')">
+                            <span class="nav-icon"><i class="bi bi-people"></i></span>
+                            <span class="nav-label">客户管理</span>
+                        </a>
+                    </div>
+                    <div class="nav-item-erp">
+                        <button class="nav-link-erp" data-bs-toggle="collapse" data-bs-target="#inventorySub" aria-expanded="false">
+                            <span class="nav-icon"><i class="bi bi-archive"></i></span>
+                            <span class="nav-label">库存管理</span>
+                            <span class="nav-expand"><i class="bi bi-chevron-right"></i></span>
+                        </button>
+                        <div class="collapse nav-submenu" id="inventorySub">
+                            <a class="nav-link-erp" href="#">库存盘点</a>
+                            <a class="nav-link-erp" href="#">入库管理</a>
+                            <a class="nav-link-erp" href="#">出库管理</a>
+                            <a class="nav-link-erp" href="#">仓库设置</a>
+                        </div>
+                    </div>
+                    <div class="nav-section-title">财务</div>
+                    <div class="nav-item-erp">
+                        <a class="nav-link-erp" href="#">
+                            <span class="nav-icon"><i class="bi bi-cash-stack"></i></span>
+                            <span class="nav-label">应收应付</span>
+                        </a>
+                    </div>
+                    <div class="nav-item-erp">
+                        <a class="nav-link-erp" href="#">
+                            <span class="nav-icon"><i class="bi bi-file-earmark-spreadsheet"></i></span>
+                            <span class="nav-label">发票管理</span>
+                        </a>
+                    </div>
+                    <div class="nav-section-title">系统</div>
+                    <div class="nav-item-erp">
+                        <a class="nav-link-erp" href="#">
+                            <span class="nav-icon"><i class="bi bi-bar-chart"></i></span>
+                            <span class="nav-label">报表中心</span>
+                        </a>
+                    </div>
+                    <div class="nav-item-erp">
+                        <a class="nav-link-erp" href="#">
+                            <span class="nav-icon"><i class="bi bi-gear"></i></span>
+                            <span class="nav-label">系统设置</span>
+                        </a>
+                    </div>
+                </nav>
+                <div class="sidebar-footer">
+                    <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
+                        <i class="bi bi-chevron-double-left"></i>
+                    </button>
+                </div>
+            </aside>
+
+            <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
+
+            <div class="erp-main">
+                <header class="erp-topbar">
+                    <div class="topbar-left">
+                        <button class="mobile-menu-btn" onclick="openMobileSidebar()"><i class="bi bi-list"></i></button>
+                        <div class="topbar-search">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text" placeholder="搜索产品、订单、客户...">
+                        </div>
+                    </div>
+                    <div class="topbar-right">
+                        <div class="topbar-tenant">
+                            <i class="bi bi-building"></i>
+                            <span class="tenant-name">演示租户</span>
+                        </div>
+                        <button class="topbar-icon-btn" title="通知">
+                            <i class="bi bi-bell"></i>
+                            <span class="notif-dot"></span>
+                        </button>
+                        <button class="topbar-icon-btn" title="主题" onclick="toggleTheme()">
+                            <i class="bi bi-moon-stars"></i>
+                        </button>
+                        <div class="topbar-user" style="position:relative;" onclick="toggleUserMenu()">
+                            <div class="user-avatar">张</div>
+                            <div class="user-info">
+                                <div class="user-name">张明</div>
+                                <div class="user-role">管理员</div>
+                            </div>
+                            <!-- UserMenu shape override: NavbarUserMenu → 下拉菜单 -->
+                            <div class="topbar-user-dropdown" id="userDropdown">
+                                <div class="dropdown-header">当前登录为 <strong>张明</strong></div>
+                                <a class="dropdown-item" href="#"><i class="bi bi-person"></i> 个人资料</a>
+                                <a class="dropdown-item" href="#"><i class="bi bi-key"></i> 修改密码</a>
+                                <a class="dropdown-item" href="#"><i class="bi bi-shield-check"></i> 双因素认证</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item danger" href="#" onclick="showPage('login')"><i class="bi bi-box-arrow-right"></i> 退出登录</a>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <main class="erp-content">
+                    <!-- DASHBOARD -->
+                    <div class="app-page active" id="app-dashboard">
+                        <div class="page-header">
+                            <div class="page-header-left">
+                                <h1>仪表板</h1>
+                                <nav class="breadcrumb"><a href="#">首页</a> <span>/</span> <span class="active">仪表板</span></nav>
+                            </div>
+                            <div class="page-header-actions">
+                                <button class="btn-erp-outline"><i class="bi bi-download"></i> 导出报表</button>
+                                <button class="btn-erp-primary"><i class="bi bi-plus-lg"></i> 新建订单</button>
+                            </div>
+                        </div>
+                        <div class="stat-grid">
+                            <div class="stat-card"><div class="stat-icon blue"><i class="bi bi-box-seam"></i></div><div class="stat-value">1,284</div><div class="stat-label">产品总数</div><div class="stat-trend up"><i class="bi bi-arrow-up-short"></i> 12.5%</div></div>
+                            <div class="stat-card"><div class="stat-icon green"><i class="bi bi-file-earmark-text"></i></div><div class="stat-value">356</div><div class="stat-label">本月订单</div><div class="stat-trend up"><i class="bi bi-arrow-up-short"></i> 8.2%</div></div>
+                            <div class="stat-card"><div class="stat-icon amber"><i class="bi bi-people"></i></div><div class="stat-value">2,847</div><div class="stat-label">客户总数</div><div class="stat-trend up"><i class="bi bi-arrow-up-short"></i> 3.1%</div></div>
+                            <div class="stat-card"><div class="stat-icon rose"><i class="bi bi-cash-stack"></i></div><div class="stat-value">¥128.5万</div><div class="stat-label">本月营收</div><div class="stat-trend down"><i class="bi bi-arrow-down-short"></i> 2.4%</div></div>
+                        </div>
+                        <div class="erp-table-card">
+                            <div class="table-toolbar">
+                                <div class="table-toolbar-left"><h3 style="font-size:15px;font-weight:600;margin:0;">最近订单</h3></div>
+                                <div class="table-toolbar-right"><a href="#" onclick="showAppPage('list')" class="btn-erp-ghost" style="font-size:12px;">查看全部 <i class="bi bi-arrow-right"></i></a></div>
+                            </div>
+                            <div style="overflow-x:auto;">
+                                <table class="erp-table">
+                                    <thead><tr><th>订单号</th><th>客户</th><th>金额</th><th>状态</th><th>日期</th><th></th></tr></thead>
+                                    <tbody>
+                                        <tr><td class="cell-id">#ORD-20240601</td><td class="cell-primary">深圳科技有限公司</td><td>¥12,800.00</td><td><span class="status-badge success"><span class="status-dot"></span>已完成</span></td><td style="color:var(--erp-text-muted);font-size:12px;">2024-06-01</td><td><button class="action-dots"><i class="bi bi-three-dots-vertical"></i></button></td></tr>
+                                        <tr><td class="cell-id">#ORD-20240602</td><td class="cell-primary">北京创新科技</td><td>¥8,500.00</td><td><span class="status-badge info"><span class="status-dot"></span>配送中</span></td><td style="color:var(--erp-text-muted);font-size:12px;">2024-06-02</td><td><button class="action-dots"><i class="bi bi-three-dots-vertical"></i></button></td></tr>
+                                        <tr><td class="cell-id">#ORD-20240603</td><td class="cell-primary">上海贸易集团</td><td>¥45,200.00</td><td><span class="status-badge warning"><span class="status-dot"></span>待审核</span></td><td style="color:var(--erp-text-muted);font-size:12px;">2024-06-03</td><td><button class="action-dots"><i class="bi bi-three-dots-vertical"></i></button></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LIST PAGE -->
+                    <div class="app-page" id="app-list">
+                        <div class="page-header">
+                            <div class="page-header-left"><h1>产品管理</h1><nav class="breadcrumb"><a href="#" onclick="showAppPage('dashboard')">首页</a> <span>/</span> <span class="active">产品管理</span></nav></div>
+                            <div class="page-header-actions">
+                                <button class="btn-erp-outline"><i class="bi bi-upload"></i> 导入</button>
+                                <button class="btn-erp-outline"><i class="bi bi-download"></i> 导出</button>
+                                <button class="btn-erp-primary"><i class="bi bi-plus-lg"></i> 新建产品</button>
+                            </div>
+                        </div>
+                        <div class="erp-table-card">
+                            <div class="table-toolbar">
+                                <div class="table-toolbar-left">
+                                    <button class="table-filter-btn" onclick="toggleFilter()"><i class="bi bi-funnel"></i> 筛选</button>
+                                    <button class="table-filter-btn active">全部 <span style="opacity:.6">128</span></button>
+                                    <button class="table-filter-btn">在售 <span style="opacity:.6">96</span></button>
+                                    <button class="table-filter-btn">缺货 <span style="opacity:.6">12</span></button>
+                                    <div class="table-search"><i class="bi bi-search search-icon"></i><input type="text" placeholder="搜索产品..."></div>
+                                </div>
+                                <div class="table-toolbar-right">
+                                    <div class="view-switcher"><button class="view-btn active"><i class="bi bi-list-ul"></i></button><button class="view-btn"><i class="bi bi-grid"></i></button></div>
+                                </div>
+                            </div>
+                            <div style="overflow-x:auto;">
+                                <table class="erp-table">
+                                    <thead><tr><th><input type="checkbox"></th><th>产品编号</th><th>产品名称</th><th>分类</th><th>价格</th><th>库存</th><th>状态</th><th>更新时间</th><th></th></tr></thead>
+                                    <tbody>
+                                        <tr><td><input type="checkbox"></td><td class="cell-id">SKU-00128</td><td><a href="#" class="cell-link" onclick="showAppPage('detail')">智能手表 Pro Max</a></td><td style="color:var(--erp-text-muted)">电子产品</td><td class="cell-primary">¥2,999.00</td><td>156</td><td><span class="status-badge success"><span class="status-dot"></span>在售</span></td><td style="color:var(--erp-text-muted);font-size:12px;">2小时前</td><td><button class="action-dots"><i class="bi bi-three-dots-vertical"></i></button></td></tr>
+                                        <tr><td><input type="checkbox"></td><td class="cell-id">SKU-00127</td><td><a href="#" class="cell-link" onclick="showAppPage('detail')">无线降噪耳机</a></td><td style="color:var(--erp-text-muted)">电子产品</td><td class="cell-primary">¥899.00</td><td>0</td><td><span class="status-badge danger"><span class="status-dot"></span>缺货</span></td><td style="color:var(--erp-text-muted);font-size:12px;">5小时前</td><td><button class="action-dots"><i class="bi bi-three-dots-vertical"></i></button></td></tr>
+                                        <tr><td><input type="checkbox"></td><td class="cell-id">SKU-00126</td><td><a href="#" class="cell-link" onclick="showAppPage('detail')">便携蓝牙音箱</a></td><td style="color:var(--erp-text-muted)">电子产品</td><td class="cell-primary">¥499.00</td><td>82</td><td><span class="status-badge success"><span class="status-dot"></span>在售</span></td><td style="color:var(--erp-text-muted);font-size:12px;">1天前</td><td><button class="action-dots"><i class="bi bi-three-dots-vertical"></i></button></td></tr>
+                                        <tr><td><input type="checkbox"></td><td class="cell-id">SKU-00125</td><td><a href="#" class="cell-link" onclick="showAppPage('detail')">机械键盘 RGB</a></td><td style="color:var(--erp-text-muted)">外设</td><td class="cell-primary">¥699.00</td><td>45</td><td><span class="status-badge warning"><span class="status-dot"></span>库存预警</span></td><td style="color:var(--erp-text-muted);font-size:12px;">2天前</td><td><button class="action-dots"><i class="bi bi-three-dots-vertical"></i></button></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-footer">
+                                <span>显示 1-4 / 共 128 条</span>
+                                <div class="erp-pagination"><button class="page-btn"><i class="bi bi-chevron-left"></i></button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button><button class="page-btn">...</button><button class="page-btn">32</button><button class="page-btn"><i class="bi bi-chevron-right"></i></button></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DETAIL PAGE -->
+                    <div class="app-page" id="app-detail">
+                        <div class="page-header">
+                            <div class="page-header-left"><h1>产品详情</h1><nav class="breadcrumb"><a href="#" onclick="showAppPage('dashboard')">首页</a> <span>/</span> <a href="#" onclick="showAppPage('list')">产品管理</a> <span>/</span> <span class="active">智能手表 Pro Max</span></nav></div>
+                            <div class="page-header-actions">
+                                <button class="btn-erp-ghost" onclick="showAppPage('list')"><i class="bi bi-arrow-left"></i> 返回列表</button>
+                                <button class="btn-erp-outline"><i class="bi bi-printer"></i> 打印</button>
+                                <button class="btn-erp-outline"><i class="bi bi-pencil"></i> 编辑</button>
+                                <button class="btn-erp-primary"><i class="bi bi-eye"></i> 查看前台</button>
+                            </div>
+                        </div>
+                        <div class="detail-header">
+                            <div class="detail-title-row"><h2>智能手表 Pro Max</h2><span class="status-badge success"><span class="status-dot"></span>在售</span></div>
+                            <div class="detail-meta">
+                                <span><i class="bi bi-upc-scan"></i> SKU-00128</span>
+                                <span><i class="bi bi-folder"></i> 电子产品</span>
+                                <span><i class="bi bi-calendar"></i> 创建于 2024-05-15</span>
+                                <span><i class="bi bi-clock"></i> 更新于 2小时前</span>
+                                <span><i class="bi bi-person"></i> 张明</span>
+                            </div>
+                        </div>
+                        <div class="detail-body">
+                            <div class="detail-main">
+                                <div class="detail-card"><div class="detail-card-header"><i class="bi bi-info-circle"></i> 基本信息</div><div class="detail-card-body"><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;"><div class="detail-field"><div class="field-label">产品名称</div><div class="field-value">智能手表 Pro Max</div></div><div class="detail-field"><div class="field-label">产品编号</div><div class="field-value" style="font-family:'Space Grotesk',monospace;">SKU-00128</div></div><div class="detail-field"><div class="field-label">分类</div><div class="field-value">电子产品 / 智能穿戴</div></div><div class="detail-field"><div class="field-label">品牌</div><div class="field-value">TechBrand</div></div><div class="detail-field"><div class="field-label">售价</div><div class="field-value" style="font-size:18px;font-weight:600;color:var(--erp-primary);">¥2,999.00</div></div><div class="detail-field"><div class="field-label">成本价</div><div class="field-value">¥1,850.00</div></div></div><div class="detail-field" style="margin-top:16px;"><div class="field-label">产品描述</div><div class="field-value" style="line-height:1.6;">搭载最新健康监测芯片，支持血氧、心率、睡眠全天候监测。1.5英寸 AMOLED 高清屏幕，IP68 级防水，续航长达 14 天。</div></div></div></div>
+                                <div class="detail-card"><div class="detail-card-header"><i class="bi bi-archive"></i> 库存信息</div><div class="detail-card-body"><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;"><div class="detail-field"><div class="field-label">当前库存</div><div class="field-value" style="font-size:22px;font-weight:700;">156</div></div><div class="detail-field"><div class="field-label">安全库存</div><div class="field-value">50</div></div><div class="detail-field"><div class="field-label">仓库</div><div class="field-value">华东仓</div></div></div></div></div>
+                            </div>
+                            <div class="detail-sidebar-panel">
+                                <div class="detail-card"><div class="detail-card-header"><i class="bi bi-lightning"></i> 快捷操作</div><div class="detail-card-body" style="display:flex;flex-direction:column;gap:8px;"><button class="btn-erp-primary" style="width:100%;justify-content:center;"><i class="bi bi-pencil"></i> 编辑产品</button><button class="btn-erp-outline" style="width:100%;justify-content:center;"><i class="bi bi-plus-circle"></i> 补货入库</button><button class="btn-erp-ghost" style="width:100%;justify-content:center;color:var(--erp-danger);"><i class="bi bi-trash"></i> 删除产品</button></div></div>
+                                <div class="detail-card"><div class="detail-card-header"><i class="bi bi-meta"></i> 元数据</div><div class="detail-card-body"><div class="detail-field"><div class="field-label">内容项ID</div><div class="field-value" style="font-family:'Space Grotesk',monospace;font-size:12px;word-break:break-all;">4k5h8g2n...a7f3</div></div><div class="detail-field"><div class="field-label">创建者</div><div class="field-value">张明</div></div><div class="detail-field"><div class="field-label">创建时间</div><div class="field-value">2024-05-15 10:30</div></div><div class="detail-field"><div class="field-label">发布状态</div><div class="field-value"><span class="status-badge success"><span class="status-dot"></span>已发布</span></div></div></div></div>
+                                <div class="detail-card"><div class="detail-card-header"><i class="bi bi-activity"></i> 最近活动</div><div class="detail-card-body"><div class="timeline-item"><div class="timeline-dot blue"><i class="bi bi-pencil"></i></div><div class="timeline-content"><div class="tl-text">修改了产品价格</div><div class="tl-time">2小时前 · 张明</div></div></div><div class="timeline-item"><div class="timeline-dot green"><i class="bi bi-box-arrow-in-down"></i></div><div class="timeline-content"><div class="tl-text">入库 +50 件</div><div class="tl-time">1天前 · 李华</div></div></div></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SHAPE MAP PAGE ===== -->
+    <div class="page-section" id="page-shapemap">
+        <div class="shape-map-page">
+            <h1>ErpAdmin 形状覆盖映射</h1>
+            <p>OrchardCore 视图解析顺序: ErpAdmin(当前主题) → TheAdmin(基主题) → 各模块(原始定义)</p>
+
+            <div class="shape-section">
+                <h2>布局与页面结构</h2>
+                <table class="shape-table">
+                    <thead><tr><th>形状名称</th><th>ErpAdmin 覆盖文件</th><th>来源模块</th><th>类型</th></tr></thead>
+                    <tbody>
+                        <tr><td>Layout</td><td class="file-path">Views/Layout.cshtml</td><td>TheAdmin</td><td><span class="override-tag override">覆盖</span></td></tr>
+                        <tr><td>Layout__Login</td><td class="file-path">Views/Layout-Login.cshtml</td><td>TheAdmin</td><td><span class="override-tag new">新增</span></td></tr>
+                        <tr><td>Layout-TwoFactor</td><td class="file-path">Views/Layout-TwoFactor.cshtml</td><td>TheAdmin</td><td><span class="override-tag override">覆盖</span></td></tr>
+                    </tbody>
+                </table>
             </div>
 
-            <nav class="erp-sidebar-nav">
-                <div class="nav-section-title">概览</div>
-                <div class="nav-item-erp">
-                    <a class="nav-link-erp active" href="#" onclick="showPage('dashboard')">
-                        <span class="nav-icon"><i class="bi bi-grid-1x2"></i></span>
-                        <span class="nav-label">仪表板</span>
-                    </a>
-                </div>
-
-                <div class="nav-section-title">业务管理</div>
-                <div class="nav-item-erp">
-                    <a class="nav-link-erp" href="#" onclick="showPage('list')">
-                        <span class="nav-icon"><i class="bi bi-box-seam"></i></span>
-                        <span class="nav-label">产品管理</span>
-                        <span class="nav-badge">128</span>
-                    </a>
-                </div>
-                <div class="nav-item-erp">
-                    <a class="nav-link-erp" href="#" onclick="showPage('list')">
-                        <span class="nav-icon"><i class="bi bi-file-earmark-text"></i></span>
-                        <span class="nav-label">订单管理</span>
-                        <span class="nav-badge">23</span>
-                    </a>
-                </div>
-                <div class="nav-item-erp">
-                    <a class="nav-link-erp" href="#" onclick="showPage('list')">
-                        <span class="nav-icon"><i class="bi bi-people"></i></span>
-                        <span class="nav-label">客户管理</span>
-                    </a>
-                </div>
-                <div class="nav-item-erp">
-                    <button class="nav-link-erp" data-bs-toggle="collapse" data-bs-target="#inventorySub" aria-expanded="false">
-                        <span class="nav-icon"><i class="bi bi-archive"></i></span>
-                        <span class="nav-label">库存管理</span>
-                        <span class="nav-expand"><i class="bi bi-chevron-right"></i></span>
-                    </button>
-                    <div class="collapse nav-submenu" id="inventorySub">
-                        <a class="nav-link-erp" href="#">库存盘点</a>
-                        <a class="nav-link-erp" href="#">入库管理</a>
-                        <a class="nav-link-erp" href="#">出库管理</a>
-                        <a class="nav-link-erp" href="#">仓库设置</a>
-                    </div>
-                </div>
-                <div class="nav-item-erp">
-                    <a class="nav-link-erp" href="#">
-                        <span class="nav-icon"><i class="bi bi-receipt"></i></span>
-                        <span class="nav-label">采购管理</span>
-                    </a>
-                </div>
-
-                <div class="nav-section-title">财务</div>
-                <div class="nav-item-erp">
-                    <a class="nav-link-erp" href="#">
-                        <span class="nav-icon"><i class="bi bi-cash-stack"></i></span>
-                        <span class="nav-label">应收应付</span>
-                    </a>
-                </div>
-                <div class="nav-item-erp">
-                    <a class="nav-link-erp" href="#">
-                        <span class="nav-icon"><i class="bi bi-file-earmark-spreadsheet"></i></span>
-                        <span class="nav-label">发票管理</span>
-                    </a>
-                </div>
-
-                <div class="nav-section-title">系统</div>
-                <div class="nav-item-erp">
-                    <a class="nav-link-erp" href="#">
-                        <span class="nav-icon"><i class="bi bi-bar-chart"></i></span>
-                        <span class="nav-label">报表中心</span>
-                    </a>
-                </div>
-                <div class="nav-item-erp">
-                    <a class="nav-link-erp" href="#">
-                        <span class="nav-icon"><i class="bi bi-gear"></i></span>
-                        <span class="nav-label">系统设置</span>
-                    </a>
-                </div>
-            </nav>
-
-            <div class="sidebar-footer">
-                <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
-                    <i class="bi bi-chevron-double-left"></i>
-                </button>
+            <div class="shape-section">
+                <h2>导航与菜单</h2>
+                <table class="shape-table">
+                    <thead><tr><th>形状名称</th><th>ErpAdmin 覆盖文件</th><th>来源模块</th><th>类型</th></tr></thead>
+                    <tbody>
+                        <tr><td>Navigation-admin</td><td class="file-path">Views/Navigation-admin.cshtml</td><td>TheAdmin</td><td><span class="override-tag override">覆盖</span></td></tr>
+                        <tr><td>NavigationItem-admin</td><td class="file-path">Views/NavigationItem-admin.cshtml</td><td>TheAdmin</td><td><span class="override-tag override">覆盖</span></td></tr>
+                        <tr><td>NavigationItemLink-admin</td><td class="file-path">Views/NavigationItemLink-admin.cshtml</td><td>TheAdmin</td><td><span class="override-tag override">覆盖</span></td></tr>
+                        <tr><td>NavigationItemText</td><td class="file-path">Views/NavigationItemText.cshtml</td><td>TheAdmin</td><td><span class="override-tag override">覆盖</span></td></tr>
+                        <tr><td>AdminBranding</td><td class="file-path">Views/AdminBranding.cshtml</td><td>OrchardCore.Admin</td><td><span class="override-tag new">新增</span></td></tr>
+                    </tbody>
+                </table>
             </div>
-        </aside>
 
-        <!-- SIDEBAR OVERLAY (mobile) -->
-        <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
+            <div class="shape-section">
+                <h2>导航栏与用户菜单</h2>
+                <table class="shape-table">
+                    <thead><tr><th>形状名称</th><th>ErpAdmin 覆盖文件</th><th>来源模块</th><th>类型</th></tr></thead>
+                    <tbody>
+                        <tr><td>Navbar (DetailAdmin)</td><td class="file-path">Views/Navbar.DetailAdmin.cshtml</td><td>OrchardCore.Admin</td><td><span class="override-tag new">新增</span></td></tr>
+                        <tr><td>NavbarUserMenu</td><td class="file-path">Views/NavbarUserMenu.cshtml</td><td>OrchardCore.Users</td><td><span class="override-tag new">新增</span></td></tr>
+                        <tr><td>UserMenu</td><td class="file-path">Views/UserMenu.cshtml</td><td>OrchardCore.Users</td><td><span class="override-tag new">新增</span></td></tr>
+                        <tr><td>UserMenuItems-SignedUser</td><td class="file-path">Views/UserMenuItems-SignedUser.cshtml</td><td>OrchardCore.Users</td><td><span class="override-tag new">新增</span></td></tr>
+                        <tr><td>UserMenuItems-SignOut</td><td class="file-path">Views/UserMenuItems-SignOut.cshtml</td><td>OrchardCore.Users</td><td><span class="override-tag new">新增</span></td></tr>
+                        <tr><td>ToggleTheme</td><td class="file-path">Views/ToggleTheme.cshtml</td><td>TheAdmin</td><td><span class="override-tag inherit">继承</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <!-- MAIN -->
-        <div class="erp-main">
-            <!-- TOPBAR -->
-            <header class="erp-topbar">
-                <div class="topbar-left">
-                    <button class="mobile-menu-btn" onclick="openMobileSidebar()">
-                        <i class="bi bi-list"></i>
-                    </button>
-                    <div class="topbar-search">
-                        <i class="bi bi-search search-icon"></i>
-                        <input type="text" placeholder="搜索产品、订单、客户...">
-                    </div>
-                </div>
-                <div class="topbar-right">
-                    <div class="topbar-tenant">
-                        <i class="bi bi-building"></i>
-                        <span class="tenant-name">演示租户</span>
-                    </div>
-                    <button class="topbar-icon-btn" title="通知">
-                        <i class="bi bi-bell"></i>
-                        <span class="notif-dot"></span>
-                    </button>
-                    <button class="topbar-icon-btn" title="主题" onclick="toggleTheme()">
-                        <i class="bi bi-moon-stars"></i>
-                    </button>
-                    <div class="topbar-user">
-                        <div class="user-avatar">张</div>
-                        <div class="user-info">
-                            <div class="user-name">张明</div>
-                            <div class="user-role">管理员</div>
-                        </div>
-                    </div>
-                </div>
-            </header>
+            <div class="shape-section">
+                <h2>内容显示 (DetailAdmin / SummaryAdmin)</h2>
+                <table class="shape-table">
+                    <thead><tr><th>形状名称</th><th>ErpAdmin 覆盖文件</th><th>来源模块</th><th>类型</th></tr></thead>
+                    <tbody>
+                        <tr><td>Content.DetailAdmin</td><td class="file-path">Views/Content.DetailAdmin.cshtml</td><td>OrchardCore.Contents</td><td><span class="override-tag new">新增</span></td></tr>
+                        <tr><td>ContentPart.DetailAdmin</td><td class="file-path">Views/ContentPart.DetailAdmin.cshtml</td><td>OrchardCore.Contents</td><td><span class="override-tag new">新增</span></td></tr>
+                        <tr><td>Content.SummaryAdmin</td><td class="file-path">Views/Content.SummaryAdmin.cshtml</td><td>OrchardCore.Contents</td><td><span class="override-tag new">新增</span></td></tr>
+                        <tr><td>ContentsAdminList</td><td class="file-path">Views/ContentsAdminList.cshtml</td><td>OrchardCore.Contents</td><td><span class="override-tag new">新增</span></td></tr>
+                        <tr><td>Stereotype.DetailAdmin</td><td class="file-path">Views/Stereotype.DetailAdmin.cshtml</td><td>OrchardCore.Contents</td><td><span class="override-tag new">新增</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
 
-            <!-- CONTENT AREA -->
-            <main class="erp-content">
+            <div class="shape-section">
+                <h2>登录与认证</h2>
+                <table class="shape-table">
+                    <thead><tr><th>形状名称</th><th>ErpAdmin 覆盖文件</th><th>来源模块</th><th>类型</th></tr></thead>
+                    <tbody>
+                        <tr><td>Account/Login</td><td class="file-path">Views/Account/Login.cshtml</td><td>OrchardCore.Users</td><td><span class="override-tag new">新增</span></td></tr>
+                        <tr><td>LoginFormCredentials</td><td class="file-path">Views/LoginFormCredentials.cshtml</td><td>OrchardCore.Users</td><td><span class="override-tag new">新增</span></td></tr>
+                        <tr><td>LoginFormForgotPassword</td><td class="file-path">Views/LoginFormForgotPassword.cshtml</td><td>OrchardCore.Users</td><td><span class="override-tag new">新增</span></td></tr>
+                        <tr><td>LoginFormRegisterUser</td><td class="file-path">Views/LoginFormRegisterUser.cshtml</td><td>OrchardCore.Users</td><td><span class="override-tag new">新增</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
 
-                <!-- ===== DASHBOARD PAGE ===== -->
-                <div class="page-section active" id="page-dashboard">
-                    <div class="page-header">
-                        <div class="page-header-left">
-                            <h1>仪表板</h1>
-                            <nav class="breadcrumb">
-                                <a href="#">首页</a> <span>/</span> <span class="active">仪表板</span>
-                            </nav>
-                        </div>
-                        <div class="page-header-actions">
-                            <button class="btn-erp-outline"><i class="bi bi-download"></i> 导出报表</button>
-                            <button class="btn-erp-primary"><i class="bi bi-plus-lg"></i> 新建订单</button>
-                        </div>
-                    </div>
-
-                    <!-- Stat Cards -->
-                    <div class="stat-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon blue"><i class="bi bi-box-seam"></i></div>
-                            <div class="stat-value">1,284</div>
-                            <div class="stat-label">产品总数</div>
-                            <div class="stat-trend up"><i class="bi bi-arrow-up-short"></i> 12.5%</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon green"><i class="bi bi-file-earmark-text"></i></div>
-                            <div class="stat-value">356</div>
-                            <div class="stat-label">本月订单</div>
-                            <div class="stat-trend up"><i class="bi bi-arrow-up-short"></i> 8.2%</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon amber"><i class="bi bi-people"></i></div>
-                            <div class="stat-value">2,847</div>
-                            <div class="stat-label">客户总数</div>
-                            <div class="stat-trend up"><i class="bi bi-arrow-up-short"></i> 3.1%</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon rose"><i class="bi bi-cash-stack"></i></div>
-                            <div class="stat-value">¥128.5万</div>
-                            <div class="stat-label">本月营收</div>
-                            <div class="stat-trend down"><i class="bi bi-arrow-down-short"></i> 2.4%</div>
-                        </div>
-                    </div>
-
-                    <!-- Recent Orders Table -->
-                    <div class="erp-table-card">
-                        <div class="table-toolbar">
-                            <div class="table-toolbar-left">
-                                <h3 style="font-size: 15px; font-weight: 600; margin: 0;">最近订单</h3>
-                            </div>
-                            <div class="table-toolbar-right">
-                                <a href="#" onclick="showPage('list')" class="btn-erp-ghost" style="font-size:12px;">查看全部 <i class="bi bi-arrow-right"></i></a>
-                            </div>
-                        </div>
-                        <div style="overflow-x: auto;">
-                            <table class="erp-table">
-                                <thead>
-                                    <tr>
-                                        <th>订单号</th>
-                                        <th>客户</th>
-                                        <th>金额</th>
-                                        <th>状态</th>
-                                        <th>日期</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="cell-id">#ORD-20240601</td>
-                                        <td class="cell-primary">深圳科技有限公司</td>
-                                        <td>¥12,800.00</td>
-                                        <td><span class="status-badge success"><span class="status-dot"></span>已完成</span></td>
-                                        <td style="color:var(--erp-text-muted); font-size:12px;">2024-06-01</td>
-                                        <td><button class="action-dots"><i class="bi bi-three-dots-vertical"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cell-id">#ORD-20240602</td>
-                                        <td class="cell-primary">北京创新科技</td>
-                                        <td>¥8,500.00</td>
-                                        <td><span class="status-badge info"><span class="status-dot"></span>配送中</span></td>
-                                        <td style="color:var(--erp-text-muted); font-size:12px;">2024-06-02</td>
-                                        <td><button class="action-dots"><i class="bi bi-three-dots-vertical"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cell-id">#ORD-20240603</td>
-                                        <td class="cell-primary">上海贸易集团</td>
-                                        <td>¥45,200.00</td>
-                                        <td><span class="status-badge warning"><span class="status-dot"></span>待审核</span></td>
-                                        <td style="color:var(--erp-text-muted); font-size:12px;">2024-06-03</td>
-                                        <td><button class="action-dots"><i class="bi bi-three-dots-vertical"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cell-id">#ORD-20240604</td>
-                                        <td class="cell-primary">广州智能制造</td>
-                                        <td>¥23,100.00</td>
-                                        <td><span class="status-badge danger"><span class="status-dot"></span>已取消</span></td>
-                                        <td style="color:var(--erp-text-muted); font-size:12px;">2024-06-04</td>
-                                        <td><button class="action-dots"><i class="bi bi-three-dots-vertical"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cell-id">#ORD-20240605</td>
-                                        <td class="cell-primary">杭州数据服务</td>
-                                        <td>¥6,750.00</td>
-                                        <td><span class="status-badge neutral"><span class="status-dot"></span>草稿</span></td>
-                                        <td style="color:var(--erp-text-muted); font-size:12px;">2024-06-05</td>
-                                        <td><button class="action-dots"><i class="bi bi-three-dots-vertical"></i></button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ===== LIST PAGE ===== -->
-                <div class="page-section" id="page-list">
-                    <div class="page-header">
-                        <div class="page-header-left">
-                            <h1>产品管理</h1>
-                            <nav class="breadcrumb">
-                                <a href="#" onclick="showPage('dashboard')">首页</a> <span>/</span> <span class="active">产品管理</span>
-                            </nav>
-                        </div>
-                        <div class="page-header-actions">
-                            <button class="btn-erp-outline"><i class="bi bi-upload"></i> 导入</button>
-                            <button class="btn-erp-outline"><i class="bi bi-download"></i> 导出</button>
-                            <button class="btn-erp-primary"><i class="bi bi-plus-lg"></i> 新建产品</button>
-                        </div>
-                    </div>
-
-                    <div class="erp-table-card">
-                        <div class="table-toolbar">
-                            <div class="table-toolbar-left">
-                                <button class="table-filter-btn" onclick="toggleFilter()">
-                                    <i class="bi bi-funnel"></i> 筛选
-                                </button>
-                                <button class="table-filter-btn active">
-                                    全部 <span style="opacity:.6">128</span>
-                                </button>
-                                <button class="table-filter-btn">
-                                    在售 <span style="opacity:.6">96</span>
-                                </button>
-                                <button class="table-filter-btn">
-                                    缺货 <span style="opacity:.6">12</span>
-                                </button>
-                                <button class="table-filter-btn">
-                                    下架 <span style="opacity:.6">20</span>
-                                </button>
-                                <div class="table-search">
-                                    <i class="bi bi-search search-icon"></i>
-                                    <input type="text" placeholder="搜索产品...">
-                                </div>
-                            </div>
-                            <div class="table-toolbar-right">
-                                <div class="view-switcher">
-                                    <button class="view-btn active"><i class="bi bi-list-ul"></i></button>
-                                    <button class="view-btn"><i class="bi bi-grid"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="overflow-x: auto;">
-                            <table class="erp-table">
-                                <thead>
-                                    <tr>
-                                        <th><input type="checkbox"></th>
-                                        <th>产品编号</th>
-                                        <th>产品名称</th>
-                                        <th>分类</th>
-                                        <th>价格</th>
-                                        <th>库存</th>
-                                        <th>状态</th>
-                                        <th>更新时间</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td class="cell-id">SKU-00128</td>
-                                        <td><a href="#" class="cell-link" onclick="showPage('detail')">智能手表 Pro Max</a></td>
-                                        <td style="color:var(--erp-text-muted)">电子产品</td>
-                                        <td class="cell-primary">¥2,999.00</td>
-                                        <td>156</td>
-                                        <td><span class="status-badge success"><span class="status-dot"></span>在售</span></td>
-                                        <td style="color:var(--erp-text-muted); font-size:12px;">2小时前</td>
-                                        <td><button class="action-dots"><i class="bi bi-three-dots-vertical"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td class="cell-id">SKU-00127</td>
-                                        <td><a href="#" class="cell-link" onclick="showPage('detail')">无线降噪耳机</a></td>
-                                        <td style="color:var(--erp-text-muted)">电子产品</td>
-                                        <td class="cell-primary">¥899.00</td>
-                                        <td>0</td>
-                                        <td><span class="status-badge danger"><span class="status-dot"></span>缺货</span></td>
-                                        <td style="color:var(--erp-text-muted); font-size:12px;">5小时前</td>
-                                        <td><button class="action-dots"><i class="bi bi-three-dots-vertical"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td class="cell-id">SKU-00126</td>
-                                        <td><a href="#" class="cell-link" onclick="showPage('detail')">便携蓝牙音箱</a></td>
-                                        <td style="color:var(--erp-text-muted)">电子产品</td>
-                                        <td class="cell-primary">¥499.00</td>
-                                        <td>82</td>
-                                        <td><span class="status-badge success"><span class="status-dot"></span>在售</span></td>
-                                        <td style="color:var(--erp-text-muted); font-size:12px;">1天前</td>
-                                        <td><button class="action-dots"><i class="bi bi-three-dots-vertical"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td class="cell-id">SKU-00125</td>
-                                        <td><a href="#" class="cell-link" onclick="showPage('detail')">机械键盘 RGB</a></td>
-                                        <td style="color:var(--erp-text-muted)">外设</td>
-                                        <td class="cell-primary">¥699.00</td>
-                                        <td>45</td>
-                                        <td><span class="status-badge warning"><span class="status-dot"></span>库存预警</span></td>
-                                        <td style="color:var(--erp-text-muted); font-size:12px;">2天前</td>
-                                        <td><button class="action-dots"><i class="bi bi-three-dots-vertical"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td class="cell-id">SKU-00124</td>
-                                        <td><a href="#" class="cell-link" onclick="showPage('detail')">4K 显示器 27寸</a></td>
-                                        <td style="color:var(--erp-text-muted)">显示器</td>
-                                        <td class="cell-primary">¥3,499.00</td>
-                                        <td>23</td>
-                                        <td><span class="status-badge success"><span class="status-dot"></span>在售</span></td>
-                                        <td style="color:var(--erp-text-muted); font-size:12px;">3天前</td>
-                                        <td><button class="action-dots"><i class="bi bi-three-dots-vertical"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td class="cell-id">SKU-00123</td>
-                                        <td><a href="#" class="cell-link" onclick="showPage('detail')">人体工学椅</a></td>
-                                        <td style="color:var(--erp-text-muted)">办公家具</td>
-                                        <td class="cell-primary">¥1,899.00</td>
-                                        <td>0</td>
-                                        <td><span class="status-badge neutral"><span class="status-dot"></span>已下架</span></td>
-                                        <td style="color:var(--erp-text-muted); font-size:12px;">5天前</td>
-                                        <td><button class="action-dots"><i class="bi bi-three-dots-vertical"></i></button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="table-footer">
-                            <span>显示 1-6 / 共 128 条</span>
-                            <div class="erp-pagination">
-                                <button class="page-btn"><i class="bi bi-chevron-left"></i></button>
-                                <button class="page-btn active">1</button>
-                                <button class="page-btn">2</button>
-                                <button class="page-btn">3</button>
-                                <button class="page-btn">...</button>
-                                <button class="page-btn">22</button>
-                                <button class="page-btn"><i class="bi bi-chevron-right"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ===== DETAIL PAGE (DetailAdmin) ===== -->
-                <div class="page-section" id="page-detail">
-                    <div class="page-header">
-                        <div class="page-header-left">
-                            <h1>产品详情</h1>
-                            <nav class="breadcrumb">
-                                <a href="#" onclick="showPage('dashboard')">首页</a> <span>/</span>
-                                <a href="#" onclick="showPage('list')">产品管理</a> <span>/</span>
-                                <span class="active">智能手表 Pro Max</span>
-                            </nav>
-                        </div>
-                        <div class="page-header-actions">
-                            <button class="btn-erp-ghost" onclick="showPage('list')"><i class="bi bi-arrow-left"></i> 返回列表</button>
-                            <button class="btn-erp-outline"><i class="bi bi-printer"></i> 打印</button>
-                            <button class="btn-erp-outline"><i class="bi bi-pencil"></i> 编辑</button>
-                            <button class="btn-erp-primary"><i class="bi bi-eye"></i> 查看前台</button>
-                        </div>
-                    </div>
-
-                    <!-- Detail Header Card -->
-                    <div class="detail-header">
-                        <div class="detail-header-top">
-                            <div>
-                                <div class="detail-title-row">
-                                    <h2>智能手表 Pro Max</h2>
-                                    <span class="status-badge success"><span class="status-dot"></span>在售</span>
-                                </div>
-                                <div class="detail-meta">
-                                    <span><i class="bi bi-upc-scan"></i> SKU-00128</span>
-                                    <span><i class="bi bi-folder"></i> 电子产品</span>
-                                    <span><i class="bi bi-calendar"></i> 创建于 2024-05-15</span>
-                                    <span><i class="bi bi-clock"></i> 更新于 2小时前</span>
-                                    <span><i class="bi bi-person"></i> 张明</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Detail Body: Main + Sidebar -->
-                    <div class="detail-body">
-                        <div class="detail-main">
-                            <!-- Content Part - 基本信息 -->
-                            <div class="detail-card">
-                                <div class="detail-card-header">
-                                    <i class="bi bi-info-circle"></i> 基本信息
-                                </div>
-                                <div class="detail-card-body">
-                                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-                                        <div class="detail-field">
-                                            <div class="field-label">产品名称</div>
-                                            <div class="field-value">智能手表 Pro Max</div>
-                                        </div>
-                                        <div class="detail-field">
-                                            <div class="field-label">产品编号</div>
-                                            <div class="field-value" style="font-family:'Space Grotesk',monospace;">SKU-00128</div>
-                                        </div>
-                                        <div class="detail-field">
-                                            <div class="field-label">分类</div>
-                                            <div class="field-value">电子产品 / 智能穿戴</div>
-                                        </div>
-                                        <div class="detail-field">
-                                            <div class="field-label">品牌</div>
-                                            <div class="field-value">TechBrand</div>
-                                        </div>
-                                        <div class="detail-field">
-                                            <div class="field-label">售价</div>
-                                            <div class="field-value" style="font-size:18px; font-weight:600; color:var(--erp-primary);">¥2,999.00</div>
-                                        </div>
-                                        <div class="detail-field">
-                                            <div class="field-label">成本价</div>
-                                            <div class="field-value">¥1,850.00</div>
-                                        </div>
-                                    </div>
-                                    <div class="detail-field" style="margin-top:16px;">
-                                        <div class="field-label">产品描述</div>
-                                        <div class="field-value" style="line-height:1.6;">搭载最新健康监测芯片，支持血氧、心率、睡眠全天候监测。1.5英寸 AMOLED 高清屏幕，IP68 级防水，续航长达 14 天。</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Content Part - 库存信息 -->
-                            <div class="detail-card">
-                                <div class="detail-card-header">
-                                    <i class="bi bi-archive"></i> 库存信息
-                                </div>
-                                <div class="detail-card-body">
-                                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px;">
-                                        <div class="detail-field">
-                                            <div class="field-label">当前库存</div>
-                                            <div class="field-value" style="font-size:22px; font-weight:700;">156</div>
-                                        </div>
-                                        <div class="detail-field">
-                                            <div class="field-label">安全库存</div>
-                                            <div class="field-value">50</div>
-                                        </div>
-                                        <div class="detail-field">
-                                            <div class="field-label">仓库</div>
-                                            <div class="field-value">华东仓</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Content Part - 关联订单 -->
-                            <div class="detail-card">
-                                <div class="detail-card-header">
-                                    <i class="bi bi-link-45deg"></i> 关联订单
-                                </div>
-                                <div class="detail-card-body" style="padding:0;">
-                                    <table class="erp-table">
-                                        <thead>
-                                            <tr>
-                                                <th>订单号</th>
-                                                <th>客户</th>
-                                                <th>数量</th>
-                                                <th>金额</th>
-                                                <th>状态</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="cell-id">#ORD-20240601</td>
-                                                <td>深圳科技有限公司</td>
-                                                <td>5</td>
-                                                <td>¥14,995.00</td>
-                                                <td><span class="status-badge success"><span class="status-dot"></span>已完成</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="cell-id">#ORD-20240528</td>
-                                                <td>北京创新科技</td>
-                                                <td>2</td>
-                                                <td>¥5,998.00</td>
-                                                <td><span class="status-badge info"><span class="status-dot"></span>配送中</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Detail Sidebar -->
-                        <div class="detail-sidebar-panel">
-                            <!-- 操作面板 -->
-                            <div class="detail-card">
-                                <div class="detail-card-header">
-                                    <i class="bi bi-lightning"></i> 快捷操作
-                                </div>
-                                <div class="detail-card-body" style="display:flex; flex-direction:column; gap:8px;">
-                                    <button class="btn-erp-primary" style="width:100%; justify-content:center;"><i class="bi bi-pencil"></i> 编辑产品</button>
-                                    <button class="btn-erp-outline" style="width:100%; justify-content:center;"><i class="bi bi-plus-circle"></i> 补货入库</button>
-                                    <button class="btn-erp-outline" style="width:100%; justify-content:center;"><i class="bi bi-tag"></i> 调整价格</button>
-                                    <button class="btn-erp-ghost" style="width:100%; justify-content:center; color:var(--erp-danger);"><i class="bi bi-trash"></i> 删除产品</button>
-                                </div>
-                            </div>
-
-                            <!-- 元数据 -->
-                            <div class="detail-card">
-                                <div class="detail-card-header">
-                                    <i class="bi bi-meta"></i> 元数据
-                                </div>
-                                <div class="detail-card-body">
-                                    <div class="detail-field">
-                                        <div class="field-label">内容项ID</div>
-                                        <div class="field-value" style="font-family:'Space Grotesk',monospace; font-size:12px; word-break:break-all;">4k5h8g2n...a7f3</div>
-                                    </div>
-                                    <div class="detail-field">
-                                        <div class="field-label">创建者</div>
-                                        <div class="field-value">张明</div>
-                                    </div>
-                                    <div class="detail-field">
-                                        <div class="field-label">创建时间</div>
-                                        <div class="field-value">2024-05-15 10:30</div>
-                                    </div>
-                                    <div class="detail-field">
-                                        <div class="field-label">最后修改</div>
-                                        <div class="field-value">2024-06-01 14:22</div>
-                                    </div>
-                                    <div class="detail-field">
-                                        <div class="field-label">版本</div>
-                                        <div class="field-value">v12</div>
-                                    </div>
-                                    <div class="detail-field">
-                                        <div class="field-label">发布状态</div>
-                                        <div class="field-value"><span class="status-badge success"><span class="status-dot"></span>已发布</span></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 活动时间线 -->
-                            <div class="detail-card">
-                                <div class="detail-card-header">
-                                    <i class="bi bi-activity"></i> 最近活动
-                                </div>
-                                <div class="detail-card-body">
-                                    <div class="timeline-item">
-                                        <div class="timeline-dot blue"><i class="bi bi-pencil"></i></div>
-                                        <div class="timeline-content">
-                                            <div class="tl-text">修改了产品价格</div>
-                                            <div class="tl-time">2小时前 · 张明</div>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-item">
-                                        <div class="timeline-dot green"><i class="bi bi-box-arrow-in-down"></i></div>
-                                        <div class="timeline-content">
-                                            <div class="tl-text">入库 +50 件</div>
-                                            <div class="tl-time">1天前 · 李华</div>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-item">
-                                        <div class="timeline-dot amber"><i class="bi bi-tag"></i></div>
-                                        <div class="timeline-content">
-                                            <div class="tl-text">添加了促销标签</div>
-                                            <div class="tl-time">3天前 · 王芳</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </main>
+            <div class="shape-section">
+                <h2>通知与分页</h2>
+                <table class="shape-table">
+                    <thead><tr><th>形状名称</th><th>ErpAdmin 覆盖文件</th><th>来源模块</th><th>类型</th></tr></thead>
+                    <tbody>
+                        <tr><td>NotifyMessages</td><td class="file-path">Views/NotifyMessages.cshtml</td><td>TheAdmin</td><td><span class="override-tag inherit">继承</span></td></tr>
+                        <tr><td>Message</td><td class="file-path">Views/Message.cshtml</td><td>TheAdmin</td><td><span class="override-tag inherit">继承</span></td></tr>
+                        <tr><td>Pager</td><td class="file-path">Views/Pager.cshtml</td><td>TheAdmin</td><td><span class="override-tag override">覆盖</span></td></tr>
+                        <tr><td>Pager_* (各分页子形状)</td><td class="file-path">Views/Pager_*.cshtml</td><td>TheAdmin</td><td><span class="override-tag override">覆盖</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <!-- FILTER PANEL -->
     <div class="filter-overlay" id="filterOverlay" onclick="toggleFilter()"></div>
     <div class="filter-panel" id="filterPanel">
-        <div class="filter-panel-header">
-            <h3>高级筛选</h3>
-            <button class="topbar-icon-btn" onclick="toggleFilter()"><i class="bi bi-x-lg"></i></button>
-        </div>
+        <div class="filter-panel-header"><h3>高级筛选</h3><button class="topbar-icon-btn" onclick="toggleFilter()"><i class="bi bi-x-lg"></i></button></div>
         <div class="filter-panel-body">
-            <div class="filter-group">
-                <label>产品分类</label>
-                <select>
-                    <option>全部分类</option>
-                    <option>电子产品</option>
-                    <option>外设</option>
-                    <option>办公家具</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label>价格区间</label>
-                <div style="display:flex; gap:8px;">
-                    <input type="number" placeholder="最低价">
-                    <input type="number" placeholder="最高价">
-                </div>
-            </div>
-            <div class="filter-group">
-                <label>库存状态</label>
-                <select>
-                    <option>全部状态</option>
-                    <option>在售</option>
-                    <option>缺货</option>
-                    <option>库存预警</option>
-                    <option>已下架</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label>创建日期</label>
-                <input type="date">
-            </div>
-            <div class="filter-group">
-                <label>创建者</label>
-                <select>
-                    <option>全部</option>
-                    <option>张明</option>
-                    <option>李华</option>
-                    <option>王芳</option>
-                </select>
-            </div>
+            <div class="filter-group"><label>产品分类</label><select><option>全部分类</option><option>电子产品</option><option>外设</option><option>办公家具</option></select></div>
+            <div class="filter-group"><label>价格区间</label><div style="display:flex;gap:8px;"><input type="number" placeholder="最低价"><input type="number" placeholder="最高价"></div></div>
+            <div class="filter-group"><label>库存状态</label><select><option>全部状态</option><option>在售</option><option>缺货</option><option>库存预警</option></select></div>
         </div>
-        <div class="filter-panel-footer">
-            <button class="btn-erp-outline" style="flex:1; justify-content:center;">重置</button>
-            <button class="btn-erp-primary" style="flex:1; justify-content:center;">应用筛选</button>
-        </div>
+        <div class="filter-panel-footer"><button class="btn-erp-outline" style="flex:1;justify-content:center;">重置</button><button class="btn-erp-primary" style="flex:1;justify-content:center;">应用筛选</button></div>
     </div>
+
+    <!-- BOTTOM NAV -->
+    <nav class="proto-nav">
+        <button class="proto-tab" onclick="showPage('login')">登录页</button>
+        <button class="proto-tab active" onclick="showPage('app')">管理后台</button>
+        <button class="proto-tab" onclick="showPage('shapemap')">形状覆盖映射</button>
+    </nav>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Page navigation
         function showPage(page) {
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
             document.getElementById('page-' + page).classList.add('active');
+            document.querySelectorAll('.proto-nav .proto-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+        }
 
-            // Update sidebar active state
-            document.querySelectorAll('.nav-link-erp').forEach(l => l.classList.remove('active'));
-            if (page === 'dashboard') {
-                document.querySelector('.nav-link-erp').classList.add('active');
-            } else {
-                document.querySelectorAll('.nav-link-erp')[1].classList.add('active');
-            }
-
+        function showAppPage(page) {
+            document.querySelectorAll('.app-page').forEach(s => s.classList.remove('active'));
+            document.getElementById('app-' + page).classList.add('active');
             closeMobileSidebar();
         }
 
-        // Sidebar toggle
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('collapsed');
             const btn = document.querySelector('.sidebar-toggle-btn i');
@@ -1778,32 +1468,31 @@
             btn.classList.toggle('bi-chevron-double-right');
         }
 
-        // Mobile sidebar
-        function openMobileSidebar() {
-            document.getElementById('sidebar').classList.add('mobile-open');
-            document.getElementById('sidebarOverlay').classList.add('show');
-        }
+        function openMobileSidebar() { document.getElementById('sidebar').classList.add('mobile-open'); document.getElementById('sidebarOverlay').classList.add('show'); }
+        function closeMobileSidebar() { document.getElementById('sidebar').classList.remove('mobile-open'); document.getElementById('sidebarOverlay').classList.remove('show'); }
 
-        function closeMobileSidebar() {
-            document.getElementById('sidebar').classList.remove('mobile-open');
-            document.getElementById('sidebarOverlay').classList.remove('show');
-        }
+        function toggleFilter() { document.getElementById('filterPanel').classList.toggle('open'); document.getElementById('filterOverlay').classList.toggle('open'); }
 
-        // Filter panel
-        function toggleFilter() {
-            document.getElementById('filterPanel').classList.toggle('open');
-            document.getElementById('filterOverlay').classList.toggle('open');
-        }
-
-        // Theme toggle
         function toggleTheme() {
             const html = document.documentElement;
-            const current = html.getAttribute('data-bs-theme');
-            html.setAttribute('data-bs-theme', current === 'dark' ? 'light' : 'dark');
+            html.setAttribute('data-bs-theme', html.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark');
             const icon = document.querySelector('.topbar-icon-btn[title="主题"] i');
             icon.classList.toggle('bi-moon-stars');
             icon.classList.toggle('bi-sun');
         }
+
+        function toggleUserMenu() { document.getElementById('userDropdown').classList.toggle('open'); }
+
+        function togglePassword() {
+            const input = document.getElementById('password');
+            const icon = document.querySelector('.password-toggle i');
+            if (input.type === 'password') { input.type = 'text'; icon.classList.replace('bi-eye', 'bi-eye-slash'); }
+            else { input.type = 'password'; icon.classList.replace('bi-eye-slash', 'bi-eye'); }
+        }
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.topbar-user')) { document.getElementById('userDropdown').classList.remove('open'); }
+        });
     </script>
 </body>
 </html>
